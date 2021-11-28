@@ -1,0 +1,1006 @@
+{
+  "address": "0x0E63AAd7E9f67B474e9902Ec7835B7cfA511a11a",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_recipient",
+          "type": "address"
+        }
+      ],
+      "name": "claim",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "contractBalance",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "epoch",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "number",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "distribute",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "length",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "endTime",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct LibBondStorage.Epoch",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "forfeit",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "giveLockBonus",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "index",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "rebase",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "returnLockBonus",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_recipient",
+          "type": "address"
+        }
+      ],
+      "name": "stake",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "supplyInWarmup",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "totalStaked",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "_trigger",
+          "type": "bool"
+        }
+      ],
+      "name": "unstake",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_recipient",
+          "type": "address"
+        }
+      ],
+      "name": "warmupInfo",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "deposit",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "gons",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "expiry",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "lock",
+              "type": "bool"
+            }
+          ],
+          "internalType": "struct LibBondStorage.Claim",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x196bc826350c2b81c277c13bee246a31bb7e245dc869fff40cf5aa4a751fa04b",
+  "receipt": {
+    "to": null,
+    "from": "0x82FCE134Ae4b8B7aCaE666CB0d575bD8c508Cb98",
+    "contractAddress": "0x0E63AAd7E9f67B474e9902Ec7835B7cfA511a11a",
+    "transactionIndex": 0,
+    "gasUsed": "1771821",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x996189a4a482af71bf98e4e326cfa8a5c2a044a82b6d8a271eebb481c703c5d8",
+    "transactionHash": "0x196bc826350c2b81c277c13bee246a31bb7e245dc869fff40cf5aa4a751fa04b",
+    "logs": [],
+    "blockNumber": 9677449,
+    "cumulativeGasUsed": "1771821",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "solcInputHash": "2b2f658d4c7341ee341a361741fb91c4",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.10+commit.fc410830\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_recipient\",\"type\":\"address\"}],\"name\":\"claim\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"contractBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"epoch\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"number\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"distribute\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"length\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"endTime\",\"type\":\"uint256\"}],\"internalType\":\"struct LibBondStorage.Epoch\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"forfeit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"giveLockBonus\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"index\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"rebase\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"returnLockBonus\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_recipient\",\"type\":\"address\"}],\"name\":\"stake\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"supplyInWarmup\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalStaked\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"_trigger\",\"type\":\"bool\"}],\"name\":\"unstake\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_recipient\",\"type\":\"address\"}],\"name\":\"warmupInfo\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"deposit\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"gons\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"expiry\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"lock\",\"type\":\"bool\"}],\"internalType\":\"struct LibBondStorage.Claim\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"claim(address)\":{\"params\":{\"_recipient\":\"address\"}},\"contractBalance()\":{\"returns\":{\"_0\":\"uint\"}},\"giveLockBonus(uint256)\":{\"params\":{\"_amount\":\"uint\"}},\"index()\":{\"returns\":{\"_0\":\"uint\"}},\"returnLockBonus(uint256)\":{\"params\":{\"_amount\":\"uint\"}},\"stake(uint256,address)\":{\"params\":{\"_amount\":\"uint\"},\"returns\":{\"_0\":\"bool\"}},\"unstake(uint256,bool)\":{\"params\":{\"_amount\":\"uint\",\"_trigger\":\"bool\"}}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"claim(address)\":{\"notice\":\"retrieve nNecc from warmup\"},\"contractBalance()\":{\"notice\":\"returns contract Necc holdings, including bonuses provided\"},\"forfeit()\":{\"notice\":\"forfeit nNecc in warmup and retrieve Necc\"},\"giveLockBonus(uint256)\":{\"notice\":\"provide bonus to locked staking contract\"},\"index()\":{\"notice\":\"returns the nNecc index, which tracks rebase growth\"},\"rebase()\":{\"notice\":\"trigger rebase if epoch over\"},\"returnLockBonus(uint256)\":{\"notice\":\"reclaim bonus from locked staking contract\"},\"stake(uint256,address)\":{\"notice\":\"stake Necc to enter warmup\"},\"unstake(uint256,bool)\":{\"notice\":\"redeem nNecc for Necc\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/facets/Bond/StakingFacet.sol\":\"StakingFacet\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Interface of the ERC20 standard as defined in the EIP.\\n */\\ninterface IERC20 {\\n    /**\\n     * @dev Returns the amount of tokens in existence.\\n     */\\n    function totalSupply() external view returns (uint256);\\n\\n    /**\\n     * @dev Returns the amount of tokens owned by `account`.\\n     */\\n    function balanceOf(address account) external view returns (uint256);\\n\\n    /**\\n     * @dev Moves `amount` tokens from the caller's account to `recipient`.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transfer(address recipient, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Returns the remaining number of tokens that `spender` will be\\n     * allowed to spend on behalf of `owner` through {transferFrom}. This is\\n     * zero by default.\\n     *\\n     * This value changes when {approve} or {transferFrom} are called.\\n     */\\n    function allowance(address owner, address spender) external view returns (uint256);\\n\\n    /**\\n     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * IMPORTANT: Beware that changing an allowance with this method brings the risk\\n     * that someone may use both the old and the new allowance by unfortunate\\n     * transaction ordering. One possible solution to mitigate this race\\n     * condition is to first reduce the spender's allowance to 0 and set the\\n     * desired value afterwards:\\n     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\\n     *\\n     * Emits an {Approval} event.\\n     */\\n    function approve(address spender, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Moves `amount` tokens from `sender` to `recipient` using the\\n     * allowance mechanism. `amount` is then deducted from the caller's\\n     * allowance.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transferFrom(\\n        address sender,\\n        address recipient,\\n        uint256 amount\\n    ) external returns (bool);\\n\\n    /**\\n     * @dev Emitted when `value` tokens are moved from one account (`from`) to\\n     * another (`to`).\\n     *\\n     * Note that `value` may be zero.\\n     */\\n    event Transfer(address indexed from, address indexed to, uint256 value);\\n\\n    /**\\n     * @dev Emitted when the allowance of a `spender` for an `owner` is set by\\n     * a call to {approve}. `value` is the new allowance.\\n     */\\n    event Approval(address indexed owner, address indexed spender, uint256 value);\\n}\\n\",\"keccak256\":\"0x027b891937d20ccf213fdb9c31531574256de774bda99d3a70ecef6e1913ed2a\",\"license\":\"MIT\"},\"@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\nimport \\\"../IERC20.sol\\\";\\nimport \\\"../../../utils/Address.sol\\\";\\n\\n/**\\n * @title SafeERC20\\n * @dev Wrappers around ERC20 operations that throw on failure (when the token\\n * contract returns false). Tokens that return no value (and instead revert or\\n * throw on failure) are also supported, non-reverting calls are assumed to be\\n * successful.\\n * To use this library you can add a `using SafeERC20 for IERC20;` statement to your contract,\\n * which allows you to call the safe operations as `token.safeTransfer(...)`, etc.\\n */\\nlibrary SafeERC20 {\\n    using Address for address;\\n\\n    function safeTransfer(\\n        IERC20 token,\\n        address to,\\n        uint256 value\\n    ) internal {\\n        _callOptionalReturn(token, abi.encodeWithSelector(token.transfer.selector, to, value));\\n    }\\n\\n    function safeTransferFrom(\\n        IERC20 token,\\n        address from,\\n        address to,\\n        uint256 value\\n    ) internal {\\n        _callOptionalReturn(token, abi.encodeWithSelector(token.transferFrom.selector, from, to, value));\\n    }\\n\\n    /**\\n     * @dev Deprecated. This function has issues similar to the ones found in\\n     * {IERC20-approve}, and its usage is discouraged.\\n     *\\n     * Whenever possible, use {safeIncreaseAllowance} and\\n     * {safeDecreaseAllowance} instead.\\n     */\\n    function safeApprove(\\n        IERC20 token,\\n        address spender,\\n        uint256 value\\n    ) internal {\\n        // safeApprove should only be called when setting an initial allowance,\\n        // or when resetting it to zero. To increase and decrease it, use\\n        // 'safeIncreaseAllowance' and 'safeDecreaseAllowance'\\n        require(\\n            (value == 0) || (token.allowance(address(this), spender) == 0),\\n            \\\"SafeERC20: approve from non-zero to non-zero allowance\\\"\\n        );\\n        _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, value));\\n    }\\n\\n    function safeIncreaseAllowance(\\n        IERC20 token,\\n        address spender,\\n        uint256 value\\n    ) internal {\\n        uint256 newAllowance = token.allowance(address(this), spender) + value;\\n        _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, newAllowance));\\n    }\\n\\n    function safeDecreaseAllowance(\\n        IERC20 token,\\n        address spender,\\n        uint256 value\\n    ) internal {\\n        unchecked {\\n            uint256 oldAllowance = token.allowance(address(this), spender);\\n            require(oldAllowance >= value, \\\"SafeERC20: decreased allowance below zero\\\");\\n            uint256 newAllowance = oldAllowance - value;\\n            _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, newAllowance));\\n        }\\n    }\\n\\n    /**\\n     * @dev Imitates a Solidity high-level call (i.e. a regular function call to a contract), relaxing the requirement\\n     * on the return value: the return value is optional (but if data is returned, it must not be false).\\n     * @param token The token targeted by the call.\\n     * @param data The call data (encoded using abi.encode or one of its variants).\\n     */\\n    function _callOptionalReturn(IERC20 token, bytes memory data) private {\\n        // We need to perform a low level call here, to bypass Solidity's return data size checking mechanism, since\\n        // we're implementing it ourselves. We use {Address.functionCall} to perform this call, which verifies that\\n        // the target address contains contract code and also asserts for success in the low-level call.\\n\\n        bytes memory returndata = address(token).functionCall(data, \\\"SafeERC20: low-level call failed\\\");\\n        if (returndata.length > 0) {\\n            // Return data is optional\\n            require(abi.decode(returndata, (bool)), \\\"SafeERC20: ERC20 operation did not succeed\\\");\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x02348b2e4b9f3200c7e3907c5c2661643a6d8520e9f79939fbb9b4005a54894d\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Address.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Collection of functions related to the address type\\n */\\nlibrary Address {\\n    /**\\n     * @dev Returns true if `account` is a contract.\\n     *\\n     * [IMPORTANT]\\n     * ====\\n     * It is unsafe to assume that an address for which this function returns\\n     * false is an externally-owned account (EOA) and not a contract.\\n     *\\n     * Among others, `isContract` will return false for the following\\n     * types of addresses:\\n     *\\n     *  - an externally-owned account\\n     *  - a contract in construction\\n     *  - an address where a contract will be created\\n     *  - an address where a contract lived, but was destroyed\\n     * ====\\n     */\\n    function isContract(address account) internal view returns (bool) {\\n        // This method relies on extcodesize, which returns 0 for contracts in\\n        // construction, since the code is only stored at the end of the\\n        // constructor execution.\\n\\n        uint256 size;\\n        assembly {\\n            size := extcodesize(account)\\n        }\\n        return size > 0;\\n    }\\n\\n    /**\\n     * @dev Replacement for Solidity's `transfer`: sends `amount` wei to\\n     * `recipient`, forwarding all available gas and reverting on errors.\\n     *\\n     * https://eips.ethereum.org/EIPS/eip-1884[EIP1884] increases the gas cost\\n     * of certain opcodes, possibly making contracts go over the 2300 gas limit\\n     * imposed by `transfer`, making them unable to receive funds via\\n     * `transfer`. {sendValue} removes this limitation.\\n     *\\n     * https://diligence.consensys.net/posts/2019/09/stop-using-soliditys-transfer-now/[Learn more].\\n     *\\n     * IMPORTANT: because control is transferred to `recipient`, care must be\\n     * taken to not create reentrancy vulnerabilities. Consider using\\n     * {ReentrancyGuard} or the\\n     * https://solidity.readthedocs.io/en/v0.5.11/security-considerations.html#use-the-checks-effects-interactions-pattern[checks-effects-interactions pattern].\\n     */\\n    function sendValue(address payable recipient, uint256 amount) internal {\\n        require(address(this).balance >= amount, \\\"Address: insufficient balance\\\");\\n\\n        (bool success, ) = recipient.call{value: amount}(\\\"\\\");\\n        require(success, \\\"Address: unable to send value, recipient may have reverted\\\");\\n    }\\n\\n    /**\\n     * @dev Performs a Solidity function call using a low level `call`. A\\n     * plain `call` is an unsafe replacement for a function call: use this\\n     * function instead.\\n     *\\n     * If `target` reverts with a revert reason, it is bubbled up by this\\n     * function (like regular Solidity function calls).\\n     *\\n     * Returns the raw returned data. To convert to the expected return value,\\n     * use https://solidity.readthedocs.io/en/latest/units-and-global-variables.html?highlight=abi.decode#abi-encoding-and-decoding-functions[`abi.decode`].\\n     *\\n     * Requirements:\\n     *\\n     * - `target` must be a contract.\\n     * - calling `target` with `data` must not revert.\\n     *\\n     * _Available since v3.1._\\n     */\\n    function functionCall(address target, bytes memory data) internal returns (bytes memory) {\\n        return functionCall(target, data, \\\"Address: low-level call failed\\\");\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`], but with\\n     * `errorMessage` as a fallback revert reason when `target` reverts.\\n     *\\n     * _Available since v3.1._\\n     */\\n    function functionCall(\\n        address target,\\n        bytes memory data,\\n        string memory errorMessage\\n    ) internal returns (bytes memory) {\\n        return functionCallWithValue(target, data, 0, errorMessage);\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],\\n     * but also transferring `value` wei to `target`.\\n     *\\n     * Requirements:\\n     *\\n     * - the calling contract must have an ETH balance of at least `value`.\\n     * - the called Solidity function must be `payable`.\\n     *\\n     * _Available since v3.1._\\n     */\\n    function functionCallWithValue(\\n        address target,\\n        bytes memory data,\\n        uint256 value\\n    ) internal returns (bytes memory) {\\n        return functionCallWithValue(target, data, value, \\\"Address: low-level call with value failed\\\");\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCallWithValue-address-bytes-uint256-}[`functionCallWithValue`], but\\n     * with `errorMessage` as a fallback revert reason when `target` reverts.\\n     *\\n     * _Available since v3.1._\\n     */\\n    function functionCallWithValue(\\n        address target,\\n        bytes memory data,\\n        uint256 value,\\n        string memory errorMessage\\n    ) internal returns (bytes memory) {\\n        require(address(this).balance >= value, \\\"Address: insufficient balance for call\\\");\\n        require(isContract(target), \\\"Address: call to non-contract\\\");\\n\\n        (bool success, bytes memory returndata) = target.call{value: value}(data);\\n        return verifyCallResult(success, returndata, errorMessage);\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],\\n     * but performing a static call.\\n     *\\n     * _Available since v3.3._\\n     */\\n    function functionStaticCall(address target, bytes memory data) internal view returns (bytes memory) {\\n        return functionStaticCall(target, data, \\\"Address: low-level static call failed\\\");\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCall-address-bytes-string-}[`functionCall`],\\n     * but performing a static call.\\n     *\\n     * _Available since v3.3._\\n     */\\n    function functionStaticCall(\\n        address target,\\n        bytes memory data,\\n        string memory errorMessage\\n    ) internal view returns (bytes memory) {\\n        require(isContract(target), \\\"Address: static call to non-contract\\\");\\n\\n        (bool success, bytes memory returndata) = target.staticcall(data);\\n        return verifyCallResult(success, returndata, errorMessage);\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],\\n     * but performing a delegate call.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function functionDelegateCall(address target, bytes memory data) internal returns (bytes memory) {\\n        return functionDelegateCall(target, data, \\\"Address: low-level delegate call failed\\\");\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCall-address-bytes-string-}[`functionCall`],\\n     * but performing a delegate call.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function functionDelegateCall(\\n        address target,\\n        bytes memory data,\\n        string memory errorMessage\\n    ) internal returns (bytes memory) {\\n        require(isContract(target), \\\"Address: delegate call to non-contract\\\");\\n\\n        (bool success, bytes memory returndata) = target.delegatecall(data);\\n        return verifyCallResult(success, returndata, errorMessage);\\n    }\\n\\n    /**\\n     * @dev Tool to verifies that a low level call was successful, and revert if it wasn't, either by bubbling the\\n     * revert reason using the provided one.\\n     *\\n     * _Available since v4.3._\\n     */\\n    function verifyCallResult(\\n        bool success,\\n        bytes memory returndata,\\n        string memory errorMessage\\n    ) internal pure returns (bytes memory) {\\n        if (success) {\\n            return returndata;\\n        } else {\\n            // Look for revert reason and bubble it up if present\\n            if (returndata.length > 0) {\\n                // The easiest way to bubble the revert reason is using memory via assembly\\n\\n                assembly {\\n                    let returndata_size := mload(returndata)\\n                    revert(add(32, returndata), returndata_size)\\n                }\\n            } else {\\n                revert(errorMessage);\\n            }\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x3336baae5cf23e94274d75336e2d412193be508504aee185e61dc7d58cd05c8a\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/math/SafeMath.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\n// CAUTION\\n// This version of SafeMath should only be used with Solidity 0.8 or later,\\n// because it relies on the compiler's built in overflow checks.\\n\\n/**\\n * @dev Wrappers over Solidity's arithmetic operations.\\n *\\n * NOTE: `SafeMath` is no longer needed starting with Solidity 0.8. The compiler\\n * now has built in overflow checking.\\n */\\nlibrary SafeMath {\\n    /**\\n     * @dev Returns the addition of two unsigned integers, with an overflow flag.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function tryAdd(uint256 a, uint256 b) internal pure returns (bool, uint256) {\\n        unchecked {\\n            uint256 c = a + b;\\n            if (c < a) return (false, 0);\\n            return (true, c);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the substraction of two unsigned integers, with an overflow flag.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function trySub(uint256 a, uint256 b) internal pure returns (bool, uint256) {\\n        unchecked {\\n            if (b > a) return (false, 0);\\n            return (true, a - b);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the multiplication of two unsigned integers, with an overflow flag.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function tryMul(uint256 a, uint256 b) internal pure returns (bool, uint256) {\\n        unchecked {\\n            // Gas optimization: this is cheaper than requiring 'a' not being zero, but the\\n            // benefit is lost if 'b' is also tested.\\n            // See: https://github.com/OpenZeppelin/openzeppelin-contracts/pull/522\\n            if (a == 0) return (true, 0);\\n            uint256 c = a * b;\\n            if (c / a != b) return (false, 0);\\n            return (true, c);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the division of two unsigned integers, with a division by zero flag.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function tryDiv(uint256 a, uint256 b) internal pure returns (bool, uint256) {\\n        unchecked {\\n            if (b == 0) return (false, 0);\\n            return (true, a / b);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the remainder of dividing two unsigned integers, with a division by zero flag.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function tryMod(uint256 a, uint256 b) internal pure returns (bool, uint256) {\\n        unchecked {\\n            if (b == 0) return (false, 0);\\n            return (true, a % b);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the addition of two unsigned integers, reverting on\\n     * overflow.\\n     *\\n     * Counterpart to Solidity's `+` operator.\\n     *\\n     * Requirements:\\n     *\\n     * - Addition cannot overflow.\\n     */\\n    function add(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return a + b;\\n    }\\n\\n    /**\\n     * @dev Returns the subtraction of two unsigned integers, reverting on\\n     * overflow (when the result is negative).\\n     *\\n     * Counterpart to Solidity's `-` operator.\\n     *\\n     * Requirements:\\n     *\\n     * - Subtraction cannot overflow.\\n     */\\n    function sub(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return a - b;\\n    }\\n\\n    /**\\n     * @dev Returns the multiplication of two unsigned integers, reverting on\\n     * overflow.\\n     *\\n     * Counterpart to Solidity's `*` operator.\\n     *\\n     * Requirements:\\n     *\\n     * - Multiplication cannot overflow.\\n     */\\n    function mul(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return a * b;\\n    }\\n\\n    /**\\n     * @dev Returns the integer division of two unsigned integers, reverting on\\n     * division by zero. The result is rounded towards zero.\\n     *\\n     * Counterpart to Solidity's `/` operator.\\n     *\\n     * Requirements:\\n     *\\n     * - The divisor cannot be zero.\\n     */\\n    function div(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return a / b;\\n    }\\n\\n    /**\\n     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\\n     * reverting when dividing by zero.\\n     *\\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\\n     * opcode (which leaves remaining gas untouched) while Solidity uses an\\n     * invalid opcode to revert (consuming all remaining gas).\\n     *\\n     * Requirements:\\n     *\\n     * - The divisor cannot be zero.\\n     */\\n    function mod(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return a % b;\\n    }\\n\\n    /**\\n     * @dev Returns the subtraction of two unsigned integers, reverting with custom message on\\n     * overflow (when the result is negative).\\n     *\\n     * CAUTION: This function is deprecated because it requires allocating memory for the error\\n     * message unnecessarily. For custom revert reasons use {trySub}.\\n     *\\n     * Counterpart to Solidity's `-` operator.\\n     *\\n     * Requirements:\\n     *\\n     * - Subtraction cannot overflow.\\n     */\\n    function sub(\\n        uint256 a,\\n        uint256 b,\\n        string memory errorMessage\\n    ) internal pure returns (uint256) {\\n        unchecked {\\n            require(b <= a, errorMessage);\\n            return a - b;\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the integer division of two unsigned integers, reverting with custom message on\\n     * division by zero. The result is rounded towards zero.\\n     *\\n     * Counterpart to Solidity's `/` operator. Note: this function uses a\\n     * `revert` opcode (which leaves remaining gas untouched) while Solidity\\n     * uses an invalid opcode to revert (consuming all remaining gas).\\n     *\\n     * Requirements:\\n     *\\n     * - The divisor cannot be zero.\\n     */\\n    function div(\\n        uint256 a,\\n        uint256 b,\\n        string memory errorMessage\\n    ) internal pure returns (uint256) {\\n        unchecked {\\n            require(b > 0, errorMessage);\\n            return a / b;\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\\n     * reverting with custom message when dividing by zero.\\n     *\\n     * CAUTION: This function is deprecated because it requires allocating memory for the error\\n     * message unnecessarily. For custom revert reasons use {tryMod}.\\n     *\\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\\n     * opcode (which leaves remaining gas untouched) while Solidity uses an\\n     * invalid opcode to revert (consuming all remaining gas).\\n     *\\n     * Requirements:\\n     *\\n     * - The divisor cannot be zero.\\n     */\\n    function mod(\\n        uint256 a,\\n        uint256 b,\\n        string memory errorMessage\\n    ) internal pure returns (uint256) {\\n        unchecked {\\n            require(b > 0, errorMessage);\\n            return a % b;\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x8666f020bd8fc9dc14f07e2ebc52b5f236ab4cdde7c77679b08cb2f94730043b\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/structs/EnumerableSet.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Library for managing\\n * https://en.wikipedia.org/wiki/Set_(abstract_data_type)[sets] of primitive\\n * types.\\n *\\n * Sets have the following properties:\\n *\\n * - Elements are added, removed, and checked for existence in constant time\\n * (O(1)).\\n * - Elements are enumerated in O(n). No guarantees are made on the ordering.\\n *\\n * ```\\n * contract Example {\\n *     // Add the library methods\\n *     using EnumerableSet for EnumerableSet.AddressSet;\\n *\\n *     // Declare a set state variable\\n *     EnumerableSet.AddressSet private mySet;\\n * }\\n * ```\\n *\\n * As of v3.3.0, sets of type `bytes32` (`Bytes32Set`), `address` (`AddressSet`)\\n * and `uint256` (`UintSet`) are supported.\\n */\\nlibrary EnumerableSet {\\n    // To implement this library for multiple types with as little code\\n    // repetition as possible, we write it in terms of a generic Set type with\\n    // bytes32 values.\\n    // The Set implementation uses private functions, and user-facing\\n    // implementations (such as AddressSet) are just wrappers around the\\n    // underlying Set.\\n    // This means that we can only create new EnumerableSets for types that fit\\n    // in bytes32.\\n\\n    struct Set {\\n        // Storage of set values\\n        bytes32[] _values;\\n        // Position of the value in the `values` array, plus 1 because index 0\\n        // means a value is not in the set.\\n        mapping(bytes32 => uint256) _indexes;\\n    }\\n\\n    /**\\n     * @dev Add a value to a set. O(1).\\n     *\\n     * Returns true if the value was added to the set, that is if it was not\\n     * already present.\\n     */\\n    function _add(Set storage set, bytes32 value) private returns (bool) {\\n        if (!_contains(set, value)) {\\n            set._values.push(value);\\n            // The value is stored at length-1, but we add 1 to all indexes\\n            // and use 0 as a sentinel value\\n            set._indexes[value] = set._values.length;\\n            return true;\\n        } else {\\n            return false;\\n        }\\n    }\\n\\n    /**\\n     * @dev Removes a value from a set. O(1).\\n     *\\n     * Returns true if the value was removed from the set, that is if it was\\n     * present.\\n     */\\n    function _remove(Set storage set, bytes32 value) private returns (bool) {\\n        // We read and store the value's index to prevent multiple reads from the same storage slot\\n        uint256 valueIndex = set._indexes[value];\\n\\n        if (valueIndex != 0) {\\n            // Equivalent to contains(set, value)\\n            // To delete an element from the _values array in O(1), we swap the element to delete with the last one in\\n            // the array, and then remove the last element (sometimes called as 'swap and pop').\\n            // This modifies the order of the array, as noted in {at}.\\n\\n            uint256 toDeleteIndex = valueIndex - 1;\\n            uint256 lastIndex = set._values.length - 1;\\n\\n            if (lastIndex != toDeleteIndex) {\\n                bytes32 lastvalue = set._values[lastIndex];\\n\\n                // Move the last value to the index where the value to delete is\\n                set._values[toDeleteIndex] = lastvalue;\\n                // Update the index for the moved value\\n                set._indexes[lastvalue] = valueIndex; // Replace lastvalue's index to valueIndex\\n            }\\n\\n            // Delete the slot where the moved value was stored\\n            set._values.pop();\\n\\n            // Delete the index for the deleted slot\\n            delete set._indexes[value];\\n\\n            return true;\\n        } else {\\n            return false;\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns true if the value is in the set. O(1).\\n     */\\n    function _contains(Set storage set, bytes32 value) private view returns (bool) {\\n        return set._indexes[value] != 0;\\n    }\\n\\n    /**\\n     * @dev Returns the number of values on the set. O(1).\\n     */\\n    function _length(Set storage set) private view returns (uint256) {\\n        return set._values.length;\\n    }\\n\\n    /**\\n     * @dev Returns the value stored at position `index` in the set. O(1).\\n     *\\n     * Note that there are no guarantees on the ordering of values inside the\\n     * array, and it may change when more values are added or removed.\\n     *\\n     * Requirements:\\n     *\\n     * - `index` must be strictly less than {length}.\\n     */\\n    function _at(Set storage set, uint256 index) private view returns (bytes32) {\\n        return set._values[index];\\n    }\\n\\n    /**\\n     * @dev Return the entire set in an array\\n     *\\n     * WARNING: This operation will copy the entire storage to memory, which can be quite expensive. This is designed\\n     * to mostly be used by view accessors that are queried without any gas fees. Developers should keep in mind that\\n     * this function has an unbounded cost, and using it as part of a state-changing function may render the function\\n     * uncallable if the set grows to a point where copying to memory consumes too much gas to fit in a block.\\n     */\\n    function _values(Set storage set) private view returns (bytes32[] memory) {\\n        return set._values;\\n    }\\n\\n    // Bytes32Set\\n\\n    struct Bytes32Set {\\n        Set _inner;\\n    }\\n\\n    /**\\n     * @dev Add a value to a set. O(1).\\n     *\\n     * Returns true if the value was added to the set, that is if it was not\\n     * already present.\\n     */\\n    function add(Bytes32Set storage set, bytes32 value) internal returns (bool) {\\n        return _add(set._inner, value);\\n    }\\n\\n    /**\\n     * @dev Removes a value from a set. O(1).\\n     *\\n     * Returns true if the value was removed from the set, that is if it was\\n     * present.\\n     */\\n    function remove(Bytes32Set storage set, bytes32 value) internal returns (bool) {\\n        return _remove(set._inner, value);\\n    }\\n\\n    /**\\n     * @dev Returns true if the value is in the set. O(1).\\n     */\\n    function contains(Bytes32Set storage set, bytes32 value) internal view returns (bool) {\\n        return _contains(set._inner, value);\\n    }\\n\\n    /**\\n     * @dev Returns the number of values in the set. O(1).\\n     */\\n    function length(Bytes32Set storage set) internal view returns (uint256) {\\n        return _length(set._inner);\\n    }\\n\\n    /**\\n     * @dev Returns the value stored at position `index` in the set. O(1).\\n     *\\n     * Note that there are no guarantees on the ordering of values inside the\\n     * array, and it may change when more values are added or removed.\\n     *\\n     * Requirements:\\n     *\\n     * - `index` must be strictly less than {length}.\\n     */\\n    function at(Bytes32Set storage set, uint256 index) internal view returns (bytes32) {\\n        return _at(set._inner, index);\\n    }\\n\\n    /**\\n     * @dev Return the entire set in an array\\n     *\\n     * WARNING: This operation will copy the entire storage to memory, which can be quite expensive. This is designed\\n     * to mostly be used by view accessors that are queried without any gas fees. Developers should keep in mind that\\n     * this function has an unbounded cost, and using it as part of a state-changing function may render the function\\n     * uncallable if the set grows to a point where copying to memory consumes too much gas to fit in a block.\\n     */\\n    function values(Bytes32Set storage set) internal view returns (bytes32[] memory) {\\n        return _values(set._inner);\\n    }\\n\\n    // AddressSet\\n\\n    struct AddressSet {\\n        Set _inner;\\n    }\\n\\n    /**\\n     * @dev Add a value to a set. O(1).\\n     *\\n     * Returns true if the value was added to the set, that is if it was not\\n     * already present.\\n     */\\n    function add(AddressSet storage set, address value) internal returns (bool) {\\n        return _add(set._inner, bytes32(uint256(uint160(value))));\\n    }\\n\\n    /**\\n     * @dev Removes a value from a set. O(1).\\n     *\\n     * Returns true if the value was removed from the set, that is if it was\\n     * present.\\n     */\\n    function remove(AddressSet storage set, address value) internal returns (bool) {\\n        return _remove(set._inner, bytes32(uint256(uint160(value))));\\n    }\\n\\n    /**\\n     * @dev Returns true if the value is in the set. O(1).\\n     */\\n    function contains(AddressSet storage set, address value) internal view returns (bool) {\\n        return _contains(set._inner, bytes32(uint256(uint160(value))));\\n    }\\n\\n    /**\\n     * @dev Returns the number of values in the set. O(1).\\n     */\\n    function length(AddressSet storage set) internal view returns (uint256) {\\n        return _length(set._inner);\\n    }\\n\\n    /**\\n     * @dev Returns the value stored at position `index` in the set. O(1).\\n     *\\n     * Note that there are no guarantees on the ordering of values inside the\\n     * array, and it may change when more values are added or removed.\\n     *\\n     * Requirements:\\n     *\\n     * - `index` must be strictly less than {length}.\\n     */\\n    function at(AddressSet storage set, uint256 index) internal view returns (address) {\\n        return address(uint160(uint256(_at(set._inner, index))));\\n    }\\n\\n    /**\\n     * @dev Return the entire set in an array\\n     *\\n     * WARNING: This operation will copy the entire storage to memory, which can be quite expensive. This is designed\\n     * to mostly be used by view accessors that are queried without any gas fees. Developers should keep in mind that\\n     * this function has an unbounded cost, and using it as part of a state-changing function may render the function\\n     * uncallable if the set grows to a point where copying to memory consumes too much gas to fit in a block.\\n     */\\n    function values(AddressSet storage set) internal view returns (address[] memory) {\\n        bytes32[] memory store = _values(set._inner);\\n        address[] memory result;\\n\\n        assembly {\\n            result := store\\n        }\\n\\n        return result;\\n    }\\n\\n    // UintSet\\n\\n    struct UintSet {\\n        Set _inner;\\n    }\\n\\n    /**\\n     * @dev Add a value to a set. O(1).\\n     *\\n     * Returns true if the value was added to the set, that is if it was not\\n     * already present.\\n     */\\n    function add(UintSet storage set, uint256 value) internal returns (bool) {\\n        return _add(set._inner, bytes32(value));\\n    }\\n\\n    /**\\n     * @dev Removes a value from a set. O(1).\\n     *\\n     * Returns true if the value was removed from the set, that is if it was\\n     * present.\\n     */\\n    function remove(UintSet storage set, uint256 value) internal returns (bool) {\\n        return _remove(set._inner, bytes32(value));\\n    }\\n\\n    /**\\n     * @dev Returns true if the value is in the set. O(1).\\n     */\\n    function contains(UintSet storage set, uint256 value) internal view returns (bool) {\\n        return _contains(set._inner, bytes32(value));\\n    }\\n\\n    /**\\n     * @dev Returns the number of values on the set. O(1).\\n     */\\n    function length(UintSet storage set) internal view returns (uint256) {\\n        return _length(set._inner);\\n    }\\n\\n    /**\\n     * @dev Returns the value stored at position `index` in the set. O(1).\\n     *\\n     * Note that there are no guarantees on the ordering of values inside the\\n     * array, and it may change when more values are added or removed.\\n     *\\n     * Requirements:\\n     *\\n     * - `index` must be strictly less than {length}.\\n     */\\n    function at(UintSet storage set, uint256 index) internal view returns (uint256) {\\n        return uint256(_at(set._inner, index));\\n    }\\n\\n    /**\\n     * @dev Return the entire set in an array\\n     *\\n     * WARNING: This operation will copy the entire storage to memory, which can be quite expensive. This is designed\\n     * to mostly be used by view accessors that are queried without any gas fees. Developers should keep in mind that\\n     * this function has an unbounded cost, and using it as part of a state-changing function may render the function\\n     * uncallable if the set grows to a point where copying to memory consumes too much gas to fit in a block.\\n     */\\n    function values(UintSet storage set) internal view returns (uint256[] memory) {\\n        bytes32[] memory store = _values(set._inner);\\n        uint256[] memory result;\\n\\n        assembly {\\n            result := store\\n        }\\n\\n        return result;\\n    }\\n}\\n\",\"keccak256\":\"0x3778dc944f4a696335878bad8beca60f38b7c79b7a0bd8ddbeb618bd502a95ae\",\"license\":\"MIT\"},\"contracts/facets/Bond/Facet.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.10;\\n\\nimport \\\"../../lib/LibBondStorage.sol\\\";\\nimport \\\"../../lib/LibDiamond.sol\\\";\\n\\ncontract Facet {\\n    LibBondStorage.Storage internal s;\\n\\n    function onlyGov() internal view {\\n        LibDiamond.enforceIsContractOwner();\\n    }\\n}\\n\",\"keccak256\":\"0x9d38d48c8c2cb4ab22fe222d67a92a2255919bc059969366c813a30654202705\",\"license\":\"MIT\"},\"contracts/facets/Bond/StakingFacet.sol\":{\"content\":\"// SPDX-License-Identifier: AGPL-3.0-or-later\\npragma abicoder v2;\\npragma solidity ^0.8.10;\\n\\nimport \\\"@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol\\\";\\nimport \\\"@openzeppelin/contracts/utils/math/SafeMath.sol\\\";\\n\\nimport \\\"@openzeppelin/contracts/token/ERC20/IERC20.sol\\\";\\nimport \\\"../../lib/LibBondStorage.sol\\\";\\nimport \\\"./Facet.sol\\\";\\n\\ninterface IDistributor {\\n    function distribute() external returns (uint256);\\n}\\n\\ninterface InNecc is IERC20 {\\n    function rebase(uint256 neccProfit_, uint256 epoch_)\\n        external\\n        returns (uint256);\\n\\n    function circulatingSupply() external view returns (uint256);\\n\\n    function balanceOf(address who) external view override returns (uint256);\\n\\n    function gonsForBalance(uint256 amount) external view returns (uint256);\\n\\n    function balanceForGons(uint256 gons) external view returns (uint256);\\n\\n    function index() external view returns (uint256);\\n}\\n\\ncontract StakingFacet is Facet {\\n    using SafeMath for uint256;\\n    using SafeERC20 for IERC20;\\n    using SafeERC20 for InNecc;\\n\\n    /**\\n        @notice stake Necc to enter warmup\\n        @param _amount uint\\n        @return bool\\n     */\\n    function stake(uint256 _amount, address _recipient)\\n        external\\n        returns (bool)\\n    {\\n        rebase();\\n\\n        IERC20(s.Necc).safeTransferFrom(msg.sender, address(this), _amount);\\n\\n        if (s.warmupPeriod == 0) {\\n            _send(_recipient, _amount);\\n        } else {\\n            LibBondStorage.Claim memory info = s.warmupInfo[_recipient];\\n            require(!info.lock, \\\"Deposits for account are locked\\\");\\n\\n            s.warmupInfo[_recipient] = LibBondStorage.Claim({\\n                deposit: info.deposit.add(_amount),\\n                gons: info.gons.add(InNecc(s.nNecc).gonsForBalance(_amount)),\\n                expiry: s.epoch.number.add(s.warmupPeriod),\\n                lock: false\\n            });\\n\\n            s.gonsInWarmup = s.gonsInWarmup.add(\\n                InNecc(s.nNecc).gonsForBalance(_amount)\\n            );\\n        }\\n        return true;\\n    }\\n\\n    /**\\n        @notice retrieve nNecc from warmup\\n        @param _recipient address\\n     */\\n    function claim(address _recipient) public {\\n        LibBondStorage.Claim memory info = s.warmupInfo[_recipient];\\n        if (!info.lock) {\\n            require(\\n                _recipient == msg.sender,\\n                \\\"External claims for account are locked\\\"\\n            );\\n        }\\n\\n        if (s.epoch.number >= info.expiry && info.expiry != 0) {\\n            delete s.warmupInfo[_recipient];\\n            s.gonsInWarmup = s.gonsInWarmup.sub(info.gons);\\n\\n            _send(_recipient, InNecc(s.nNecc).balanceForGons(info.gons));\\n        }\\n    }\\n\\n    /**\\n        @notice forfeit nNecc in warmup and retrieve Necc\\n     */\\n    function forfeit() external {\\n        LibBondStorage.Claim memory info = s.warmupInfo[msg.sender];\\n        delete s.warmupInfo[msg.sender];\\n        s.gonsInWarmup = s.gonsInWarmup.sub(info.gons);\\n\\n        IERC20(s.Necc).safeTransfer(msg.sender, info.deposit);\\n    }\\n\\n    /**\\n        @notice redeem nNecc for Necc\\n        @param _amount uint\\n        @param _trigger bool\\n     */\\n    function unstake(uint256 _amount, bool _trigger) external {\\n        if (_trigger) {\\n            rebase();\\n        }\\n        IERC20(s.nNecc).safeTransferFrom(msg.sender, address(this), _amount);\\n        IERC20(s.Necc).safeTransfer(msg.sender, _amount);\\n    }\\n\\n    /**\\n     * @notice send staker their amount as sOHM or gOHM\\n     * @param _recipient address\\n     * @param _amount uint\\n     */\\n    function _send(address _recipient, uint256 _amount)\\n        internal\\n        returns (uint256)\\n    {\\n        InNecc(s.nNecc).safeTransfer(_recipient, _amount); // send as sOHM (equal unit as OHM)\\n        return _amount;\\n    }\\n\\n    //\\n\\n    /**\\n        @notice returns the nNecc index, which tracks rebase growth\\n        @return uint\\n     */\\n    function index() public view returns (uint256) {\\n        return InNecc(s.nNecc).index();\\n    }\\n\\n    /**\\n        @notice trigger rebase if epoch over\\n     */\\n    function rebase() public {\\n        if (s.epoch.endTime <= uint256(block.timestamp)) {\\n            InNecc(s.nNecc).rebase(s.epoch.distribute, s.epoch.number);\\n\\n            s.epoch.endTime = s.epoch.endTime.add(s.epoch.length);\\n            s.epoch.number++;\\n\\n            IDistributor(address(this)).distribute();\\n\\n            if (contractBalance() <= totalStaked()) {\\n                s.epoch.distribute = 0;\\n            } else {\\n                s.epoch.distribute = contractBalance().sub(totalStaked());\\n            }\\n        }\\n    }\\n\\n    /**\\n        @notice returns contract Necc holdings, including bonuses provided\\n        @return uint\\n     */\\n    function contractBalance() public view returns (uint256) {\\n        return IERC20(s.Necc).balanceOf(address(this)).add(s.totalBonus);\\n    }\\n\\n    /**\\n        @notice provide bonus to locked staking contract\\n        @param _amount uint\\n     */\\n    function giveLockBonus(uint256 _amount) external {\\n        require(msg.sender == s.locker);\\n        s.totalBonus = s.totalBonus.add(_amount);\\n        IERC20(s.nNecc).safeTransfer(s.locker, _amount);\\n    }\\n\\n    /**\\n        @notice reclaim bonus from locked staking contract\\n        @param _amount uint\\n     */\\n    function returnLockBonus(uint256 _amount) external {\\n        require(msg.sender == s.locker);\\n        s.totalBonus = s.totalBonus.sub(_amount);\\n        IERC20(s.nNecc).safeTransferFrom(s.locker, address(this), _amount);\\n    }\\n\\n    function epoch() public view returns (LibBondStorage.Epoch memory) {\\n        return s.epoch;\\n    }\\n\\n    function warmupInfo(address _recipient)\\n        public\\n        view\\n        returns (LibBondStorage.Claim memory)\\n    {\\n        return s.warmupInfo[_recipient];\\n    }\\n\\n    function supplyInWarmup() public view returns (uint256) {\\n        return InNecc(s.nNecc).balanceForGons(s.gonsInWarmup);\\n    }\\n\\n    function totalStaked() public view returns (uint256) {\\n        return InNecc(s.nNecc).circulatingSupply();\\n    }\\n}\\n\",\"keccak256\":\"0x3dccc35886c791775a1220cb99c6f4c71d72d82b55ca11031ade1353924a287f\",\"license\":\"AGPL-3.0-or-later\"},\"contracts/lib/LibBondStorage.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.10;\\n\\nimport \\\"@openzeppelin/contracts/utils/structs/EnumerableSet.sol\\\";\\n\\nenum PARAMETER {\\n    VESTING,\\n    PAYOUT,\\n    FEE,\\n    DEBT,\\n    MINPRICE\\n}\\n\\nenum CONTRACTS {\\n    DISTRIBUTOR,\\n    WARMUP,\\n    LOCKER\\n}\\n\\nuint256 constant BCV_ADJUSTMENT_EPOCH_PERIOD = 1; // how many epochs to spread an adjustment across\\n\\nlibrary LibBondStorage {\\n    bytes32 constant STORAGE_POSITION = keccak256(\\\"necc.dao.bond.storage\\\");\\n\\n    struct Payout {\\n        uint256 amount; // Necc paid\\n        uint256 blockTimestamp; // block number occurred\\n    }\\n\\n    struct Info {\\n        uint256 rate; // in ten-thousandths ( 5000 = 0.5% )\\n        address recipient;\\n    }\\n\\n    struct DistributorAdjustment {\\n        bool add;\\n        uint256 rate;\\n        uint256 target;\\n    }\\n\\n    struct Terms {\\n        uint256 controlVariable; // scaling variable for price\\n        uint256 minimumPrice; // vs principle value\\n        uint256 maxPayout; // in thousandths of a %. i.e. 500 = 0.5%\\n        uint256 fee; // as % of bond payout, in hundreths. ( 500 = 5% = 0.05 for every 1 paid)\\n        uint256 maxDebt; // 9 decimal debt ratio, max % total supply created as debt\\n        uint256 vestingTerm; // in seconds\\n        bool isLiquidityBond; // Reserve and LP tokens are treated differently, LP uses bond calculator\\n    }\\n\\n    // Info for bond holder\\n    struct Bond {\\n        uint256 payout; // Necc remaining to be paid\\n        uint256 pricePaid; // In DAI, for front end viewing\\n        uint256 lastTime; // Last interaction\\n        uint256 vesting; // Seconds left to vest\\n    }\\n\\n    // Info for incremental adjustments to control variable\\n    struct BondDepositoryAdjustment {\\n        bool add; // addition or subtraction\\n        uint256 delta; // increment\\n        uint256 timeToTarget; // seconds till target\\n        uint256 lastTime; // time when last adjustment made\\n    }\\n    struct Epoch {\\n        uint256 number;\\n        uint256 distribute;\\n        uint256 length;\\n        uint256 endTime;\\n    }\\n\\n    struct Claim {\\n        uint256 deposit;\\n        uint256 gons;\\n        uint256 expiry;\\n        bool lock; // prevents malicious delays\\n    }\\n\\n    // Single global store\\n    struct Storage {\\n        address Necc; // token given as payment for bond\\n        address nNecc; // token given for staking\\n        address ndol; // principle token without price feed\\n        address treasury; // mints Necc when receives principle\\n        address DAO; // receives profit share from bond\\n        address farmDistributor; // receives profit share from bond to distribute to minters\\n        address staking; // to auto-stake payout\\n        //\\n        EnumerableSet.AddressSet principles;\\n        mapping(uint256 => Terms) terms; // stores terms for new bonds\\n        mapping(uint256 => BondDepositoryAdjustment) bondDepositoryAdjustment; // stores adjustment to BCV data\\n        mapping(address => mapping(uint256 => Bond)) bondInfo; // stores bond information for depositors\\n        mapping(uint256 => uint256) totalDebt; // total value of outstanding bonds; used for pricing\\n        mapping(uint256 => uint256) lastDecay; // reference time for debt decay\\n        mapping(uint256 => uint256) nextEpochTimestamp; // block number of next epoch\\n        mapping(uint256 => address) priceFeeds; // price feed of reserve principle not NDOL\\n        //\\n        Info[] info; // stores infof or distribution recipients\\n        mapping(uint256 => DistributorAdjustment) distributorAdjustments;\\n        //\\n        Epoch epoch;\\n        uint256 epochLength;\\n        address distributor;\\n        address locker;\\n        uint256 totalBonus;\\n        uint256 warmupPeriod;\\n        mapping(address => Claim) warmupInfo;\\n        //\\n        uint256 targetSum; // target total Necc as payouts during period\\n        mapping(uint256 => Payout[]) payouts; // storage of all past payouts\\n        uint256 gonsInWarmup; // total gons in warmup period\\n        //\\n        // Always add new storage variable to the end of this struct\\n    }\\n}\\n\",\"keccak256\":\"0x26bfccc0065843fb50f8188a61e96025d707925520b7428621a0ed79d59d7986\",\"license\":\"MIT\"},\"contracts/lib/LibDiamond.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.10;\\npragma experimental ABIEncoderV2;\\n\\n/******************************************************************************\\\\\\n* Author: Nick Mudge <nick@perfectabstractions.com> (https://twitter.com/mudgen)\\n* EIP-2535 Diamond Standard: https://eips.ethereum.org/EIPS/eip-2535\\n/******************************************************************************/\\n\\nlibrary LibDiamond {\\n    bytes32 public constant DIAMOND_STORAGE_POSITION =\\n        keccak256(\\\"diamond.standard.diamond.storage\\\");\\n\\n    struct FacetAddressAndPosition {\\n        address facetAddress;\\n        uint16 functionSelectorPosition; // position in facetFunctionSelectors.functionSelectors array\\n    }\\n\\n    struct FacetFunctionSelectors {\\n        bytes4[] functionSelectors;\\n        uint16 facetAddressPosition; // position of facetAddress in facetAddresses array\\n    }\\n\\n    struct DiamondStorage {\\n        // maps function selector to the facet address and\\n        // the position of the selector in the facetFunctionSelectors.selectors array\\n        mapping(bytes4 => FacetAddressAndPosition) selectorToFacetAndPosition;\\n        // maps facet addresses to function selectors\\n        mapping(address => FacetFunctionSelectors) facetFunctionSelectors;\\n        // facet addresses\\n        address[] facetAddresses;\\n        // Used to query if a contract implements an interface.\\n        // Used to implement ERC-165.\\n        mapping(bytes4 => bool) supportedInterfaces;\\n        // owner of the contract\\n        address contractOwner;\\n    }\\n\\n    function diamondStorage()\\n        internal\\n        pure\\n        returns (DiamondStorage storage ds)\\n    {\\n        bytes32 position = DIAMOND_STORAGE_POSITION;\\n        assembly {\\n            ds.slot := position\\n        }\\n    }\\n\\n    function enforceIsContractOwner() internal view {\\n        require(\\n            msg.sender == diamondStorage().contractOwner,\\n            \\\"LibDiamond: invalid contract owner\\\"\\n        );\\n    }\\n}\\n\",\"keccak256\":\"0x7ffc422e7e0c015c9f698991d5421f9655bbe96194abad74635fb77bec479eb7\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50611f2b806100206000396000f3fe608060405234801561001057600080fd5b50600436106100cf5760003560e01c8063817b1cd21161008c5780639ebea88c116100665780639ebea88c14610202578063af14052c1461021e578063f3d86e4a14610228578063f62ae76a14610232576100cf565b8063817b1cd2146101a85780638b7afe2e146101c6578063900cf0cf146101e4576100cf565b806303c23670146100d45780631e83409a146100f0578063201386411461010c5780632986c0e51461012a5780636746f4c2146101485780637acb775714610178575b600080fd5b6100ee60048036038101906100e99190611653565b61024e565b005b61010a600480360381019061010591906116de565b610344565b005b6101146105b3565b604051610121919061171a565b60405180910390f35b61013261065d565b60405161013f919061171a565b60405180910390f35b610162600480360381019061015d91906116de565b6106f7565b60405161016f91906117b4565b60405180910390f35b610192600480360381019061018d91906117cf565b61078c565b60405161019f919061181e565b60405180910390f35b6101b0610b2d565b6040516101bd919061171a565b60405180910390f35b6101ce610bc7565b6040516101db919061171a565b60405180910390f35b6101ec610c83565b6040516101f9919061188e565b60405180910390f35b61021c600480360381019061021791906118d5565b610cc8565b005b610226610d7c565b005b610230610f56565b005b61024c60048036038101906102479190611653565b6110cb565b005b600060180160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16146102ab57600080fd5b6102c3816000601901546111c390919063ffffffff16565b600060190181905550610341600060180160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1682600060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166111d99092919063ffffffff16565b50565b600080601b0160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000206040518060800160405290816000820154815260200160018201548152602001600282015481526020016003820160009054906101000a900460ff16151515158152505090508060600151610445573373ffffffffffffffffffffffffffffffffffffffff168273ffffffffffffffffffffffffffffffffffffffff1614610444576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161043b90611998565b60405180910390fd5b5b80604001516000601201600001541015801561046657506000816040015114155b156105af576000601b0160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600080820160009055600182016000905560028201600090556003820160006101000a81549060ff021916905550506104f881602001516000601e015461125f90919063ffffffff16565b6000601e01819055506105ad82600060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16637965d56d84602001516040518263ffffffff1660e01b8152600401610567919061171a565b602060405180830381865afa158015610584573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906105a891906119cd565b611275565b505b5050565b60008060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16637965d56d6000601e01546040518263ffffffff1660e01b8152600401610617919061171a565b602060405180830381865afa158015610634573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061065891906119cd565b905090565b60008060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16632986c0e56040518163ffffffff1660e01b8152600401602060405180830381865afa1580156106ce573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906106f291906119cd565b905090565b6106ff6115c6565b6000601b0160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000206040518060800160405290816000820154815260200160018201548152602001600282015481526020016003820160009054906101000a900460ff1615151515815250509050919050565b6000610796610d7c565b6107e73330856000800160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166112d0909392919063ffffffff16565b600080601a01541415610804576107fe8284611275565b50610b23565b600080601b0160008473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000206040518060800160405290816000820154815260200160018201548152602001600282015481526020016003820160009054906101000a900460ff16151515158152505090508060600151156108d2576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016108c990611a46565b60405180910390fd5b60405180608001604052806108f48684600001516111c390919063ffffffff16565b81526020016109ae600060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16631bd39674886040518263ffffffff1660e01b815260040161095a919061171a565b602060405180830381865afa158015610977573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061099b91906119cd565b84602001516111c390919063ffffffff16565b81526020016109d36000601a01546000601201600001546111c390919063ffffffff16565b8152602001600015158152506000601b0160008573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008201518160000155602082015181600101556040820151816002015560608201518160030160006101000a81548160ff021916908315150217905550905050610b18600060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16631bd39674866040518263ffffffff1660e01b8152600401610ac3919061171a565b602060405180830381865afa158015610ae0573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610b0491906119cd565b6000601e01546111c390919063ffffffff16565b6000601e0181905550505b6001905092915050565b60008060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16639358928b6040518163ffffffff1660e01b8152600401602060405180830381865afa158015610b9e573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610bc291906119cd565b905090565b6000610c7e6000601901546000800160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166370a08231306040518263ffffffff1660e01b8152600401610c2f9190611a75565b602060405180830381865afa158015610c4c573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610c7091906119cd565b6111c390919063ffffffff16565b905090565b610c8b6115f0565b6000601201604051806080016040529081600082015481526020016001820154815260200160028201548152602001600382015481525050905090565b8015610cd757610cd6610d7c565b5b610d29333084600060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166112d0909392919063ffffffff16565b610d7833836000800160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166111d99092919063ffffffff16565b5050565b4260006012016003015411610f5457600060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663058ecdb46000601201600101546000601201600001546040518363ffffffff1660e01b8152600401610dfb929190611a90565b6020604051808303816000875af1158015610e1a573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610e3e91906119cd565b50610e626000601201600201546000601201600301546111c390919063ffffffff16565b60006012016003018190555060006012016000016000815480929190610e8790611ae8565b91905055503073ffffffffffffffffffffffffffffffffffffffff1663e4fc6b6d6040518163ffffffff1660e01b81526004016020604051808303816000875af1158015610ed9573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610efd91906119cd565b50610f06610b2d565b610f0e610bc7565b11610f255760008060120160010181905550610f53565b610f46610f30610b2d565b610f38610bc7565b61125f90919063ffffffff16565b6000601201600101819055505b5b565b600080601b0160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000206040518060800160405290816000820154815260200160018201548152602001600282015481526020016003820160009054906101000a900460ff16151515158152505090506000601b0160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600080820160009055600182016000905560028201600090556003820160006101000a81549060ff0219169055505061106c81602001516000601e015461125f90919063ffffffff16565b6000601e01819055506110c83382600001516000800160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166111d99092919063ffffffff16565b50565b600060180160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161461112857600080fd5b6111408160006019015461125f90919063ffffffff16565b6000601901819055506111c0600060180160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff163083600060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166112d0909392919063ffffffff16565b50565b600081836111d19190611b31565b905092915050565b61125a8363a9059cbb60e01b84846040516024016111f8929190611b87565b604051602081830303815290604052907bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19166020820180517bffffffffffffffffffffffffffffffffffffffffffffffffffffffff8381831617835250505050611359565b505050565b6000818361126d9190611bb0565b905092915050565b60006112c78383600060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166111d99092919063ffffffff16565b81905092915050565b611353846323b872dd60e01b8585856040516024016112f193929190611be4565b604051602081830303815290604052907bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19166020820180517bffffffffffffffffffffffffffffffffffffffffffffffffffffffff8381831617835250505050611359565b50505050565b60006113bb826040518060400160405280602081526020017f5361666545524332303a206c6f772d6c6576656c2063616c6c206661696c65648152508573ffffffffffffffffffffffffffffffffffffffff166114209092919063ffffffff16565b905060008151111561141b57808060200190518101906113db9190611c30565b61141a576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161141190611ccf565b60405180910390fd5b5b505050565b606061142f8484600085611438565b90509392505050565b60608247101561147d576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161147490611d61565b60405180910390fd5b6114868561154c565b6114c5576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016114bc90611dcd565b60405180910390fd5b6000808673ffffffffffffffffffffffffffffffffffffffff1685876040516114ee9190611e67565b60006040518083038185875af1925050503d806000811461152b576040519150601f19603f3d011682016040523d82523d6000602084013e611530565b606091505b509150915061154082828661155f565b92505050949350505050565b600080823b905060008111915050919050565b6060831561156f578290506115bf565b6000835111156115825782518084602001fd5b816040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016115b69190611ed3565b60405180910390fd5b9392505050565b60405180608001604052806000815260200160008152602001600081526020016000151581525090565b6040518060800160405280600081526020016000815260200160008152602001600081525090565b600080fd5b6000819050919050565b6116308161161d565b811461163b57600080fd5b50565b60008135905061164d81611627565b92915050565b60006020828403121561166957611668611618565b5b60006116778482850161163e565b91505092915050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b60006116ab82611680565b9050919050565b6116bb816116a0565b81146116c657600080fd5b50565b6000813590506116d8816116b2565b92915050565b6000602082840312156116f4576116f3611618565b5b6000611702848285016116c9565b91505092915050565b6117148161161d565b82525050565b600060208201905061172f600083018461170b565b92915050565b61173e8161161d565b82525050565b60008115159050919050565b61175981611744565b82525050565b6080820160008201516117756000850182611735565b5060208201516117886020850182611735565b50604082015161179b6040850182611735565b5060608201516117ae6060850182611750565b50505050565b60006080820190506117c9600083018461175f565b92915050565b600080604083850312156117e6576117e5611618565b5b60006117f48582860161163e565b9250506020611805858286016116c9565b9150509250929050565b61181881611744565b82525050565b6000602082019050611833600083018461180f565b92915050565b60808201600082015161184f6000850182611735565b5060208201516118626020850182611735565b5060408201516118756040850182611735565b5060608201516118886060850182611735565b50505050565b60006080820190506118a36000830184611839565b92915050565b6118b281611744565b81146118bd57600080fd5b50565b6000813590506118cf816118a9565b92915050565b600080604083850312156118ec576118eb611618565b5b60006118fa8582860161163e565b925050602061190b858286016118c0565b9150509250929050565b600082825260208201905092915050565b7f45787465726e616c20636c61696d7320666f72206163636f756e74206172652060008201527f6c6f636b65640000000000000000000000000000000000000000000000000000602082015250565b6000611982602683611915565b915061198d82611926565b604082019050919050565b600060208201905081810360008301526119b181611975565b9050919050565b6000815190506119c781611627565b92915050565b6000602082840312156119e3576119e2611618565b5b60006119f1848285016119b8565b91505092915050565b7f4465706f7369747320666f72206163636f756e7420617265206c6f636b656400600082015250565b6000611a30601f83611915565b9150611a3b826119fa565b602082019050919050565b60006020820190508181036000830152611a5f81611a23565b9050919050565b611a6f816116a0565b82525050565b6000602082019050611a8a6000830184611a66565b92915050565b6000604082019050611aa5600083018561170b565b611ab2602083018461170b565b9392505050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b6000611af38261161d565b91507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff821415611b2657611b25611ab9565b5b600182019050919050565b6000611b3c8261161d565b9150611b478361161d565b9250827fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff03821115611b7c57611b7b611ab9565b5b828201905092915050565b6000604082019050611b9c6000830185611a66565b611ba9602083018461170b565b9392505050565b6000611bbb8261161d565b9150611bc68361161d565b925082821015611bd957611bd8611ab9565b5b828203905092915050565b6000606082019050611bf96000830186611a66565b611c066020830185611a66565b611c13604083018461170b565b949350505050565b600081519050611c2a816118a9565b92915050565b600060208284031215611c4657611c45611618565b5b6000611c5484828501611c1b565b91505092915050565b7f5361666545524332303a204552433230206f7065726174696f6e20646964206e60008201527f6f74207375636365656400000000000000000000000000000000000000000000602082015250565b6000611cb9602a83611915565b9150611cc482611c5d565b604082019050919050565b60006020820190508181036000830152611ce881611cac565b9050919050565b7f416464726573733a20696e73756666696369656e742062616c616e636520666f60008201527f722063616c6c0000000000000000000000000000000000000000000000000000602082015250565b6000611d4b602683611915565b9150611d5682611cef565b604082019050919050565b60006020820190508181036000830152611d7a81611d3e565b9050919050565b7f416464726573733a2063616c6c20746f206e6f6e2d636f6e7472616374000000600082015250565b6000611db7601d83611915565b9150611dc282611d81565b602082019050919050565b60006020820190508181036000830152611de681611daa565b9050919050565b600081519050919050565b600081905092915050565b60005b83811015611e21578082015181840152602081019050611e06565b83811115611e30576000848401525b50505050565b6000611e4182611ded565b611e4b8185611df8565b9350611e5b818560208601611e03565b80840191505092915050565b6000611e738284611e36565b915081905092915050565b600081519050919050565b6000601f19601f8301169050919050565b6000611ea582611e7e565b611eaf8185611915565b9350611ebf818560208601611e03565b611ec881611e89565b840191505092915050565b60006020820190508181036000830152611eed8184611e9a565b90509291505056fea2646970667358221220691e45705abb74a322ef10756fde17efc642ccbdf0a3461b8812cefacd3196bb64736f6c634300080a0033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100cf5760003560e01c8063817b1cd21161008c5780639ebea88c116100665780639ebea88c14610202578063af14052c1461021e578063f3d86e4a14610228578063f62ae76a14610232576100cf565b8063817b1cd2146101a85780638b7afe2e146101c6578063900cf0cf146101e4576100cf565b806303c23670146100d45780631e83409a146100f0578063201386411461010c5780632986c0e51461012a5780636746f4c2146101485780637acb775714610178575b600080fd5b6100ee60048036038101906100e99190611653565b61024e565b005b61010a600480360381019061010591906116de565b610344565b005b6101146105b3565b604051610121919061171a565b60405180910390f35b61013261065d565b60405161013f919061171a565b60405180910390f35b610162600480360381019061015d91906116de565b6106f7565b60405161016f91906117b4565b60405180910390f35b610192600480360381019061018d91906117cf565b61078c565b60405161019f919061181e565b60405180910390f35b6101b0610b2d565b6040516101bd919061171a565b60405180910390f35b6101ce610bc7565b6040516101db919061171a565b60405180910390f35b6101ec610c83565b6040516101f9919061188e565b60405180910390f35b61021c600480360381019061021791906118d5565b610cc8565b005b610226610d7c565b005b610230610f56565b005b61024c60048036038101906102479190611653565b6110cb565b005b600060180160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16146102ab57600080fd5b6102c3816000601901546111c390919063ffffffff16565b600060190181905550610341600060180160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1682600060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166111d99092919063ffffffff16565b50565b600080601b0160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000206040518060800160405290816000820154815260200160018201548152602001600282015481526020016003820160009054906101000a900460ff16151515158152505090508060600151610445573373ffffffffffffffffffffffffffffffffffffffff168273ffffffffffffffffffffffffffffffffffffffff1614610444576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161043b90611998565b60405180910390fd5b5b80604001516000601201600001541015801561046657506000816040015114155b156105af576000601b0160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600080820160009055600182016000905560028201600090556003820160006101000a81549060ff021916905550506104f881602001516000601e015461125f90919063ffffffff16565b6000601e01819055506105ad82600060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16637965d56d84602001516040518263ffffffff1660e01b8152600401610567919061171a565b602060405180830381865afa158015610584573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906105a891906119cd565b611275565b505b5050565b60008060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16637965d56d6000601e01546040518263ffffffff1660e01b8152600401610617919061171a565b602060405180830381865afa158015610634573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061065891906119cd565b905090565b60008060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16632986c0e56040518163ffffffff1660e01b8152600401602060405180830381865afa1580156106ce573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906106f291906119cd565b905090565b6106ff6115c6565b6000601b0160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000206040518060800160405290816000820154815260200160018201548152602001600282015481526020016003820160009054906101000a900460ff1615151515815250509050919050565b6000610796610d7c565b6107e73330856000800160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166112d0909392919063ffffffff16565b600080601a01541415610804576107fe8284611275565b50610b23565b600080601b0160008473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000206040518060800160405290816000820154815260200160018201548152602001600282015481526020016003820160009054906101000a900460ff16151515158152505090508060600151156108d2576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016108c990611a46565b60405180910390fd5b60405180608001604052806108f48684600001516111c390919063ffffffff16565b81526020016109ae600060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16631bd39674886040518263ffffffff1660e01b815260040161095a919061171a565b602060405180830381865afa158015610977573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061099b91906119cd565b84602001516111c390919063ffffffff16565b81526020016109d36000601a01546000601201600001546111c390919063ffffffff16565b8152602001600015158152506000601b0160008573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008201518160000155602082015181600101556040820151816002015560608201518160030160006101000a81548160ff021916908315150217905550905050610b18600060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16631bd39674866040518263ffffffff1660e01b8152600401610ac3919061171a565b602060405180830381865afa158015610ae0573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610b0491906119cd565b6000601e01546111c390919063ffffffff16565b6000601e0181905550505b6001905092915050565b60008060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16639358928b6040518163ffffffff1660e01b8152600401602060405180830381865afa158015610b9e573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610bc291906119cd565b905090565b6000610c7e6000601901546000800160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166370a08231306040518263ffffffff1660e01b8152600401610c2f9190611a75565b602060405180830381865afa158015610c4c573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610c7091906119cd565b6111c390919063ffffffff16565b905090565b610c8b6115f0565b6000601201604051806080016040529081600082015481526020016001820154815260200160028201548152602001600382015481525050905090565b8015610cd757610cd6610d7c565b5b610d29333084600060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166112d0909392919063ffffffff16565b610d7833836000800160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166111d99092919063ffffffff16565b5050565b4260006012016003015411610f5457600060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663058ecdb46000601201600101546000601201600001546040518363ffffffff1660e01b8152600401610dfb929190611a90565b6020604051808303816000875af1158015610e1a573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610e3e91906119cd565b50610e626000601201600201546000601201600301546111c390919063ffffffff16565b60006012016003018190555060006012016000016000815480929190610e8790611ae8565b91905055503073ffffffffffffffffffffffffffffffffffffffff1663e4fc6b6d6040518163ffffffff1660e01b81526004016020604051808303816000875af1158015610ed9573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610efd91906119cd565b50610f06610b2d565b610f0e610bc7565b11610f255760008060120160010181905550610f53565b610f46610f30610b2d565b610f38610bc7565b61125f90919063ffffffff16565b6000601201600101819055505b5b565b600080601b0160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000206040518060800160405290816000820154815260200160018201548152602001600282015481526020016003820160009054906101000a900460ff16151515158152505090506000601b0160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600080820160009055600182016000905560028201600090556003820160006101000a81549060ff0219169055505061106c81602001516000601e015461125f90919063ffffffff16565b6000601e01819055506110c83382600001516000800160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166111d99092919063ffffffff16565b50565b600060180160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161461112857600080fd5b6111408160006019015461125f90919063ffffffff16565b6000601901819055506111c0600060180160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff163083600060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166112d0909392919063ffffffff16565b50565b600081836111d19190611b31565b905092915050565b61125a8363a9059cbb60e01b84846040516024016111f8929190611b87565b604051602081830303815290604052907bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19166020820180517bffffffffffffffffffffffffffffffffffffffffffffffffffffffff8381831617835250505050611359565b505050565b6000818361126d9190611bb0565b905092915050565b60006112c78383600060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166111d99092919063ffffffff16565b81905092915050565b611353846323b872dd60e01b8585856040516024016112f193929190611be4565b604051602081830303815290604052907bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19166020820180517bffffffffffffffffffffffffffffffffffffffffffffffffffffffff8381831617835250505050611359565b50505050565b60006113bb826040518060400160405280602081526020017f5361666545524332303a206c6f772d6c6576656c2063616c6c206661696c65648152508573ffffffffffffffffffffffffffffffffffffffff166114209092919063ffffffff16565b905060008151111561141b57808060200190518101906113db9190611c30565b61141a576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161141190611ccf565b60405180910390fd5b5b505050565b606061142f8484600085611438565b90509392505050565b60608247101561147d576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161147490611d61565b60405180910390fd5b6114868561154c565b6114c5576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016114bc90611dcd565b60405180910390fd5b6000808673ffffffffffffffffffffffffffffffffffffffff1685876040516114ee9190611e67565b60006040518083038185875af1925050503d806000811461152b576040519150601f19603f3d011682016040523d82523d6000602084013e611530565b606091505b509150915061154082828661155f565b92505050949350505050565b600080823b905060008111915050919050565b6060831561156f578290506115bf565b6000835111156115825782518084602001fd5b816040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016115b69190611ed3565b60405180910390fd5b9392505050565b60405180608001604052806000815260200160008152602001600081526020016000151581525090565b6040518060800160405280600081526020016000815260200160008152602001600081525090565b600080fd5b6000819050919050565b6116308161161d565b811461163b57600080fd5b50565b60008135905061164d81611627565b92915050565b60006020828403121561166957611668611618565b5b60006116778482850161163e565b91505092915050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b60006116ab82611680565b9050919050565b6116bb816116a0565b81146116c657600080fd5b50565b6000813590506116d8816116b2565b92915050565b6000602082840312156116f4576116f3611618565b5b6000611702848285016116c9565b91505092915050565b6117148161161d565b82525050565b600060208201905061172f600083018461170b565b92915050565b61173e8161161d565b82525050565b60008115159050919050565b61175981611744565b82525050565b6080820160008201516117756000850182611735565b5060208201516117886020850182611735565b50604082015161179b6040850182611735565b5060608201516117ae6060850182611750565b50505050565b60006080820190506117c9600083018461175f565b92915050565b600080604083850312156117e6576117e5611618565b5b60006117f48582860161163e565b9250506020611805858286016116c9565b9150509250929050565b61181881611744565b82525050565b6000602082019050611833600083018461180f565b92915050565b60808201600082015161184f6000850182611735565b5060208201516118626020850182611735565b5060408201516118756040850182611735565b5060608201516118886060850182611735565b50505050565b60006080820190506118a36000830184611839565b92915050565b6118b281611744565b81146118bd57600080fd5b50565b6000813590506118cf816118a9565b92915050565b600080604083850312156118ec576118eb611618565b5b60006118fa8582860161163e565b925050602061190b858286016118c0565b9150509250929050565b600082825260208201905092915050565b7f45787465726e616c20636c61696d7320666f72206163636f756e74206172652060008201527f6c6f636b65640000000000000000000000000000000000000000000000000000602082015250565b6000611982602683611915565b915061198d82611926565b604082019050919050565b600060208201905081810360008301526119b181611975565b9050919050565b6000815190506119c781611627565b92915050565b6000602082840312156119e3576119e2611618565b5b60006119f1848285016119b8565b91505092915050565b7f4465706f7369747320666f72206163636f756e7420617265206c6f636b656400600082015250565b6000611a30601f83611915565b9150611a3b826119fa565b602082019050919050565b60006020820190508181036000830152611a5f81611a23565b9050919050565b611a6f816116a0565b82525050565b6000602082019050611a8a6000830184611a66565b92915050565b6000604082019050611aa5600083018561170b565b611ab2602083018461170b565b9392505050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b6000611af38261161d565b91507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff821415611b2657611b25611ab9565b5b600182019050919050565b6000611b3c8261161d565b9150611b478361161d565b9250827fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff03821115611b7c57611b7b611ab9565b5b828201905092915050565b6000604082019050611b9c6000830185611a66565b611ba9602083018461170b565b9392505050565b6000611bbb8261161d565b9150611bc68361161d565b925082821015611bd957611bd8611ab9565b5b828203905092915050565b6000606082019050611bf96000830186611a66565b611c066020830185611a66565b611c13604083018461170b565b949350505050565b600081519050611c2a816118a9565b92915050565b600060208284031215611c4657611c45611618565b5b6000611c5484828501611c1b565b91505092915050565b7f5361666545524332303a204552433230206f7065726174696f6e20646964206e60008201527f6f74207375636365656400000000000000000000000000000000000000000000602082015250565b6000611cb9602a83611915565b9150611cc482611c5d565b604082019050919050565b60006020820190508181036000830152611ce881611cac565b9050919050565b7f416464726573733a20696e73756666696369656e742062616c616e636520666f60008201527f722063616c6c0000000000000000000000000000000000000000000000000000602082015250565b6000611d4b602683611915565b9150611d5682611cef565b604082019050919050565b60006020820190508181036000830152611d7a81611d3e565b9050919050565b7f416464726573733a2063616c6c20746f206e6f6e2d636f6e7472616374000000600082015250565b6000611db7601d83611915565b9150611dc282611d81565b602082019050919050565b60006020820190508181036000830152611de681611daa565b9050919050565b600081519050919050565b600081905092915050565b60005b83811015611e21578082015181840152602081019050611e06565b83811115611e30576000848401525b50505050565b6000611e4182611ded565b611e4b8185611df8565b9350611e5b818560208601611e03565b80840191505092915050565b6000611e738284611e36565b915081905092915050565b600081519050919050565b6000601f19601f8301169050919050565b6000611ea582611e7e565b611eaf8185611915565b9350611ebf818560208601611e03565b611ec881611e89565b840191505092915050565b60006020820190508181036000830152611eed8184611e9a565b90509291505056fea2646970667358221220691e45705abb74a322ef10756fde17efc642ccbdf0a3461b8812cefacd3196bb64736f6c634300080a0033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "claim(address)": {
+        "params": {
+          "_recipient": "address"
+        }
+      },
+      "contractBalance()": {
+        "returns": {
+          "_0": "uint"
+        }
+      },
+      "giveLockBonus(uint256)": {
+        "params": {
+          "_amount": "uint"
+        }
+      },
+      "index()": {
+        "returns": {
+          "_0": "uint"
+        }
+      },
+      "returnLockBonus(uint256)": {
+        "params": {
+          "_amount": "uint"
+        }
+      },
+      "stake(uint256,address)": {
+        "params": {
+          "_amount": "uint"
+        },
+        "returns": {
+          "_0": "bool"
+        }
+      },
+      "unstake(uint256,bool)": {
+        "params": {
+          "_amount": "uint",
+          "_trigger": "bool"
+        }
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "claim(address)": {
+        "notice": "retrieve nNecc from warmup"
+      },
+      "contractBalance()": {
+        "notice": "returns contract Necc holdings, including bonuses provided"
+      },
+      "forfeit()": {
+        "notice": "forfeit nNecc in warmup and retrieve Necc"
+      },
+      "giveLockBonus(uint256)": {
+        "notice": "provide bonus to locked staking contract"
+      },
+      "index()": {
+        "notice": "returns the nNecc index, which tracks rebase growth"
+      },
+      "rebase()": {
+        "notice": "trigger rebase if epoch over"
+      },
+      "returnLockBonus(uint256)": {
+        "notice": "reclaim bonus from locked staking contract"
+      },
+      "stake(uint256,address)": {
+        "notice": "stake Necc to enter warmup"
+      },
+      "unstake(uint256,bool)": {
+        "notice": "redeem nNecc for Necc"
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 7648,
+        "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+        "label": "s",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_struct(Storage)20885_storage"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_bytes32)dyn_storage": {
+        "base": "t_bytes32",
+        "encoding": "dynamic_array",
+        "label": "bytes32[]",
+        "numberOfBytes": "32"
+      },
+      "t_array(t_struct(Info)20739_storage)dyn_storage": {
+        "base": "t_struct(Info)20739_storage",
+        "encoding": "dynamic_array",
+        "label": "struct LibBondStorage.Info[]",
+        "numberOfBytes": "32"
+      },
+      "t_array(t_struct(Payout)20734_storage)dyn_storage": {
+        "base": "t_struct(Payout)20734_storage",
+        "encoding": "dynamic_array",
+        "label": "struct LibBondStorage.Payout[]",
+        "numberOfBytes": "32"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_bytes32": {
+        "encoding": "inplace",
+        "label": "bytes32",
+        "numberOfBytes": "32"
+      },
+      "t_mapping(t_address,t_mapping(t_uint256,t_struct(Bond)20770_storage))": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => mapping(uint256 => struct LibBondStorage.Bond))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_uint256,t_struct(Bond)20770_storage)"
+      },
+      "t_mapping(t_address,t_struct(Claim)20797_storage)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => struct LibBondStorage.Claim)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Claim)20797_storage"
+      },
+      "t_mapping(t_bytes32,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_bytes32",
+        "label": "mapping(bytes32 => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_mapping(t_uint256,t_address)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => address)",
+        "numberOfBytes": "32",
+        "value": "t_address"
+      },
+      "t_mapping(t_uint256,t_array(t_struct(Payout)20734_storage)dyn_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct LibBondStorage.Payout[])",
+        "numberOfBytes": "32",
+        "value": "t_array(t_struct(Payout)20734_storage)dyn_storage"
+      },
+      "t_mapping(t_uint256,t_struct(Bond)20770_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct LibBondStorage.Bond)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Bond)20770_storage"
+      },
+      "t_mapping(t_uint256,t_struct(BondDepositoryAdjustment)20779_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct LibBondStorage.BondDepositoryAdjustment)",
+        "numberOfBytes": "32",
+        "value": "t_struct(BondDepositoryAdjustment)20779_storage"
+      },
+      "t_mapping(t_uint256,t_struct(DistributorAdjustment)20746_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct LibBondStorage.DistributorAdjustment)",
+        "numberOfBytes": "32",
+        "value": "t_struct(DistributorAdjustment)20746_storage"
+      },
+      "t_mapping(t_uint256,t_struct(Terms)20761_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct LibBondStorage.Terms)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Terms)20761_storage"
+      },
+      "t_mapping(t_uint256,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_struct(AddressSet)1348_storage": {
+        "encoding": "inplace",
+        "label": "struct EnumerableSet.AddressSet",
+        "members": [
+          {
+            "astId": 1347,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "_inner",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_struct(Set)1047_storage"
+          }
+        ],
+        "numberOfBytes": "64"
+      },
+      "t_struct(Bond)20770_storage": {
+        "encoding": "inplace",
+        "label": "struct LibBondStorage.Bond",
+        "members": [
+          {
+            "astId": 20763,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "payout",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 20765,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "pricePaid",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 20767,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "lastTime",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 20769,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "vesting",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "128"
+      },
+      "t_struct(BondDepositoryAdjustment)20779_storage": {
+        "encoding": "inplace",
+        "label": "struct LibBondStorage.BondDepositoryAdjustment",
+        "members": [
+          {
+            "astId": 20772,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "add",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_bool"
+          },
+          {
+            "astId": 20774,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "delta",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 20776,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "timeToTarget",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 20778,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "lastTime",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "128"
+      },
+      "t_struct(Claim)20797_storage": {
+        "encoding": "inplace",
+        "label": "struct LibBondStorage.Claim",
+        "members": [
+          {
+            "astId": 20790,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "deposit",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 20792,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "gons",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 20794,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "expiry",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 20796,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "lock",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_bool"
+          }
+        ],
+        "numberOfBytes": "128"
+      },
+      "t_struct(DistributorAdjustment)20746_storage": {
+        "encoding": "inplace",
+        "label": "struct LibBondStorage.DistributorAdjustment",
+        "members": [
+          {
+            "astId": 20741,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "add",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_bool"
+          },
+          {
+            "astId": 20743,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "rate",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 20745,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "target",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "96"
+      },
+      "t_struct(Epoch)20788_storage": {
+        "encoding": "inplace",
+        "label": "struct LibBondStorage.Epoch",
+        "members": [
+          {
+            "astId": 20781,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "number",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 20783,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "distribute",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 20785,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "length",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 20787,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "endTime",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "128"
+      },
+      "t_struct(Info)20739_storage": {
+        "encoding": "inplace",
+        "label": "struct LibBondStorage.Info",
+        "members": [
+          {
+            "astId": 20736,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "rate",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 20738,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "recipient",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_address"
+          }
+        ],
+        "numberOfBytes": "64"
+      },
+      "t_struct(Payout)20734_storage": {
+        "encoding": "inplace",
+        "label": "struct LibBondStorage.Payout",
+        "members": [
+          {
+            "astId": 20731,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "amount",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 20733,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "blockTimestamp",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "64"
+      },
+      "t_struct(Set)1047_storage": {
+        "encoding": "inplace",
+        "label": "struct EnumerableSet.Set",
+        "members": [
+          {
+            "astId": 1042,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "_values",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_array(t_bytes32)dyn_storage"
+          },
+          {
+            "astId": 1046,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "_indexes",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_mapping(t_bytes32,t_uint256)"
+          }
+        ],
+        "numberOfBytes": "64"
+      },
+      "t_struct(Storage)20885_storage": {
+        "encoding": "inplace",
+        "label": "struct LibBondStorage.Storage",
+        "members": [
+          {
+            "astId": 20799,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "Necc",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_address"
+          },
+          {
+            "astId": 20801,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "nNecc",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_address"
+          },
+          {
+            "astId": 20803,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "ndol",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_address"
+          },
+          {
+            "astId": 20805,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "treasury",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_address"
+          },
+          {
+            "astId": 20807,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "DAO",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_address"
+          },
+          {
+            "astId": 20809,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "farmDistributor",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_address"
+          },
+          {
+            "astId": 20811,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "staking",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_address"
+          },
+          {
+            "astId": 20814,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "principles",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_struct(AddressSet)1348_storage"
+          },
+          {
+            "astId": 20819,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "terms",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_mapping(t_uint256,t_struct(Terms)20761_storage)"
+          },
+          {
+            "astId": 20824,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "bondDepositoryAdjustment",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_mapping(t_uint256,t_struct(BondDepositoryAdjustment)20779_storage)"
+          },
+          {
+            "astId": 20831,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "bondInfo",
+            "offset": 0,
+            "slot": "11",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_struct(Bond)20770_storage))"
+          },
+          {
+            "astId": 20835,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "totalDebt",
+            "offset": 0,
+            "slot": "12",
+            "type": "t_mapping(t_uint256,t_uint256)"
+          },
+          {
+            "astId": 20839,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "lastDecay",
+            "offset": 0,
+            "slot": "13",
+            "type": "t_mapping(t_uint256,t_uint256)"
+          },
+          {
+            "astId": 20843,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "nextEpochTimestamp",
+            "offset": 0,
+            "slot": "14",
+            "type": "t_mapping(t_uint256,t_uint256)"
+          },
+          {
+            "astId": 20847,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "priceFeeds",
+            "offset": 0,
+            "slot": "15",
+            "type": "t_mapping(t_uint256,t_address)"
+          },
+          {
+            "astId": 20851,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "info",
+            "offset": 0,
+            "slot": "16",
+            "type": "t_array(t_struct(Info)20739_storage)dyn_storage"
+          },
+          {
+            "astId": 20856,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "distributorAdjustments",
+            "offset": 0,
+            "slot": "17",
+            "type": "t_mapping(t_uint256,t_struct(DistributorAdjustment)20746_storage)"
+          },
+          {
+            "astId": 20859,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "epoch",
+            "offset": 0,
+            "slot": "18",
+            "type": "t_struct(Epoch)20788_storage"
+          },
+          {
+            "astId": 20861,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "epochLength",
+            "offset": 0,
+            "slot": "22",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 20863,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "distributor",
+            "offset": 0,
+            "slot": "23",
+            "type": "t_address"
+          },
+          {
+            "astId": 20865,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "locker",
+            "offset": 0,
+            "slot": "24",
+            "type": "t_address"
+          },
+          {
+            "astId": 20867,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "totalBonus",
+            "offset": 0,
+            "slot": "25",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 20869,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "warmupPeriod",
+            "offset": 0,
+            "slot": "26",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 20874,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "warmupInfo",
+            "offset": 0,
+            "slot": "27",
+            "type": "t_mapping(t_address,t_struct(Claim)20797_storage)"
+          },
+          {
+            "astId": 20876,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "targetSum",
+            "offset": 0,
+            "slot": "28",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 20882,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "payouts",
+            "offset": 0,
+            "slot": "29",
+            "type": "t_mapping(t_uint256,t_array(t_struct(Payout)20734_storage)dyn_storage)"
+          },
+          {
+            "astId": 20884,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "gonsInWarmup",
+            "offset": 0,
+            "slot": "30",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "992"
+      },
+      "t_struct(Terms)20761_storage": {
+        "encoding": "inplace",
+        "label": "struct LibBondStorage.Terms",
+        "members": [
+          {
+            "astId": 20748,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "controlVariable",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 20750,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "minimumPrice",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 20752,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "maxPayout",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 20754,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "fee",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 20756,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "maxDebt",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 20758,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "vestingTerm",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 20760,
+            "contract": "contracts/facets/Bond/StakingFacet.sol:StakingFacet",
+            "label": "isLiquidityBond",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_bool"
+          }
+        ],
+        "numberOfBytes": "224"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

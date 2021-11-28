@@ -1,0 +1,23 @@
+node_modules
+env.json
+
+#Hardhat files
+cache
+artifacts
+bin
+# TODO: Remove
+# deployments
+
+#Editor
+.vscode
+
+yarn-error.log
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+.clj-kondo
+.lsp

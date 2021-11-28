@@ -1,0 +1,615 @@
+{
+  "address": "0x5BB934170d17A8162C1CF67c99a10DdbfA155507",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_token",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_primaryPrice",
+          "type": "uint256"
+        }
+      ],
+      "name": "getAmmPrice",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_pair",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "_divByReserve0",
+          "type": "bool"
+        }
+      ],
+      "name": "getPairPrice",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_token",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "_maximise",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "_includeAmmPrice",
+          "type": "bool"
+        }
+      ],
+      "name": "getPrice",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_token",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "_maximise",
+          "type": "bool"
+        }
+      ],
+      "name": "getPrimaryPrice",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x086efb66c93db1d6198f45524bfcbefe5cfd409049836d3aa24a5af38c155d65",
+  "receipt": {
+    "to": null,
+    "from": "0x82FCE134Ae4b8B7aCaE666CB0d575bD8c508Cb98",
+    "contractAddress": "0x5BB934170d17A8162C1CF67c99a10DdbfA155507",
+    "transactionIndex": 26,
+    "gasUsed": "957947",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xf7dd0799a9852434adc58bed215704d8dceec0dc7df55c80b8437460025157d7",
+    "transactionHash": "0x086efb66c93db1d6198f45524bfcbefe5cfd409049836d3aa24a5af38c155d65",
+    "logs": [],
+    "blockNumber": 9596665,
+    "cumulativeGasUsed": "5268454",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "solcInputHash": "b72ba0d86e062f2474d5df8690203607",
+  "metadata": "{\"compiler\":{\"version\":\"0.7.5+commit.eb77ed08\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_primaryPrice\",\"type\":\"uint256\"}],\"name\":\"getAmmPrice\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_pair\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"_divByReserve0\",\"type\":\"bool\"}],\"name\":\"getPairPrice\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"_maximise\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"_includeAmmPrice\",\"type\":\"bool\"}],\"name\":\"getPrice\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"_maximise\",\"type\":\"bool\"}],\"name\":\"getPrimaryPrice\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol\":\"VaultPriceFeedFacet\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/math/SafeMath.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity >=0.6.0 <0.8.0;\\n\\n/**\\n * @dev Wrappers over Solidity's arithmetic operations with added overflow\\n * checks.\\n *\\n * Arithmetic operations in Solidity wrap on overflow. This can easily result\\n * in bugs, because programmers usually assume that an overflow raises an\\n * error, which is the standard behavior in high level programming languages.\\n * `SafeMath` restores this intuition by reverting the transaction when an\\n * operation overflows.\\n *\\n * Using this library instead of the unchecked operations eliminates an entire\\n * class of bugs, so it's recommended to use it always.\\n */\\nlibrary SafeMath {\\n    /**\\n     * @dev Returns the addition of two unsigned integers, with an overflow flag.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function tryAdd(uint256 a, uint256 b) internal pure returns (bool, uint256) {\\n        uint256 c = a + b;\\n        if (c < a) return (false, 0);\\n        return (true, c);\\n    }\\n\\n    /**\\n     * @dev Returns the substraction of two unsigned integers, with an overflow flag.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function trySub(uint256 a, uint256 b) internal pure returns (bool, uint256) {\\n        if (b > a) return (false, 0);\\n        return (true, a - b);\\n    }\\n\\n    /**\\n     * @dev Returns the multiplication of two unsigned integers, with an overflow flag.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function tryMul(uint256 a, uint256 b) internal pure returns (bool, uint256) {\\n        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the\\n        // benefit is lost if 'b' is also tested.\\n        // See: https://github.com/OpenZeppelin/openzeppelin-contracts/pull/522\\n        if (a == 0) return (true, 0);\\n        uint256 c = a * b;\\n        if (c / a != b) return (false, 0);\\n        return (true, c);\\n    }\\n\\n    /**\\n     * @dev Returns the division of two unsigned integers, with a division by zero flag.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function tryDiv(uint256 a, uint256 b) internal pure returns (bool, uint256) {\\n        if (b == 0) return (false, 0);\\n        return (true, a / b);\\n    }\\n\\n    /**\\n     * @dev Returns the remainder of dividing two unsigned integers, with a division by zero flag.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function tryMod(uint256 a, uint256 b) internal pure returns (bool, uint256) {\\n        if (b == 0) return (false, 0);\\n        return (true, a % b);\\n    }\\n\\n    /**\\n     * @dev Returns the addition of two unsigned integers, reverting on\\n     * overflow.\\n     *\\n     * Counterpart to Solidity's `+` operator.\\n     *\\n     * Requirements:\\n     *\\n     * - Addition cannot overflow.\\n     */\\n    function add(uint256 a, uint256 b) internal pure returns (uint256) {\\n        uint256 c = a + b;\\n        require(c >= a, \\\"SafeMath: addition overflow\\\");\\n        return c;\\n    }\\n\\n    /**\\n     * @dev Returns the subtraction of two unsigned integers, reverting on\\n     * overflow (when the result is negative).\\n     *\\n     * Counterpart to Solidity's `-` operator.\\n     *\\n     * Requirements:\\n     *\\n     * - Subtraction cannot overflow.\\n     */\\n    function sub(uint256 a, uint256 b) internal pure returns (uint256) {\\n        require(b <= a, \\\"SafeMath: subtraction overflow\\\");\\n        return a - b;\\n    }\\n\\n    /**\\n     * @dev Returns the multiplication of two unsigned integers, reverting on\\n     * overflow.\\n     *\\n     * Counterpart to Solidity's `*` operator.\\n     *\\n     * Requirements:\\n     *\\n     * - Multiplication cannot overflow.\\n     */\\n    function mul(uint256 a, uint256 b) internal pure returns (uint256) {\\n        if (a == 0) return 0;\\n        uint256 c = a * b;\\n        require(c / a == b, \\\"SafeMath: multiplication overflow\\\");\\n        return c;\\n    }\\n\\n    /**\\n     * @dev Returns the integer division of two unsigned integers, reverting on\\n     * division by zero. The result is rounded towards zero.\\n     *\\n     * Counterpart to Solidity's `/` operator. Note: this function uses a\\n     * `revert` opcode (which leaves remaining gas untouched) while Solidity\\n     * uses an invalid opcode to revert (consuming all remaining gas).\\n     *\\n     * Requirements:\\n     *\\n     * - The divisor cannot be zero.\\n     */\\n    function div(uint256 a, uint256 b) internal pure returns (uint256) {\\n        require(b > 0, \\\"SafeMath: division by zero\\\");\\n        return a / b;\\n    }\\n\\n    /**\\n     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\\n     * reverting when dividing by zero.\\n     *\\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\\n     * opcode (which leaves remaining gas untouched) while Solidity uses an\\n     * invalid opcode to revert (consuming all remaining gas).\\n     *\\n     * Requirements:\\n     *\\n     * - The divisor cannot be zero.\\n     */\\n    function mod(uint256 a, uint256 b) internal pure returns (uint256) {\\n        require(b > 0, \\\"SafeMath: modulo by zero\\\");\\n        return a % b;\\n    }\\n\\n    /**\\n     * @dev Returns the subtraction of two unsigned integers, reverting with custom message on\\n     * overflow (when the result is negative).\\n     *\\n     * CAUTION: This function is deprecated because it requires allocating memory for the error\\n     * message unnecessarily. For custom revert reasons use {trySub}.\\n     *\\n     * Counterpart to Solidity's `-` operator.\\n     *\\n     * Requirements:\\n     *\\n     * - Subtraction cannot overflow.\\n     */\\n    function sub(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {\\n        require(b <= a, errorMessage);\\n        return a - b;\\n    }\\n\\n    /**\\n     * @dev Returns the integer division of two unsigned integers, reverting with custom message on\\n     * division by zero. The result is rounded towards zero.\\n     *\\n     * CAUTION: This function is deprecated because it requires allocating memory for the error\\n     * message unnecessarily. For custom revert reasons use {tryDiv}.\\n     *\\n     * Counterpart to Solidity's `/` operator. Note: this function uses a\\n     * `revert` opcode (which leaves remaining gas untouched) while Solidity\\n     * uses an invalid opcode to revert (consuming all remaining gas).\\n     *\\n     * Requirements:\\n     *\\n     * - The divisor cannot be zero.\\n     */\\n    function div(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {\\n        require(b > 0, errorMessage);\\n        return a / b;\\n    }\\n\\n    /**\\n     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\\n     * reverting with custom message when dividing by zero.\\n     *\\n     * CAUTION: This function is deprecated because it requires allocating memory for the error\\n     * message unnecessarily. For custom revert reasons use {tryMod}.\\n     *\\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\\n     * opcode (which leaves remaining gas untouched) while Solidity uses an\\n     * invalid opcode to revert (consuming all remaining gas).\\n     *\\n     * Requirements:\\n     *\\n     * - The divisor cannot be zero.\\n     */\\n    function mod(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {\\n        require(b > 0, errorMessage);\\n        return a % b;\\n    }\\n}\\n\",\"keccak256\":\"0xcc78a17dd88fa5a2edc60c8489e2f405c0913b377216a5b26b35656b2d0dab52\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/EnumerableSet.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity >=0.6.0 <0.8.0;\\n\\n/**\\n * @dev Library for managing\\n * https://en.wikipedia.org/wiki/Set_(abstract_data_type)[sets] of primitive\\n * types.\\n *\\n * Sets have the following properties:\\n *\\n * - Elements are added, removed, and checked for existence in constant time\\n * (O(1)).\\n * - Elements are enumerated in O(n). No guarantees are made on the ordering.\\n *\\n * ```\\n * contract Example {\\n *     // Add the library methods\\n *     using EnumerableSet for EnumerableSet.AddressSet;\\n *\\n *     // Declare a set state variable\\n *     EnumerableSet.AddressSet private mySet;\\n * }\\n * ```\\n *\\n * As of v3.3.0, sets of type `bytes32` (`Bytes32Set`), `address` (`AddressSet`)\\n * and `uint256` (`UintSet`) are supported.\\n */\\nlibrary EnumerableSet {\\n    // To implement this library for multiple types with as little code\\n    // repetition as possible, we write it in terms of a generic Set type with\\n    // bytes32 values.\\n    // The Set implementation uses private functions, and user-facing\\n    // implementations (such as AddressSet) are just wrappers around the\\n    // underlying Set.\\n    // This means that we can only create new EnumerableSets for types that fit\\n    // in bytes32.\\n\\n    struct Set {\\n        // Storage of set values\\n        bytes32[] _values;\\n\\n        // Position of the value in the `values` array, plus 1 because index 0\\n        // means a value is not in the set.\\n        mapping (bytes32 => uint256) _indexes;\\n    }\\n\\n    /**\\n     * @dev Add a value to a set. O(1).\\n     *\\n     * Returns true if the value was added to the set, that is if it was not\\n     * already present.\\n     */\\n    function _add(Set storage set, bytes32 value) private returns (bool) {\\n        if (!_contains(set, value)) {\\n            set._values.push(value);\\n            // The value is stored at length-1, but we add 1 to all indexes\\n            // and use 0 as a sentinel value\\n            set._indexes[value] = set._values.length;\\n            return true;\\n        } else {\\n            return false;\\n        }\\n    }\\n\\n    /**\\n     * @dev Removes a value from a set. O(1).\\n     *\\n     * Returns true if the value was removed from the set, that is if it was\\n     * present.\\n     */\\n    function _remove(Set storage set, bytes32 value) private returns (bool) {\\n        // We read and store the value's index to prevent multiple reads from the same storage slot\\n        uint256 valueIndex = set._indexes[value];\\n\\n        if (valueIndex != 0) { // Equivalent to contains(set, value)\\n            // To delete an element from the _values array in O(1), we swap the element to delete with the last one in\\n            // the array, and then remove the last element (sometimes called as 'swap and pop').\\n            // This modifies the order of the array, as noted in {at}.\\n\\n            uint256 toDeleteIndex = valueIndex - 1;\\n            uint256 lastIndex = set._values.length - 1;\\n\\n            // When the value to delete is the last one, the swap operation is unnecessary. However, since this occurs\\n            // so rarely, we still do the swap anyway to avoid the gas cost of adding an 'if' statement.\\n\\n            bytes32 lastvalue = set._values[lastIndex];\\n\\n            // Move the last value to the index where the value to delete is\\n            set._values[toDeleteIndex] = lastvalue;\\n            // Update the index for the moved value\\n            set._indexes[lastvalue] = toDeleteIndex + 1; // All indexes are 1-based\\n\\n            // Delete the slot where the moved value was stored\\n            set._values.pop();\\n\\n            // Delete the index for the deleted slot\\n            delete set._indexes[value];\\n\\n            return true;\\n        } else {\\n            return false;\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns true if the value is in the set. O(1).\\n     */\\n    function _contains(Set storage set, bytes32 value) private view returns (bool) {\\n        return set._indexes[value] != 0;\\n    }\\n\\n    /**\\n     * @dev Returns the number of values on the set. O(1).\\n     */\\n    function _length(Set storage set) private view returns (uint256) {\\n        return set._values.length;\\n    }\\n\\n   /**\\n    * @dev Returns the value stored at position `index` in the set. O(1).\\n    *\\n    * Note that there are no guarantees on the ordering of values inside the\\n    * array, and it may change when more values are added or removed.\\n    *\\n    * Requirements:\\n    *\\n    * - `index` must be strictly less than {length}.\\n    */\\n    function _at(Set storage set, uint256 index) private view returns (bytes32) {\\n        require(set._values.length > index, \\\"EnumerableSet: index out of bounds\\\");\\n        return set._values[index];\\n    }\\n\\n    // Bytes32Set\\n\\n    struct Bytes32Set {\\n        Set _inner;\\n    }\\n\\n    /**\\n     * @dev Add a value to a set. O(1).\\n     *\\n     * Returns true if the value was added to the set, that is if it was not\\n     * already present.\\n     */\\n    function add(Bytes32Set storage set, bytes32 value) internal returns (bool) {\\n        return _add(set._inner, value);\\n    }\\n\\n    /**\\n     * @dev Removes a value from a set. O(1).\\n     *\\n     * Returns true if the value was removed from the set, that is if it was\\n     * present.\\n     */\\n    function remove(Bytes32Set storage set, bytes32 value) internal returns (bool) {\\n        return _remove(set._inner, value);\\n    }\\n\\n    /**\\n     * @dev Returns true if the value is in the set. O(1).\\n     */\\n    function contains(Bytes32Set storage set, bytes32 value) internal view returns (bool) {\\n        return _contains(set._inner, value);\\n    }\\n\\n    /**\\n     * @dev Returns the number of values in the set. O(1).\\n     */\\n    function length(Bytes32Set storage set) internal view returns (uint256) {\\n        return _length(set._inner);\\n    }\\n\\n   /**\\n    * @dev Returns the value stored at position `index` in the set. O(1).\\n    *\\n    * Note that there are no guarantees on the ordering of values inside the\\n    * array, and it may change when more values are added or removed.\\n    *\\n    * Requirements:\\n    *\\n    * - `index` must be strictly less than {length}.\\n    */\\n    function at(Bytes32Set storage set, uint256 index) internal view returns (bytes32) {\\n        return _at(set._inner, index);\\n    }\\n\\n    // AddressSet\\n\\n    struct AddressSet {\\n        Set _inner;\\n    }\\n\\n    /**\\n     * @dev Add a value to a set. O(1).\\n     *\\n     * Returns true if the value was added to the set, that is if it was not\\n     * already present.\\n     */\\n    function add(AddressSet storage set, address value) internal returns (bool) {\\n        return _add(set._inner, bytes32(uint256(uint160(value))));\\n    }\\n\\n    /**\\n     * @dev Removes a value from a set. O(1).\\n     *\\n     * Returns true if the value was removed from the set, that is if it was\\n     * present.\\n     */\\n    function remove(AddressSet storage set, address value) internal returns (bool) {\\n        return _remove(set._inner, bytes32(uint256(uint160(value))));\\n    }\\n\\n    /**\\n     * @dev Returns true if the value is in the set. O(1).\\n     */\\n    function contains(AddressSet storage set, address value) internal view returns (bool) {\\n        return _contains(set._inner, bytes32(uint256(uint160(value))));\\n    }\\n\\n    /**\\n     * @dev Returns the number of values in the set. O(1).\\n     */\\n    function length(AddressSet storage set) internal view returns (uint256) {\\n        return _length(set._inner);\\n    }\\n\\n   /**\\n    * @dev Returns the value stored at position `index` in the set. O(1).\\n    *\\n    * Note that there are no guarantees on the ordering of values inside the\\n    * array, and it may change when more values are added or removed.\\n    *\\n    * Requirements:\\n    *\\n    * - `index` must be strictly less than {length}.\\n    */\\n    function at(AddressSet storage set, uint256 index) internal view returns (address) {\\n        return address(uint160(uint256(_at(set._inner, index))));\\n    }\\n\\n\\n    // UintSet\\n\\n    struct UintSet {\\n        Set _inner;\\n    }\\n\\n    /**\\n     * @dev Add a value to a set. O(1).\\n     *\\n     * Returns true if the value was added to the set, that is if it was not\\n     * already present.\\n     */\\n    function add(UintSet storage set, uint256 value) internal returns (bool) {\\n        return _add(set._inner, bytes32(value));\\n    }\\n\\n    /**\\n     * @dev Removes a value from a set. O(1).\\n     *\\n     * Returns true if the value was removed from the set, that is if it was\\n     * present.\\n     */\\n    function remove(UintSet storage set, uint256 value) internal returns (bool) {\\n        return _remove(set._inner, bytes32(value));\\n    }\\n\\n    /**\\n     * @dev Returns true if the value is in the set. O(1).\\n     */\\n    function contains(UintSet storage set, uint256 value) internal view returns (bool) {\\n        return _contains(set._inner, bytes32(value));\\n    }\\n\\n    /**\\n     * @dev Returns the number of values on the set. O(1).\\n     */\\n    function length(UintSet storage set) internal view returns (uint256) {\\n        return _length(set._inner);\\n    }\\n\\n   /**\\n    * @dev Returns the value stored at position `index` in the set. O(1).\\n    *\\n    * Note that there are no guarantees on the ordering of values inside the\\n    * array, and it may change when more values are added or removed.\\n    *\\n    * Requirements:\\n    *\\n    * - `index` must be strictly less than {length}.\\n    */\\n    function at(UintSet storage set, uint256 index) internal view returns (uint256) {\\n        return uint256(_at(set._inner, index));\\n    }\\n}\\n\",\"keccak256\":\"0x1562cd9922fbf739edfb979f506809e2743789cbde3177515542161c3d04b164\",\"license\":\"MIT\"},\"contracts/facets/Vault/Facet.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity 0.7.5;\\n\\nimport \\\"../../lib/LibExchangeStorage.sol\\\";\\nimport \\\"../../lib/LibDiamond.sol\\\";\\n\\ncontract Facet {\\n    LibExchangeStorage.Storage internal s;\\n\\n    constructor() {\\n        s.contractEntered = false;\\n    }\\n\\n    function onlyGov() internal view {\\n        LibDiamond.enforceIsContractOwner();\\n    }\\n\\n    function contractEntered() internal {\\n        require(!s.contractEntered, \\\"Contract already entered\\\");\\n        s.contractEntered = true;\\n    }\\n\\n    function contractExited() internal {\\n        s.contractEntered = false;\\n    }\\n}\\n\",\"keccak256\":\"0xbd5db119d95cc57b8e1992814ad2bcde8e58d756ee5ab83f4e96121ecf7bc2fe\",\"license\":\"MIT\"},\"contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity 0.7.5;\\n\\nimport \\\"@openzeppelin/contracts/math/SafeMath.sol\\\";\\nimport \\\"../interfaces/IPriceFeed.sol\\\";\\nimport \\\"../interfaces/IUniswapV2Pair.sol\\\";\\nimport \\\"../Vault/Facet.sol\\\";\\n\\ncontract VaultPriceFeedFacet is Facet {\\n    using SafeMath for uint256;\\n\\n    function getPrimaryPrice(address _token, bool _maximise)\\n        public\\n        view\\n        returns (uint256)\\n    {\\n        address priceFeedAddress = s.priceFeeds[_token];\\n        require(\\n            priceFeedAddress != address(0),\\n            \\\"PriceFeed: invalid price feed\\\"\\n        );\\n        IPriceFeed priceFeed = IPriceFeed(priceFeedAddress);\\n\\n        uint256 price = 0;\\n        uint80 roundId = priceFeed.latestRound();\\n\\n        for (uint80 i = 0; i < PRICE_SAMPLE_SPACE; i++) {\\n            if (roundId <= i) {\\n                break;\\n            }\\n            uint256 p;\\n\\n            if (i == 0) {\\n                int256 _p = priceFeed.latestAnswer();\\n                require(_p > 0, \\\"PriceFeed: invalid price\\\");\\n                p = uint256(_p);\\n            } else {\\n                (, int256 _p, , , ) = priceFeed.getRoundData(roundId - i);\\n                require(_p > 0, \\\"PriceFeed: invalid price\\\");\\n                p = uint256(_p);\\n            }\\n\\n            if (price == 0) {\\n                price = p;\\n                continue;\\n            }\\n\\n            if (_maximise && p > price) {\\n                price = p;\\n                continue;\\n            }\\n\\n            if (!_maximise && p < price) {\\n                price = p;\\n            }\\n        }\\n\\n        require(price > 0, \\\"PriceFeed: could not fetch price\\\");\\n        // normalise price precision\\n        uint256 _priceDecimals = s.priceDecimals[_token];\\n        return price.mul(PRICE_PRECISION).div(10**_priceDecimals);\\n    }\\n\\n    // if divByReserve0: calculate price as reserve1 / reserve0\\n    // if !divByReserve1: calculate price as reserve0 / reserve1\\n    function getPairPrice(address _pair, bool _divByReserve0)\\n        public\\n        view\\n        returns (uint256)\\n    {\\n        (uint256 reserve0, uint256 reserve1, ) = IUniswapV2Pair(_pair)\\n            .getReserves();\\n        if (_divByReserve0) {\\n            if (reserve0 == 0) {\\n                return 0;\\n            }\\n            return reserve1.mul(PRICE_PRECISION).div(reserve0);\\n        }\\n        if (reserve1 == 0) {\\n            return 0;\\n        }\\n        return reserve0.mul(PRICE_PRECISION).div(reserve1);\\n    }\\n\\n    function getAmmPrice(address _token, uint256 _primaryPrice)\\n        public\\n        view\\n        returns (uint256)\\n    {\\n        // Usually wXUSDC\\n        address _basePair = s.baseTokenPairs[_token];\\n        // Usually xETHwX\\n        address _tokenPair = s.tokenPairs[_token];\\n\\n        uint256 _price0 = getPairPrice(_basePair, false);\\n        uint256 _price1 = getPairPrice(_tokenPair, false);\\n\\n        if (_basePair == _tokenPair) {\\n            return _price0.mul(10**(s.priceDecimals[_token]));\\n        } else if (_price0 == 0 || _price1 == 0) {\\n            return _primaryPrice;\\n        }\\n\\n        // this calculation could overflow if (price0 / 10**30) * (price1 / 10**30) is more than 10**17\\n        return\\n            _price0.mul(_price1).mul(10**(s.priceDecimals[_token])).div(\\n                PRICE_PRECISION\\n            );\\n    }\\n\\n    function getPrice(\\n        address _token,\\n        bool _maximise,\\n        bool _includeAmmPrice\\n    ) public view returns (uint256) {\\n        address _priceFeed = s.priceFeeds[_token];\\n        uint256 _priceSpreadBasisPoints = s.priceSpreadBasisPoints[_token];\\n        uint256 _price = 0;\\n\\n        if (_priceFeed != address(0)) {\\n            _price = getPrimaryPrice(_token, _maximise);\\n        } else if (\\n            _includeAmmPrice &&\\n            s.baseTokenPairs[_token] != address(0) &&\\n            s.tokenPairs[_token] != address(0)\\n        ) {\\n            _price = getAmmPrice(_token, _price);\\n        }\\n\\n        if (_price == 0) {\\n            return _price;\\n        }\\n\\n        if (_maximise) {\\n            return\\n                _price\\n                    .mul(BASIS_POINTS_DIVISOR.add(_priceSpreadBasisPoints))\\n                    .div(BASIS_POINTS_DIVISOR);\\n        }\\n\\n        return\\n            _price.mul(BASIS_POINTS_DIVISOR.sub(_priceSpreadBasisPoints)).div(\\n                BASIS_POINTS_DIVISOR\\n            );\\n    }\\n}\\n\",\"keccak256\":\"0x2f05750eec4398cf26f64c29477c9605bbf93f10cc6be1adb177ef5d4764e5ff\",\"license\":\"MIT\"},\"contracts/facets/interfaces/IPriceFeed.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity 0.7.5;\\n\\ninterface IPriceFeed {\\n    function description() external view returns (string memory);\\n\\n    function aggregator() external view returns (address);\\n\\n    function latestAnswer() external view returns (int256);\\n\\n    function latestRound() external view returns (uint80);\\n\\n    function getRoundData(uint80 roundId)\\n        external\\n        view\\n        returns (\\n            uint80,\\n            int256,\\n            uint256,\\n            uint256,\\n            uint80\\n        );\\n}\\n\",\"keccak256\":\"0xaac0b535548b547f9b2bac8339db722858de582d7896828f1eaf96ac4206e5fa\",\"license\":\"MIT\"},\"contracts/facets/interfaces/IUniswapV2Pair.sol\":{\"content\":\"// SPDX-License-Identifier: GPL-3.0\\n\\npragma solidity 0.7.5;\\n\\ninterface IUniswapV2Pair {\\n    event Approval(\\n        address indexed owner,\\n        address indexed spender,\\n        uint256 value\\n    );\\n    event Transfer(address indexed from, address indexed to, uint256 value);\\n\\n    function name() external pure returns (string memory);\\n\\n    function symbol() external pure returns (string memory);\\n\\n    function decimals() external pure returns (uint8);\\n\\n    function totalSupply() external view returns (uint256);\\n\\n    function balanceOf(address owner) external view returns (uint256);\\n\\n    function allowance(address owner, address spender)\\n        external\\n        view\\n        returns (uint256);\\n\\n    function approve(address spender, uint256 value) external returns (bool);\\n\\n    function transfer(address to, uint256 value) external returns (bool);\\n\\n    function transferFrom(\\n        address from,\\n        address to,\\n        uint256 value\\n    ) external returns (bool);\\n\\n    function DOMAIN_SEPARATOR() external view returns (bytes32);\\n\\n    function PERMIT_TYPEHASH() external pure returns (bytes32);\\n\\n    function nonces(address owner) external view returns (uint256);\\n\\n    function permit(\\n        address owner,\\n        address spender,\\n        uint256 value,\\n        uint256 deadline,\\n        uint8 v,\\n        bytes32 r,\\n        bytes32 s\\n    ) external;\\n\\n    event Mint(address indexed sender, uint256 amount0, uint256 amount1);\\n    event Burn(\\n        address indexed sender,\\n        uint256 amount0,\\n        uint256 amount1,\\n        address indexed to\\n    );\\n    event Swap(\\n        address indexed sender,\\n        uint256 amount0In,\\n        uint256 amount1In,\\n        uint256 amount0Out,\\n        uint256 amount1Out,\\n        address indexed to\\n    );\\n    event Sync(uint112 reserve0, uint112 reserve1);\\n\\n    function MINIMUM_LIQUIDITY() external pure returns (uint256);\\n\\n    function factory() external view returns (address);\\n\\n    function token0() external view returns (address);\\n\\n    function token1() external view returns (address);\\n\\n    function getReserves()\\n        external\\n        view\\n        returns (\\n            uint112 reserve0,\\n            uint112 reserve1,\\n            uint32 blockTimestampLast\\n        );\\n\\n    function price0CumulativeLast() external view returns (uint256);\\n\\n    function price1CumulativeLast() external view returns (uint256);\\n\\n    function kLast() external view returns (uint256);\\n\\n    function mint(address to) external returns (uint256 liquidity);\\n\\n    function burn(address to)\\n        external\\n        returns (uint256 amount0, uint256 amount1);\\n\\n    function swap(\\n        uint256 amount0Out,\\n        uint256 amount1Out,\\n        address to,\\n        bytes calldata data\\n    ) external;\\n\\n    function skim(address to) external;\\n\\n    function sync() external;\\n\\n    function initialize(address, address) external;\\n}\\n\",\"keccak256\":\"0x1319866ecb085cb9f8d501515af7246cccea9a59e8c975bbefd25a87d0904df5\",\"license\":\"GPL-3.0\"},\"contracts/lib/LibDiamond.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity 0.7.5;\\npragma experimental ABIEncoderV2;\\n\\n/******************************************************************************\\\\\\n* Author: Nick Mudge <nick@perfectabstractions.com> (https://twitter.com/mudgen)\\n* EIP-2535 Diamond Standard: https://eips.ethereum.org/EIPS/eip-2535\\n/******************************************************************************/\\n\\nlibrary LibDiamond {\\n    bytes32 public constant DIAMOND_STORAGE_POSITION =\\n        keccak256(\\\"diamond.standard.diamond.storage\\\");\\n\\n    struct FacetAddressAndPosition {\\n        address facetAddress;\\n        uint16 functionSelectorPosition; // position in facetFunctionSelectors.functionSelectors array\\n    }\\n\\n    struct FacetFunctionSelectors {\\n        bytes4[] functionSelectors;\\n        uint16 facetAddressPosition; // position of facetAddress in facetAddresses array\\n    }\\n\\n    struct DiamondStorage {\\n        // maps function selector to the facet address and\\n        // the position of the selector in the facetFunctionSelectors.selectors array\\n        mapping(bytes4 => FacetAddressAndPosition) selectorToFacetAndPosition;\\n        // maps facet addresses to function selectors\\n        mapping(address => FacetFunctionSelectors) facetFunctionSelectors;\\n        // facet addresses\\n        address[] facetAddresses;\\n        // Used to query if a contract implements an interface.\\n        // Used to implement ERC-165.\\n        mapping(bytes4 => bool) supportedInterfaces;\\n        // owner of the contract\\n        address contractOwner;\\n    }\\n\\n    function diamondStorage()\\n        internal\\n        pure\\n        returns (DiamondStorage storage ds)\\n    {\\n        bytes32 position = DIAMOND_STORAGE_POSITION;\\n        assembly {\\n            ds.slot := position\\n        }\\n    }\\n\\n    function enforceIsContractOwner() internal view {\\n        require(\\n            msg.sender == diamondStorage().contractOwner,\\n            \\\"LibDiamond: invalid contract owner\\\"\\n        );\\n    }\\n\\n    event OwnershipTransferred(\\n        address indexed previousOwner,\\n        address indexed newOwner\\n    );\\n\\n    function setContractOwner(address _newOwner) public {\\n        enforceIsContractOwner();\\n        DiamondStorage storage ds = diamondStorage();\\n        address previousOwner = ds.contractOwner;\\n        ds.contractOwner = _newOwner;\\n\\n        emit OwnershipTransferred(previousOwner, ds.contractOwner);\\n    }\\n\\n    function contractOwner() public view returns (address) {\\n        DiamondStorage storage ds = diamondStorage();\\n        return ds.contractOwner;\\n    }\\n}\\n\",\"keccak256\":\"0x8e0219a414dc7e37475a366d0a8c46c60f32a450bc0eb0d076863b09599fe591\",\"license\":\"MIT\"},\"contracts/lib/LibExchangeStorage.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity 0.7.5;\\n\\nimport \\\"@openzeppelin/contracts/utils/EnumerableSet.sol\\\";\\n\\n// import \\\"hardhat/console.sol\\\";\\nuint256 constant _NOT_ENTERED = 1;\\nuint256 constant _ENTERED = 2;\\n\\nuint256 constant BASIS_POINTS_DIVISOR = 10000;\\nuint256 constant FUNDING_RATE_PRECISION = 10**6;\\nuint256 constant PRICE_PRECISION = 10**30;\\nuint256 constant NUSD_DECIMALS = 18;\\nuint256 constant ONE_USD = PRICE_PRECISION;\\nuint256 constant POSITION_PROPS_LENGTH = 9;\\n\\nuint256 constant PRICE_SAMPLE_SPACE = 1;\\nuint256 constant MAX_LEVERAGE = 50 * 10000; // 50x\\nuint256 constant LIQUIDATION_FEE_USD = 5 * PRICE_PRECISION; // 5 USD\\nuint256 constant SWAP_FEE_BASIS_POINTS = 30; // 0.3%\\nuint256 constant MARGIN_FEE_BASIS_POINTS = 10; // 0.1%\\nuint256 constant MIN_PROFIT_TIME = 60 * 15; // 15 minutes\\nuint256 constant FUNDING_RATE_FACTOR = 600; // out of 1000\\nuint256 constant FUNDING_INTERVAL = 8 hours;\\n\\nlibrary LibExchangeStorage {\\n    bytes32 constant STORAGE_POSITION = keccak256(\\\"necc.dao.based.storage\\\");\\n\\n    struct Position {\\n        uint256 size;\\n        uint256 collateral;\\n        uint256 averagePrice;\\n        uint256 entryFundingRate;\\n        uint256 reserveAmount;\\n        int256 realisedPnl;\\n        uint256 lastIncreasedTime;\\n    }\\n\\n    // Single global store\\n    struct Storage {\\n        bool contractEntered;\\n        address btc;\\n        address weth;\\n        address nusd;\\n        bool includeAmmPrice;\\n        bool isInitialized;\\n        EnumerableSet.AddressSet tokens;\\n        mapping(address => bool) whitelistedTokens;\\n        mapping(bytes32 => Position) positions;\\n        mapping(address => uint256) tokenDecimals;\\n        mapping(address => uint256) redemptionBasisPoints;\\n        mapping(address => uint256) minProfitBasisPoints;\\n        mapping(address => uint256) tokenBalances;\\n        mapping(address => uint256) nusdAmounts;\\n        mapping(address => uint256) poolAmounts;\\n        mapping(address => uint256) reservedAmounts;\\n        mapping(address => uint256) guaranteedUsd;\\n        mapping(address => uint256) cumulativeFundingRates;\\n        mapping(address => uint256) lastFundingTimes;\\n        mapping(address => uint256) feeReserves;\\n        mapping(address => uint256) tokenWeights;\\n        uint256 totalTokenWeight;\\n        // Router\\n        mapping(address => bool) plugins;\\n        // PriceFeed\\n        mapping(address => address) priceFeeds;\\n        mapping(address => uint256) priceDecimals;\\n        mapping(address => uint256) priceSpreadBasisPoints;\\n        mapping(address => address) baseTokenPairs; // x*y=k AMM Base Pair address i.e. wXUSDC\\n        mapping(address => address) tokenPairs; // x*y=k AMM Pair address i.e. wETHwX\\n        //\\n        int256 answer;\\n        uint80 roundId;\\n        mapping(uint80 => int256) answers;\\n        //\\n        uint256 totalNUSDMinted;\\n        mapping(address => mapping(address => int256)) nusdMinted; // [address][token] => amount\\n        // Always add new storage variable to the end of this struct\\n    }\\n}\\n\",\"keccak256\":\"0xb35bc02531ec938fd36f0171d18bb6b6b4a39299dd69e29e24b18d741b33c776\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5060008060000160006101000a81548160ff0219169083151502179055506110608061003d6000396000f3fe608060405234801561001057600080fd5b506004361061004c5760003560e01c806356c8c2c1146100515780635ae69163146100b5578063a2ad7b9314610125578063e5d902ff14610189575b600080fd5b61009f6004803603604081101561006757600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291908035151590602001909291905050506101eb565b6040518082815260200191505060405180910390f35b61010f600480360360608110156100cb57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080351515906020019092919080351515906020019092919050505061076c565b6040518082815260200191505060405180910390f35b6101736004803603604081101561013b57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803515159060200190929190505050610a51565b6040518082815260200191505060405180910390f35b6101d56004803603604081101561019f57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190505050610bb6565b6040518082815260200191505060405180910390f35b600080600060150160008573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff169050600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1614156102f6576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601d8152602001807f5072696365466565643a20696e76616c6964207072696365206665656400000081525060200191505060405180910390fd5b60008190506000808273ffffffffffffffffffffffffffffffffffffffff1663668a0f026040518163ffffffff1660e01b815260040160206040518083038186803b15801561034457600080fd5b505afa158015610358573d6000803e3d6000fd5b505050506040513d602081101561036e57600080fd5b8101908080519060200190929190505050905060005b60018169ffffffffffffffffffff16101561066d578069ffffffffffffffffffff168269ffffffffffffffffffff16116103bd5761066d565b6000808269ffffffffffffffffffff1614156104d75760008573ffffffffffffffffffffffffffffffffffffffff166350d25bcd6040518163ffffffff1660e01b815260040160206040518083038186803b15801561041b57600080fd5b505afa15801561042f573d6000803e3d6000fd5b505050506040513d602081101561044557600080fd5b81019080805190602001909291905050509050600081136104ce576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260188152602001807f5072696365466565643a20696e76616c6964207072696365000000000000000081525060200191505060405180910390fd5b8091505061061c565b60008573ffffffffffffffffffffffffffffffffffffffff16639a6fc8f58486036040518263ffffffff1660e01b8152600401808269ffffffffffffffffffff16815260200191505060a06040518083038186803b15801561053857600080fd5b505afa15801561054c573d6000803e3d6000fd5b505050506040513d60a081101561056257600080fd5b81019080805190602001909291908051906020019092919080519060200190929190805190602001909291908051906020019092919050505050505091505060008113610617576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260188152602001807f5072696365466565643a20696e76616c6964207072696365000000000000000081525060200191505060405180910390fd5b809150505b600084141561062e5780935050610660565b87801561063a57508381115b156106485780935050610660565b8715801561065557508381105b1561065e578093505b505b8080600101915050610384565b50600082116106e4576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f5072696365466565643a20636f756c64206e6f7420666574636820707269636581525060200191505060405180910390fd5b60008060160160008973ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054905061075f81600a0a6107516c0c9f2c9cd04674edea4000000086610def90919063ffffffff16565b610e7590919063ffffffff16565b9550505050505092915050565b600080600060150160008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905060008060170160008773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054905060008073ffffffffffffffffffffffffffffffffffffffff168373ffffffffffffffffffffffffffffffffffffffff16146108605761085987876101eb565b90506109aa565b8480156108fc5750600073ffffffffffffffffffffffffffffffffffffffff16600060180160008973ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1614155b80156109975750600073ffffffffffffffffffffffffffffffffffffffff16600060190160008973ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1614155b156109a9576109a68782610bb6565b90505b5b60008114156109be57809350505050610a4a565b8515610a09576109ff6127106109f16109e285612710610efe90919063ffffffff16565b84610def90919063ffffffff16565b610e7590919063ffffffff16565b9350505050610a4a565b610a44612710610a36610a2785612710610f8690919063ffffffff16565b84610def90919063ffffffff16565b610e7590919063ffffffff16565b93505050505b9392505050565b60008060008473ffffffffffffffffffffffffffffffffffffffff16630902f1ac6040518163ffffffff1660e01b815260040160606040518083038186803b158015610a9c57600080fd5b505afa158015610ab0573d6000803e3d6000fd5b505050506040513d6060811015610ac657600080fd5b81019080805190602001909291908051906020019092919080519060200190929190505050506dffffffffffffffffffffffffffff1691506dffffffffffffffffffffffffffff1691508315610b65576000821415610b2a57600092505050610bb0565b610b5c82610b4e6c0c9f2c9cd04674edea4000000084610def90919063ffffffff16565b610e7590919063ffffffff16565b92505050610bb0565b6000811415610b7957600092505050610bb0565b610bab81610b9d6c0c9f2c9cd04674edea4000000085610def90919063ffffffff16565b610e7590919063ffffffff16565b925050505b92915050565b600080600060180160008573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905060008060190160008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1690506000610c91836000610a51565b90506000610ca0836000610a51565b90508273ffffffffffffffffffffffffffffffffffffffff168473ffffffffffffffffffffffffffffffffffffffff161415610d3957610d2e600060160160008973ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054600a0a83610def90919063ffffffff16565b945050505050610de9565b6000821480610d485750600081145b15610d595785945050505050610de9565b610de26c0c9f2c9cd04674edea40000000610dd4600060160160008b73ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054600a0a610dc68587610def90919063ffffffff16565b610def90919063ffffffff16565b610e7590919063ffffffff16565b9450505050505b92915050565b600080831415610e025760009050610e6f565b6000828402905082848281610e1357fe5b0414610e6a576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252602181526020018061100a6021913960400191505060405180910390fd5b809150505b92915050565b6000808211610eec576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601a8152602001807f536166654d6174683a206469766973696f6e206279207a65726f00000000000081525060200191505060405180910390fd5b818381610ef557fe5b04905092915050565b600080828401905083811015610f7c576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601b8152602001807f536166654d6174683a206164646974696f6e206f766572666c6f77000000000081525060200191505060405180910390fd5b8091505092915050565b600082821115610ffe576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601e8152602001807f536166654d6174683a207375627472616374696f6e206f766572666c6f77000081525060200191505060405180910390fd5b81830390509291505056fe536166654d6174683a206d756c7469706c69636174696f6e206f766572666c6f77a264697066735822122070dab3b0bed04ea843766ffc0f82eb13a0d9fed6d571e687e17c70ca7fd909e964736f6c63430007050033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061004c5760003560e01c806356c8c2c1146100515780635ae69163146100b5578063a2ad7b9314610125578063e5d902ff14610189575b600080fd5b61009f6004803603604081101561006757600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291908035151590602001909291905050506101eb565b6040518082815260200191505060405180910390f35b61010f600480360360608110156100cb57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080351515906020019092919080351515906020019092919050505061076c565b6040518082815260200191505060405180910390f35b6101736004803603604081101561013b57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803515159060200190929190505050610a51565b6040518082815260200191505060405180910390f35b6101d56004803603604081101561019f57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190505050610bb6565b6040518082815260200191505060405180910390f35b600080600060150160008573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff169050600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1614156102f6576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601d8152602001807f5072696365466565643a20696e76616c6964207072696365206665656400000081525060200191505060405180910390fd5b60008190506000808273ffffffffffffffffffffffffffffffffffffffff1663668a0f026040518163ffffffff1660e01b815260040160206040518083038186803b15801561034457600080fd5b505afa158015610358573d6000803e3d6000fd5b505050506040513d602081101561036e57600080fd5b8101908080519060200190929190505050905060005b60018169ffffffffffffffffffff16101561066d578069ffffffffffffffffffff168269ffffffffffffffffffff16116103bd5761066d565b6000808269ffffffffffffffffffff1614156104d75760008573ffffffffffffffffffffffffffffffffffffffff166350d25bcd6040518163ffffffff1660e01b815260040160206040518083038186803b15801561041b57600080fd5b505afa15801561042f573d6000803e3d6000fd5b505050506040513d602081101561044557600080fd5b81019080805190602001909291905050509050600081136104ce576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260188152602001807f5072696365466565643a20696e76616c6964207072696365000000000000000081525060200191505060405180910390fd5b8091505061061c565b60008573ffffffffffffffffffffffffffffffffffffffff16639a6fc8f58486036040518263ffffffff1660e01b8152600401808269ffffffffffffffffffff16815260200191505060a06040518083038186803b15801561053857600080fd5b505afa15801561054c573d6000803e3d6000fd5b505050506040513d60a081101561056257600080fd5b81019080805190602001909291908051906020019092919080519060200190929190805190602001909291908051906020019092919050505050505091505060008113610617576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260188152602001807f5072696365466565643a20696e76616c6964207072696365000000000000000081525060200191505060405180910390fd5b809150505b600084141561062e5780935050610660565b87801561063a57508381115b156106485780935050610660565b8715801561065557508381105b1561065e578093505b505b8080600101915050610384565b50600082116106e4576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f5072696365466565643a20636f756c64206e6f7420666574636820707269636581525060200191505060405180910390fd5b60008060160160008973ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054905061075f81600a0a6107516c0c9f2c9cd04674edea4000000086610def90919063ffffffff16565b610e7590919063ffffffff16565b9550505050505092915050565b600080600060150160008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905060008060170160008773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054905060008073ffffffffffffffffffffffffffffffffffffffff168373ffffffffffffffffffffffffffffffffffffffff16146108605761085987876101eb565b90506109aa565b8480156108fc5750600073ffffffffffffffffffffffffffffffffffffffff16600060180160008973ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1614155b80156109975750600073ffffffffffffffffffffffffffffffffffffffff16600060190160008973ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1614155b156109a9576109a68782610bb6565b90505b5b60008114156109be57809350505050610a4a565b8515610a09576109ff6127106109f16109e285612710610efe90919063ffffffff16565b84610def90919063ffffffff16565b610e7590919063ffffffff16565b9350505050610a4a565b610a44612710610a36610a2785612710610f8690919063ffffffff16565b84610def90919063ffffffff16565b610e7590919063ffffffff16565b93505050505b9392505050565b60008060008473ffffffffffffffffffffffffffffffffffffffff16630902f1ac6040518163ffffffff1660e01b815260040160606040518083038186803b158015610a9c57600080fd5b505afa158015610ab0573d6000803e3d6000fd5b505050506040513d6060811015610ac657600080fd5b81019080805190602001909291908051906020019092919080519060200190929190505050506dffffffffffffffffffffffffffff1691506dffffffffffffffffffffffffffff1691508315610b65576000821415610b2a57600092505050610bb0565b610b5c82610b4e6c0c9f2c9cd04674edea4000000084610def90919063ffffffff16565b610e7590919063ffffffff16565b92505050610bb0565b6000811415610b7957600092505050610bb0565b610bab81610b9d6c0c9f2c9cd04674edea4000000085610def90919063ffffffff16565b610e7590919063ffffffff16565b925050505b92915050565b600080600060180160008573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905060008060190160008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1690506000610c91836000610a51565b90506000610ca0836000610a51565b90508273ffffffffffffffffffffffffffffffffffffffff168473ffffffffffffffffffffffffffffffffffffffff161415610d3957610d2e600060160160008973ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054600a0a83610def90919063ffffffff16565b945050505050610de9565b6000821480610d485750600081145b15610d595785945050505050610de9565b610de26c0c9f2c9cd04674edea40000000610dd4600060160160008b73ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054600a0a610dc68587610def90919063ffffffff16565b610def90919063ffffffff16565b610e7590919063ffffffff16565b9450505050505b92915050565b600080831415610e025760009050610e6f565b6000828402905082848281610e1357fe5b0414610e6a576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252602181526020018061100a6021913960400191505060405180910390fd5b809150505b92915050565b6000808211610eec576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601a8152602001807f536166654d6174683a206469766973696f6e206279207a65726f00000000000081525060200191505060405180910390fd5b818381610ef557fe5b04905092915050565b600080828401905083811015610f7c576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601b8152602001807f536166654d6174683a206164646974696f6e206f766572666c6f77000000000081525060200191505060405180910390fd5b8091505092915050565b600082821115610ffe576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601e8152602001807f536166654d6174683a207375627472616374696f6e206f766572666c6f77000081525060200191505060405180910390fd5b81830390509291505056fe536166654d6174683a206d756c7469706c69636174696f6e206f766572666c6f77a264697066735822122070dab3b0bed04ea843766ffc0f82eb13a0d9fed6d571e687e17c70ca7fd909e964736f6c63430007050033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 3530,
+        "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+        "label": "s",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_struct(Storage)9786_storage"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_bytes32)dyn_storage": {
+        "base": "t_bytes32",
+        "encoding": "dynamic_array",
+        "label": "bytes32[]",
+        "numberOfBytes": "32"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_bytes32": {
+        "encoding": "inplace",
+        "label": "bytes32",
+        "numberOfBytes": "32"
+      },
+      "t_int256": {
+        "encoding": "inplace",
+        "label": "int256",
+        "numberOfBytes": "32"
+      },
+      "t_mapping(t_address,t_address)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => address)",
+        "numberOfBytes": "32",
+        "value": "t_address"
+      },
+      "t_mapping(t_address,t_bool)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => bool)",
+        "numberOfBytes": "32",
+        "value": "t_bool"
+      },
+      "t_mapping(t_address,t_int256)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => int256)",
+        "numberOfBytes": "32",
+        "value": "t_int256"
+      },
+      "t_mapping(t_address,t_mapping(t_address,t_int256))": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => mapping(address => int256))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_address,t_int256)"
+      },
+      "t_mapping(t_address,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_mapping(t_bytes32,t_struct(Position)9673_storage)": {
+        "encoding": "mapping",
+        "key": "t_bytes32",
+        "label": "mapping(bytes32 => struct LibExchangeStorage.Position)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Position)9673_storage"
+      },
+      "t_mapping(t_bytes32,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_bytes32",
+        "label": "mapping(bytes32 => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_mapping(t_uint80,t_int256)": {
+        "encoding": "mapping",
+        "key": "t_uint80",
+        "label": "mapping(uint80 => int256)",
+        "numberOfBytes": "32",
+        "value": "t_int256"
+      },
+      "t_struct(AddressSet)1217_storage": {
+        "encoding": "inplace",
+        "label": "struct EnumerableSet.AddressSet",
+        "members": [
+          {
+            "astId": 1216,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "_inner",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_struct(Set)952_storage"
+          }
+        ],
+        "numberOfBytes": "64"
+      },
+      "t_struct(Position)9673_storage": {
+        "encoding": "inplace",
+        "label": "struct LibExchangeStorage.Position",
+        "members": [
+          {
+            "astId": 9660,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "size",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 9662,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "collateral",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 9664,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "averagePrice",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 9666,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "entryFundingRate",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 9668,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "reserveAmount",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 9670,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "realisedPnl",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_int256"
+          },
+          {
+            "astId": 9672,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "lastIncreasedTime",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "224"
+      },
+      "t_struct(Set)952_storage": {
+        "encoding": "inplace",
+        "label": "struct EnumerableSet.Set",
+        "members": [
+          {
+            "astId": 947,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "_values",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_array(t_bytes32)dyn_storage"
+          },
+          {
+            "astId": 951,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "_indexes",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_mapping(t_bytes32,t_uint256)"
+          }
+        ],
+        "numberOfBytes": "64"
+      },
+      "t_struct(Storage)9786_storage": {
+        "encoding": "inplace",
+        "label": "struct LibExchangeStorage.Storage",
+        "members": [
+          {
+            "astId": 9675,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "contractEntered",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_bool"
+          },
+          {
+            "astId": 9677,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "btc",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_address"
+          },
+          {
+            "astId": 9679,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "weth",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_address"
+          },
+          {
+            "astId": 9681,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "nusd",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_address"
+          },
+          {
+            "astId": 9683,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "includeAmmPrice",
+            "offset": 20,
+            "slot": "2",
+            "type": "t_bool"
+          },
+          {
+            "astId": 9685,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "isInitialized",
+            "offset": 21,
+            "slot": "2",
+            "type": "t_bool"
+          },
+          {
+            "astId": 9687,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "tokens",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_struct(AddressSet)1217_storage"
+          },
+          {
+            "astId": 9691,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "whitelistedTokens",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_mapping(t_address,t_bool)"
+          },
+          {
+            "astId": 9695,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "positions",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_mapping(t_bytes32,t_struct(Position)9673_storage)"
+          },
+          {
+            "astId": 9699,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "tokenDecimals",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_mapping(t_address,t_uint256)"
+          },
+          {
+            "astId": 9703,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "redemptionBasisPoints",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_mapping(t_address,t_uint256)"
+          },
+          {
+            "astId": 9707,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "minProfitBasisPoints",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_mapping(t_address,t_uint256)"
+          },
+          {
+            "astId": 9711,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "tokenBalances",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_mapping(t_address,t_uint256)"
+          },
+          {
+            "astId": 9715,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "nusdAmounts",
+            "offset": 0,
+            "slot": "11",
+            "type": "t_mapping(t_address,t_uint256)"
+          },
+          {
+            "astId": 9719,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "poolAmounts",
+            "offset": 0,
+            "slot": "12",
+            "type": "t_mapping(t_address,t_uint256)"
+          },
+          {
+            "astId": 9723,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "reservedAmounts",
+            "offset": 0,
+            "slot": "13",
+            "type": "t_mapping(t_address,t_uint256)"
+          },
+          {
+            "astId": 9727,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "guaranteedUsd",
+            "offset": 0,
+            "slot": "14",
+            "type": "t_mapping(t_address,t_uint256)"
+          },
+          {
+            "astId": 9731,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "cumulativeFundingRates",
+            "offset": 0,
+            "slot": "15",
+            "type": "t_mapping(t_address,t_uint256)"
+          },
+          {
+            "astId": 9735,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "lastFundingTimes",
+            "offset": 0,
+            "slot": "16",
+            "type": "t_mapping(t_address,t_uint256)"
+          },
+          {
+            "astId": 9739,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "feeReserves",
+            "offset": 0,
+            "slot": "17",
+            "type": "t_mapping(t_address,t_uint256)"
+          },
+          {
+            "astId": 9743,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "tokenWeights",
+            "offset": 0,
+            "slot": "18",
+            "type": "t_mapping(t_address,t_uint256)"
+          },
+          {
+            "astId": 9745,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "totalTokenWeight",
+            "offset": 0,
+            "slot": "19",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 9749,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "plugins",
+            "offset": 0,
+            "slot": "20",
+            "type": "t_mapping(t_address,t_bool)"
+          },
+          {
+            "astId": 9753,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "priceFeeds",
+            "offset": 0,
+            "slot": "21",
+            "type": "t_mapping(t_address,t_address)"
+          },
+          {
+            "astId": 9757,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "priceDecimals",
+            "offset": 0,
+            "slot": "22",
+            "type": "t_mapping(t_address,t_uint256)"
+          },
+          {
+            "astId": 9761,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "priceSpreadBasisPoints",
+            "offset": 0,
+            "slot": "23",
+            "type": "t_mapping(t_address,t_uint256)"
+          },
+          {
+            "astId": 9765,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "baseTokenPairs",
+            "offset": 0,
+            "slot": "24",
+            "type": "t_mapping(t_address,t_address)"
+          },
+          {
+            "astId": 9769,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "tokenPairs",
+            "offset": 0,
+            "slot": "25",
+            "type": "t_mapping(t_address,t_address)"
+          },
+          {
+            "astId": 9771,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "answer",
+            "offset": 0,
+            "slot": "26",
+            "type": "t_int256"
+          },
+          {
+            "astId": 9773,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "roundId",
+            "offset": 0,
+            "slot": "27",
+            "type": "t_uint80"
+          },
+          {
+            "astId": 9777,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "answers",
+            "offset": 0,
+            "slot": "28",
+            "type": "t_mapping(t_uint80,t_int256)"
+          },
+          {
+            "astId": 9779,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "totalNUSDMinted",
+            "offset": 0,
+            "slot": "29",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 9785,
+            "contract": "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol:VaultPriceFeedFacet",
+            "label": "nusdMinted",
+            "offset": 0,
+            "slot": "30",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_int256))"
+          }
+        ],
+        "numberOfBytes": "992"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      },
+      "t_uint80": {
+        "encoding": "inplace",
+        "label": "uint80",
+        "numberOfBytes": "10"
+      }
+    }
+  }
+}
