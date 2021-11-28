@@ -31,10 +31,10 @@ async function deployNDOLNeccLPBond(hre) {
   const firstEpochNumber = "1";
 
   // How many seconds are in each epoch
-  const epochLengthInTimestamp = "33000";
+  const epochLengthInTimestamp = "3600";
 
   // Initial reward rate for epoch
-  const initialRewardRate = "3000";
+  const initialRewardRate = "500";
 
   // Ethereum 0 address, used when toggling changes in treasury
   const zeroAddress = "0x0000000000000000000000000000000000000000";
