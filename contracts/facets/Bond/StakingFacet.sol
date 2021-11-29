@@ -24,7 +24,7 @@ interface InNecc is IERC20 {
 
     function balanceTo(uint256 _amount) external view returns (uint256);
 
-    function migrate(address _staking, address _sOHM) external;
+    function migrate(address _staking, address _sNecc) external;
 }
 
 interface IsNecc is IERC20 {
@@ -122,12 +122,16 @@ contract StakingFacet is Facet {
         if (_trigger) {
             rebase();
         }
-        IERC20(s.sNecc).safeTransferFrom(msg.sender, address(this), _amount);
-        IERC20(s.Necc).safeTransfer(msg.sender, _amount);
+
+        InNecc(s.nNecc).burn(msg.sender, _amount); // amount was given in nNecc terms
+        IERC20(s.Necc).safeTransfer(
+            msg.sender,
+            InNecc(s.nNecc).balanceFrom(_amount)
+        );
     }
 
     /**
-     * @notice send staker their amount as sOHM or gOHM
+     * @notice send staker their amount as nNecc (non-rebasing)
      * @param _recipient address
      * @param _amount uint
      */
@@ -135,43 +139,9 @@ contract StakingFacet is Facet {
         internal
         returns (uint256)
     {
-        IsNecc(s.sNecc).safeTransfer(_recipient, _amount); // send as sOHM (equal unit as OHM)
-        return _amount;
+        InNecc(s.nNecc).mint(_recipient, InNecc(s.nNecc).balanceTo(_amount)); // send as nNecc (convert units from Necc)
+        return InNecc(s.nNecc).balanceTo(_amount);
     }
-
-    /**
-     * @notice convert _amount sNecc into nBalance_ nNecc
-     * @param _to address
-     * @param _amount uint
-     * @return nBalance_ uint
-     */
-    function wrap(address _to, uint256 _amount)
-        external
-        returns (uint256 nBalance_)
-    {
-        IsNecc(s.sNecc).safeTransferFrom(msg.sender, address(this), _amount);
-
-        nBalance_ = InNecc(s.nNecc).balanceTo(_amount);
-        InNecc(s.nNecc).mint(_to, nBalance_);
-    }
-
-    /**
-     * @notice convert _amount s.nNecc into sBalance_ s.sNecc
-     * @param _to address
-     * @param _amount uint
-     * @return sBalance_ uint
-     */
-    function unwrap(address _to, uint256 _amount)
-        external
-        returns (uint256 sBalance_)
-    {
-        InNecc(s.nNecc).burn(msg.sender, _amount);
-
-        sBalance_ = InNecc(s.nNecc).balanceFrom(_amount);
-        IsNecc(s.sNecc).safeTransfer(_to, sBalance_);
-    }
-
-    //
 
     /**
         @notice returns the sNecc index, which tracks rebase growth
@@ -207,26 +177,6 @@ contract StakingFacet is Facet {
      */
     function contractBalance() public view returns (uint256) {
         return IERC20(s.Necc).balanceOf(address(this)).add(s.totalBonus);
-    }
-
-    /**
-        @notice provide bonus to locked staking contract
-        @param _amount uint
-     */
-    function giveLockBonus(uint256 _amount) external {
-        require(msg.sender == s.locker);
-        s.totalBonus = s.totalBonus.add(_amount);
-        IERC20(s.sNecc).safeTransfer(s.locker, _amount);
-    }
-
-    /**
-        @notice reclaim bonus from locked staking contract
-        @param _amount uint
-     */
-    function returnLockBonus(uint256 _amount) external {
-        require(msg.sender == s.locker);
-        s.totalBonus = s.totalBonus.sub(_amount);
-        IERC20(s.sNecc).safeTransferFrom(s.locker, address(this), _amount);
     }
 
     function epoch() public view returns (LibBondStorage.Epoch memory) {

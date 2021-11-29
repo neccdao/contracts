@@ -61,7 +61,7 @@ contract nNeccFacet is ERC20, ERC20Permit {
     }
 
     /**
-        @notice burn gOHM
+        @notice burn nNecc
         @param _from address
         @param _amount uint
      */
@@ -75,7 +75,7 @@ contract nNeccFacet is ERC20, ERC20Permit {
     /* ========== VIEW FUNCTIONS ========== */
 
     /**
-     * @notice pull index from sOHM token
+     * @notice pull index from sNecc token
      */
     function index() public view returns (uint256) {
         LibnNeccStorage.Layout storage n = LibnNeccStorage.layout();
@@ -83,7 +83,7 @@ contract nNeccFacet is ERC20, ERC20Permit {
     }
 
     /**
-        @notice converts gOHM amount to OHM
+        @notice converts nNecc amount to Necc
         @param _amount uint
         @return uint
      */
@@ -92,7 +92,7 @@ contract nNeccFacet is ERC20, ERC20Permit {
     }
 
     /**
-        @notice converts OHM amount to gOHM
+        @notice converts Necc amount to nNecc
         @param _amount uint
         @return uint
      */

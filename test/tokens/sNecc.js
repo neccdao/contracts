@@ -73,7 +73,7 @@ describe("sNecc", () => {
 
   describe("post-initialization", () => {
     beforeEach(async () => {
-      // TODO: uncomment when gOhmFake is ready
+      // TODO: uncomment when nNeccFake is ready
     });
 
     describe("approve", () => {
