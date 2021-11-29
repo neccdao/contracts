@@ -107,19 +107,19 @@ async function deployNecc(hre) {
   );
   console.log("necc initialize");
 
-  // Deploy nNecc
-  const NNecc = await diamond.deploy("nNeccDiamond", {
-    from: deployer.address,
-    owner: deployer.address,
-    facets: ["nNeccFacet"],
-    log: true,
-  });
-
   // Deploy sNecc
-  const sNecc = await diamond.deploy("sNeccDiamond", {
+  const NNecc = await diamond.deploy("sNeccDiamond", {
     from: deployer.address,
     owner: deployer.address,
     facets: ["sNeccFacet"],
+    log: true,
+  });
+
+  // Deploy nNecc
+  const nNecc = await diamond.deploy("nNeccDiamond", {
+    from: deployer.address,
+    owner: deployer.address,
+    facets: ["nNeccFacet"],
     log: true,
   });
 
@@ -173,15 +173,15 @@ async function deployNecc(hre) {
   );
   console.log("BondDepository initializeBondDepository");
 
-  // nNecc initialize
-  const nNecc = await contractAt("nNeccFacet", NNecc.address);
+  // sNecc initialize
+  const sNecc = await contractAt("sNeccFacet", NNecc.address);
   await execute(
-    "nNeccDiamond",
+    "sNeccDiamond",
     { from: deployer.address },
     "initialize",
     staking.address
   );
-  console.log("nNecc initialize");
+  console.log("sNecc initialize");
 
   // Deploy staking distributor
   const distributor = { address: deployedNDOLBond.address };
@@ -201,19 +201,19 @@ async function deployNecc(hre) {
     "initializeStaking",
     firstEpochNumber,
     firstEpochTimestamp,
-    nNecc.address,
-    sNecc.address
+    sNecc.address,
+    nNecc.address
   );
   console.log("BondDepository initializeStaking");
 
   await execute(
-    "sNeccDiamond",
+    "nNeccDiamond",
     { from: deployer.address },
     "initialize",
     staking.address,
-    nNecc.address
+    sNecc.address
   );
-  console.log("sNecc initialize");
+  console.log("nNecc initialize");
 
   // Bonding calculator
   const bondingCalculator = { address: deployedNDOLBond.address };
@@ -243,12 +243,12 @@ async function deployNecc(hre) {
   console.log("BondDepository initializeBondTerms ndolBond");
 
   await execute(
-    "nNeccDiamond",
+    "sNeccDiamond",
     { from: deployer.address },
     "setIndex",
     initialIndex
   );
-  console.log("nNecc setIndex");
+  console.log("sNecc setIndex");
 
   // Set treasury for Necc token
   await execute(
@@ -350,12 +350,12 @@ async function deployNecc(hre) {
   await approvalTx.wait(1);
   console.log("necc approve staking");
 
-  const nNeccD = await contractAt("nNeccFacet", nNecc.address);
-  approvalTx = await nNeccD.approve(staking.address, largeApproval);
-  await approvalTx.wait(1);
-  console.log("nNecc approve staking");
-
   const sNeccD = await contractAt("sNeccFacet", sNecc.address);
+  approvalTx = await sNeccD.approve(staking.address, largeApproval);
+  await approvalTx.wait(1);
+  console.log("sNecc approve staking");
+
+  const nNeccD = await contractAt("nNeccFacet", nNecc.address);
 
   // Deposit NDOL to treasury, deployer gets half back
   await execute(
@@ -381,9 +381,9 @@ async function deployNecc(hre) {
   const neccBalance = await neccD.balanceOf(deployer.address);
   console.log(neccBalance?.toString());
   console.log("necc balanceOf deployer");
-  const nNeccBalance = await nNeccD.balanceOf(deployer.address);
-  console.log(nNeccBalance?.toString());
-  console.log("nNecc balanceOf deployer");
+  const sNeccBalance = await sNeccD.balanceOf(deployer.address);
+  console.log(sNeccBalance?.toString());
+  console.log("sNecc balanceOf deployer");
 
   // Stake 1000 Necc and claim
   await execute(
@@ -393,10 +393,10 @@ async function deployNecc(hre) {
     deployer.address,
     "1000000000000"
   );
-  console.log("deployer wrap 1000 nNecc for sNecc");
-  const sNeccBalance = await sNeccD.balanceOf(deployer.address);
-  console.log(sNeccBalance?.toString());
-  console.log("sNecc balanceOf deployer");
+  console.log("deployer wrap 1000 sNecc for nNecc");
+  const nNeccBalance = await nNeccD.balanceOf(deployer.address);
+  console.log(nNeccBalance?.toString());
+  console.log("nNecc balanceOf deployer");
 
   // Bond 500 NDOL for Necc with a max price of 60000 (max payout is 0.5% of circulating supply)
   await execute(
@@ -435,8 +435,8 @@ async function deployNecc(hre) {
 
   console.log("NDOL: " + ndol.address);
   console.log("Necc: " + necc.address);
-  console.log("nNecc: " + nNecc.address);
   console.log("sNecc: " + sNecc.address);
+  console.log("nNecc: " + nNecc.address);
   console.log("Treasury: " + treasury.address);
   console.log("BondingCalculator: " + bondingCalculator.address);
   console.log("Staking: " + staking.address);

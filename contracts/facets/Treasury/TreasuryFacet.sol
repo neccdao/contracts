@@ -170,7 +170,7 @@ contract TreasuryFacet is Facet {
 
         uint256 _value = valueOfToken(_token, _amount);
 
-        uint256 maximumDebt = IERC20(s.nNecc).balanceOf(msg.sender); // Can only borrow against nNecc held
+        uint256 maximumDebt = IERC20(s.sNecc).balanceOf(msg.sender); // Can only borrow against sNecc held
         uint256 availableDebt = maximumDebt.sub(s.debtorBalance[msg.sender]);
         require(_value <= availableDebt, "Exceeds debt limit");
 
@@ -360,7 +360,7 @@ contract TreasuryFacet is Facet {
             );
         } else if (_managing == MANAGING.NNECC) {
             // 9
-            s.nNeccQueue = block.number.add(s.blocksNeededForQueue);
+            s.sNeccQueue = block.number.add(s.blocksNeededForQueue);
         } else return false;
 
         emit ChangeQueued(_managing, _address);
@@ -512,8 +512,8 @@ contract TreasuryFacet is Facet {
             s.isRewardManager[_address] = _result;
         } else if (_managing == MANAGING.NNECC) {
             // 9
-            s.nNeccQueue = 0;
-            s.nNecc = _address;
+            s.sNeccQueue = 0;
+            s.sNecc = _address;
             _result = true;
         } else return false;
 

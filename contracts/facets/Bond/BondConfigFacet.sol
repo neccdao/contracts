@@ -217,13 +217,13 @@ contract BondConfigFacet is Facet {
     function initializeStaking(
         uint256 _firstEpochNumber,
         uint32 _firstEpochTime,
-        address _nNecc,
-        address _sNecc
+        address _sNecc,
+        address _nNecc
     ) public {
-        require(_nNecc != address(0));
         require(_sNecc != address(0));
-        s.nNecc = _nNecc;
+        require(_nNecc != address(0));
         s.sNecc = _sNecc;
+        s.nNecc = _nNecc;
         s.epoch = LibBondStorage.Epoch({
             length: s.epochLength,
             number: _firstEpochNumber,

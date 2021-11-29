@@ -121,19 +121,19 @@ async function deployNecc(hre) {
   );
   console.log("Treasury initializeTreasury");
 
-  // // Deploy nNecc
-  const nNecc = await diamond.deploy("nNeccDiamond", {
-    from: deployer.address,
-    owner: deployer.address,
-    facets: ["nNeccFacet"],
-    log: true,
-  });
-
-  // Deploy sNecc
+  // // Deploy sNecc
   const sNecc = await diamond.deploy("sNeccDiamond", {
     from: deployer.address,
     owner: deployer.address,
     facets: ["sNeccFacet"],
+    log: true,
+  });
+
+  // Deploy nNecc
+  const nNecc = await diamond.deploy("nNeccDiamond", {
+    from: deployer.address,
+    owner: deployer.address,
+    facets: ["nNeccFacet"],
     log: true,
   });
 
@@ -186,19 +186,19 @@ async function deployNecc(hre) {
     "initializeStaking",
     firstEpochNumber,
     firstEpochTimestamp,
-    nNecc.address,
-    sNecc.address
+    sNecc.address,
+    nNecc.address
   );
   console.log("BondDepository initializeStaking");
 
   await execute(
-    "sNeccDiamond",
+    "nNeccDiamond",
     { from: deployer.address },
     "initialize",
     staking.address,
-    nNecc.address
+    sNecc.address
   );
-  console.log("sNecc initialize");
+  console.log("nNecc initialize");
 
   // Bonding calculator
   const bondingCalculator = { address: deployedNDOLBond.address };
@@ -227,22 +227,22 @@ async function deployNecc(hre) {
   );
   console.log("BondDepository initializeBondTerms ndolBond");
 
-  // Initialize nNecc and set the index
+  // Initialize sNecc and set the index
   await execute(
-    "nNeccDiamond",
+    "sNeccDiamond",
     { from: deployer.address },
     "initialize",
     staking.address
   );
-  console.log("nNecc initialize");
+  console.log("sNecc initialize");
 
   await execute(
-    "nNeccDiamond",
+    "sNeccDiamond",
     { from: deployer.address },
     "setIndex",
     initialIndex
   );
-  console.log("nNecc setIndex");
+  console.log("sNecc setIndex");
 
   // Set treasury for Necc token
   await execute(
@@ -392,8 +392,8 @@ async function deployNecc(hre) {
 
   console.log("NDOL: " + ndol.address);
   console.log("Necc: " + necc.address);
-  console.log("nNecc: " + nNecc.address);
   console.log("sNecc: " + sNecc.address);
+  console.log("nNecc: " + nNecc.address);
   console.log("Treasury: " + treasury.address);
   console.log("BondingCalculator: " + bondingCalculator.address);
   console.log("Staking: " + staking.address);

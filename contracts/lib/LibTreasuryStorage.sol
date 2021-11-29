@@ -16,8 +16,8 @@ library LibTreasuryStorage {
         address Necc;
         uint256 blocksNeededForQueue;
         address[] reserveTokens; // Push only, beware false-positives.
-        address nNecc;
-        uint256 nNeccQueue; // Delays change to nNecc address
+        address sNecc;
+        uint256 sNeccQueue; // Delays change to sNecc address
         uint256 totalReserves; // Risk-free value of all assets
         uint256 totalDebt;
         mapping(address => bool) isReserveToken;
