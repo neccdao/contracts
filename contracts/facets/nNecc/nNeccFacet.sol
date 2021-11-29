@@ -12,7 +12,7 @@ import "../../lib/LibnNeccStorage.sol";
 
 // import "hardhat/console.sol";
 
-interface InNecc is IERC20 {
+interface IsNecc is IERC20 {
     function rebase(uint256 neccProfit_, uint256 epoch_)
         external
         returns (uint256);
@@ -79,7 +79,7 @@ contract nNeccFacet is ERC20, ERC20Permit {
      */
     function index() public view returns (uint256) {
         LibnNeccStorage.Layout storage n = LibnNeccStorage.layout();
-        return InNecc(n.sNecc).index();
+        return IsNecc(n.sNecc).index();
     }
 
     /**

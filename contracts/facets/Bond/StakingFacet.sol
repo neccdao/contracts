@@ -23,8 +23,6 @@ interface InNecc is IERC20 {
     function balanceFrom(uint256 _amount) external view returns (uint256);
 
     function balanceTo(uint256 _amount) external view returns (uint256);
-
-    function migrate(address _staking, address _sNecc) external;
 }
 
 interface IsNecc is IERC20 {
@@ -141,6 +139,39 @@ contract StakingFacet is Facet {
     {
         InNecc(s.nNecc).mint(_recipient, InNecc(s.nNecc).balanceTo(_amount)); // send as nNecc (convert units from Necc)
         return InNecc(s.nNecc).balanceTo(_amount);
+    }
+
+    /**
+     * @notice convert _amount sNecc into nBalance_ nNecc
+     * @param _to address
+     * @param _amount uint
+     * @return nBalance_ uint
+     */
+    function wrap(address _to, uint256 _amount)
+        external
+        returns (uint256 nBalance_)
+    {
+        IsNecc(s.sNecc).safeTransferFrom(msg.sender, address(this), _amount);
+
+        nBalance_ = InNecc(s.sNecc).balanceTo(_amount);
+        InNecc(s.nNecc).mint(_to, nBalance_);
+    }
+
+    /**
+     * @notice convert _amount nNecc into sBalance_ sNecc
+     * @param _to address
+     * @param _amount uint
+     * @return sBalance_ uint
+     */
+    function unwrap(address _to, uint256 _amount)
+        external
+        returns (uint256 sBalance_)
+    {
+        InNecc(s.nNecc).burn(msg.sender, _amount);
+
+        sBalance_ = InNecc(s.nNecc).balanceFrom(_amount);
+        IsNecc(s.sNecc).safeTransfer(_to, sBalance_);
+        return sBalance_;
     }
 
     /**
