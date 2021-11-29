@@ -129,6 +129,14 @@ async function deployNecc(hre) {
     log: true,
   });
 
+  // Deploy sNecc
+  const sNecc = await diamond.deploy("sNeccDiamond", {
+    from: deployer.address,
+    owner: deployer.address,
+    facets: ["sNeccFacet"],
+    log: true,
+  });
+
   // // Deploy NDOL bond
   // //@dev changed function call to Treasury of 'valueOf' to 'valueOfToken' in BondDepository due to change in Treausry contract
   const deployedNDOLBond = await diamond.deploy("BondDepositoryDiamond", {
@@ -178,9 +186,19 @@ async function deployNecc(hre) {
     "initializeStaking",
     firstEpochNumber,
     firstEpochTimestamp,
-    nNecc.address
+    nNecc.address,
+    sNecc.address
   );
   console.log("BondDepository initializeStaking");
+
+  await execute(
+    "sNeccDiamond",
+    { from: deployer.address },
+    "initialize",
+    staking.address,
+    nNecc.address
+  );
+  console.log("sNecc initialize");
 
   // Bonding calculator
   const bondingCalculator = { address: deployedNDOLBond.address };
@@ -337,19 +355,6 @@ async function deployNecc(hre) {
   );
   console.log("treasury deposit 500 NDOL");
 
-  // Stake 1000 Necc and claim
-  const b = await neccD.balanceOf(deployer.address);
-  console.log(b?.toString());
-  console.log("necc balanceOf deployer");
-  await execute(
-    "BondDepositoryDiamond",
-    { from: deployer.address },
-    "stake",
-    "1000000000",
-    deployer.address
-  );
-  console.log("deployer stake 1 necc");
-
   // Bond 500 NDOL for Necc with a max price of 60000 (max payout is 0.5%)
   await execute(
     "BondDepositoryDiamond",
@@ -388,6 +393,7 @@ async function deployNecc(hre) {
   console.log("NDOL: " + ndol.address);
   console.log("Necc: " + necc.address);
   console.log("nNecc: " + nNecc.address);
+  console.log("sNecc: " + sNecc.address);
   console.log("Treasury: " + treasury.address);
   console.log("BondingCalculator: " + bondingCalculator.address);
   console.log("Staking: " + staking.address);

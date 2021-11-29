@@ -9,7 +9,8 @@ import {ERC20Permit} from "@solidstate/contracts/token/ERC20/permit/ERC20Permit.
 import {ERC20MetadataStorage} from "@solidstate/contracts/token/ERC20/metadata/ERC20MetadataStorage.sol";
 import {ERC20BaseStorage} from "@solidstate/contracts/token/ERC20/base/ERC20BaseStorage.sol";
 import "../../lib/LibnNeccStorage.sol";
-import "hardhat/console.sol";
+
+// import "hardhat/console.sol";
 
 contract nNeccFacet is ERC20, ERC20Permit {
     using ERC20MetadataStorage for ERC20MetadataStorage.Layout;
