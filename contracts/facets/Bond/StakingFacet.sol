@@ -47,7 +47,7 @@ contract StakingFacet is Facet {
     using SafeERC20 for IsNecc;
 
     /**
-        @notice stake Necc to enter warmup
+        @notice stake Necc to enter warmup or for nNecc
         @param _amount uint
         @return bool
      */
@@ -112,7 +112,7 @@ contract StakingFacet is Facet {
     }
 
     /**
-        @notice redeem sNecc for Necc
+        @notice redeem nNecc for Necc
         @param _amount uint
         @param _trigger bool
      */
