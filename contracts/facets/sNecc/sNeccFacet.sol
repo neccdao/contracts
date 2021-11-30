@@ -11,6 +11,21 @@ import {ERC20BaseStorage} from "@solidstate/contracts/token/ERC20/base/ERC20Base
 import "../../lib/LibsNeccStorage.sol";
 
 // import "hardhat/console.sol";
+interface InNecc is IERC20 {
+    function mint(address _to, uint256 _amount) external;
+
+    function burn(address _from, uint256 _amount) external;
+
+    function index() external view returns (uint256);
+
+    function balanceFrom(uint256 _amount) external view returns (uint256);
+
+    function balanceTo(uint256 _amount) external view returns (uint256);
+}
+
+interface IStaking {
+    function supplyInWarmup() external view returns (uint256);
+}
 
 contract sNeccFacet is ERC20, ERC20Permit {
     using ERC20MetadataStorage for ERC20MetadataStorage.Layout;
@@ -25,7 +40,7 @@ contract sNeccFacet is ERC20, ERC20Permit {
     event LogRebase(uint256 indexed epoch, uint256 rebase, uint256 index);
     event LogStakingContractUpdated(address stakingContract);
 
-    function initialize(address _stakingContract) external {
+    function initialize(address _stakingContract, address _nNecc) external {
         LibsNeccStorage._onlyGov();
         ERC20BaseStorage.Layout storage b = ERC20BaseStorage.layout();
         ERC20MetadataStorage.Layout storage s = ERC20MetadataStorage.layout();
@@ -37,6 +52,7 @@ contract sNeccFacet is ERC20, ERC20Permit {
         b.totalSupply = INITIAL_FRAGMENTS_SUPPLY;
         n._gonsPerFragment = TOTAL_GONS.div(b.totalSupply);
         n.stakingContract = _stakingContract;
+        n.nNecc = _nNecc;
         n._gonBalances[n.stakingContract] = TOTAL_GONS;
 
         emit Transfer(address(0x0), _stakingContract, b.totalSupply);
@@ -200,12 +216,27 @@ contract sNeccFacet is ERC20, ERC20Permit {
         return gons.div(n._gonsPerFragment);
     }
 
+    function toN(uint256 amount) external view returns (uint256) {
+        LibsNeccStorage.Layout storage n = LibsNeccStorage.layout();
+        return InNecc(n.nNecc).balanceTo(amount);
+    }
+
+    function fromN(uint256 amount) external view returns (uint256) {
+        LibsNeccStorage.Layout storage n = LibsNeccStorage.layout();
+        return InNecc(n.nNecc).balanceFrom(amount);
+    }
+
     // Staking contract holds excess sNecc
     function circulatingSupply() public view returns (uint256) {
         LibsNeccStorage.Layout storage n = LibsNeccStorage.layout();
         ERC20BaseStorage.Layout storage b = ERC20BaseStorage.layout();
 
-        return b.totalSupply.sub(balanceOf(n.stakingContract));
+        return
+            b.totalSupply.sub(balanceOf(n.stakingContract)).add(
+                InNecc(n.nNecc).balanceFrom(
+                    IERC20(address(InNecc(n.nNecc))).totalSupply()
+                )
+            );
     }
 
     function index() public view returns (uint256) {

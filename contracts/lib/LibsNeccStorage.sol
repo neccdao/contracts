@@ -34,6 +34,7 @@ library LibsNeccStorage {
     struct Layout {
         uint256 INDEX; // Index Gons - tracks rebase growth
         address stakingContract; // balance used to calc rebase
+        address nNecc; // balance used to calc rebase
         IOracle oracle; // pulls price from pool
         address pool;
         Rebase[] rebases; // past rebase data

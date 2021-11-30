@@ -44,7 +44,7 @@ async function deployNecc(hre) {
   const epochLengthInSeconds = "3600";
 
   // Initial reward rate for epoch
-  const initialRewardRate = "500";
+  const initialRewardRate = "750";
 
   // Ethereum 0 address, used when toggling changes in treasury
   const zeroAddress = "0x0000000000000000000000000000000000000000";
@@ -179,7 +179,8 @@ async function deployNecc(hre) {
     "sNeccDiamond",
     { from: deployer.address },
     "initialize",
-    staking.address
+    staking.address,
+    nNecc.address
   );
   console.log("sNecc initialize");
 
@@ -369,16 +370,20 @@ async function deployNecc(hre) {
   console.log("treasury deposit 5M NDOL");
   console.log("deployer receives 2.5M NECC");
 
-  // Stake 1000 Necc and claim
+  let neccBalance = await neccD.balanceOf(deployer.address);
+  console.log(neccBalance?.toString());
+  console.log("necc balanceOf deployer");
+
   await execute(
     "BondDepositoryDiamond",
     { from: deployer.address },
     "stake",
-    "1000000000000",
+    neccBalance?.toString(),
     deployer.address
   );
-  console.log("deployer stake 1000 necc");
-  let neccBalance = await neccD.balanceOf(deployer.address);
+
+  console.log("deployer stake necc balance");
+  neccBalance = await neccD.balanceOf(deployer.address);
   console.log(neccBalance?.toString());
   console.log("necc balanceOf deployer");
   const sNeccBalance = await sNeccD.balanceOf(deployer.address);
@@ -388,30 +393,6 @@ async function deployNecc(hre) {
   const nNeccBalance = await nNeccD.balanceOf(deployer.address);
   console.log(nNeccBalance?.toString());
   console.log("nNecc balanceOf deployer");
-
-  await execute(
-    "BondDepositoryDiamond",
-    { from: deployer.address },
-    "unstake",
-    nNeccBalance,
-    true
-  );
-  console.log("deployer unstake 1000 nNecc");
-  neccBalance = await neccD.balanceOf(deployer.address);
-  console.log(neccBalance?.toString());
-  console.log("necc balanceOf deployer");
-
-  // Bond 500 NDOL for Necc with a max price of 60000 (max payout is 0.5% of circulating supply)
-  await execute(
-    "BondDepositoryDiamond",
-    { from: deployer.address },
-    "deposit",
-    "5000000000000000000000",
-    "60000",
-    deployer.address,
-    ndol.address
-  );
-  console.log("ndolBond deposit 5000 NDOL");
 
   const StakingD = await ethers.getContractFactory("StakingFacet"); // NDOL
   const stakingD = await StakingD.attach(staking.address);

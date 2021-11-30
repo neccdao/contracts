@@ -41,8 +41,8 @@ async function deployNecc(hre) {
   const epochLengthInSeconds = "3600";
 
   // Initial reward rate for epoch
-  // 0.05%; (0.0005 + 1) ^ 24 ^ 365 = ~79x
-  const initialRewardRate = "500";
+  // (0.00075 + 1) ^ 24 ^ 365 = ~711x
+  const initialRewardRate = "750";
 
   // Ethereum 0 address, used when toggling changes in treasury
   const zeroAddress = "0x0000000000000000000000000000000000000000";
@@ -232,7 +232,8 @@ async function deployNecc(hre) {
     "sNeccDiamond",
     { from: deployer.address },
     "initialize",
-    staking.address
+    staking.address,
+    nNecc.address
   );
   console.log("sNecc initialize");
 

@@ -105,7 +105,6 @@ library LibBondStorage {
         uint256 epochLength;
         address distributor;
         address locker;
-        uint256 totalBonus;
         uint256 warmupPeriod;
         mapping(address => Claim) warmupInfo;
         //
