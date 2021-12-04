@@ -1,14 +1,4 @@
-const {
-  RINKEBY_TESTNET_WETH,
-  RINKEBY_TESTNET_NECC,
-  RINKEBY_TESTNET_TREASURY,
-  RINKEBY_TESTNET_BONDING_CALCULATOR,
-  RINKEBY_TESTNET_DISTRIBUTOR,
-  RINKEBY_TESTNET_NNECC,
-  RINKEBY_TESTNET_STAKING,
-  RINKEBY_TESTNET_STAKING_HELPER,
-  RINKEBY_TESTNET_NDOL_BOND,
-} = require("../env.json");
+const { AURORA_MAINNET_WETH } = require("../env.json");
 const { contractAt, sendTxn } = require("../scripts/shared/helpers");
 
 const eth = {
@@ -79,7 +69,7 @@ async function deployNecc(hre) {
   const ndol = await contractAt("NdolFacet", NDOL.address);
   console.log((await ndol.balanceOf(DAO.address))?.toString());
 
-  const eth = allDeployments?.ETHToken;
+  const eth = await contractAt("Token", AURORA_MAINNET_WETH);
   const ExchangeDiamond = allDeployments.ExchangeDiamond;
   const router = await contractAt("RouterFacet", ExchangeDiamond.address);
   await sendTxn(
