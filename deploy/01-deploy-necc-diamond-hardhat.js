@@ -252,15 +252,6 @@ async function deployNecc(hre) {
   );
   console.log("sNecc setIndex");
 
-  // Set treasury for Necc token
-  await execute(
-    "NeccDiamond",
-    { from: deployer.address },
-    "addVault",
-    treasury.address
-  );
-  console.log("necc addVault => treasury");
-
   // Add staking contract as distributor recipient
   await execute(
     "BondDepositoryDiamond",
