@@ -13,6 +13,7 @@ describe("sNecc", () => {
   let DAO;
   let necc;
   let sNecc;
+  let nNecc;
   let staking;
   let treasury;
 
@@ -23,9 +24,11 @@ describe("sNecc", () => {
       "NeccDiamond-hardhat",
     ]);
     const NECC = diamond.NeccDiamond;
-    const NNECC = diamond.sNeccDiamond;
+    const sNECC = diamond.sNeccDiamond;
+    const nNECC = diamond.nNeccDiamond;
     necc = await contractAt("NeccFacet", NECC.address);
-    sNecc = await contractAt("sNeccFacet", NNECC.address);
+    sNecc = await contractAt("sNeccFacet", sNECC.address);
+    nNecc = await contractAt("nNeccFacet", sNECC.address);
     staking = diamond.BondDepositoryDiamond;
     treasury = diamond.TreasuryDiamond;
   });
@@ -53,20 +56,25 @@ describe("sNecc", () => {
       });
 
       it("emits Transfer event", async () => {
-        await expect(sNecc.connect(deployer).initialize(staking.address))
+        await expect(
+          sNecc.connect(deployer).initialize(staking.address, nNecc.address)
+        )
           .to.emit(sNecc, "Transfer")
           .withArgs(ZERO_ADDRESS, staking.address, TOTAL_GONS);
       });
 
       it("emits LogStakingContractUpdated event", async () => {
-        await expect(sNecc.connect(deployer).initialize(staking.address))
+        await expect(
+          sNecc.connect(deployer).initialize(staking.address, nNecc.address)
+        )
           .to.emit(sNecc, "LogStakingContractUpdated")
           .withArgs(staking.address);
       });
 
       it("must be done by the deployer", async () => {
-        await expect(sNecc.connect(DAO).initialize(staking.address)).to.be
-          .reverted;
+        await expect(
+          sNecc.connect(DAO).initialize(staking.address, nNecc.address)
+        ).to.be.reverted;
       });
     });
   });

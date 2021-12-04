@@ -1,35 +1,31 @@
 const {
-  AURORA_MAINNET_WETH,
-  AURORA_MAINNET_WBTC,
-  AURORA_MAINNET_WNEAR,
-  AURORA_MAINNET_ETH_PRICE_FEED,
-  AURORA_MAINNET_BTC_PRICE_FEED,
-  AURORA_MAINNET_NEAR_PRICE_FEED,
+  RINKEBY_TESTNET_WETH,
+  RINKEBY_TESTNET_VAULT_PRICE_FEED,
+  RINKEBY_TESTNET_WBTC,
+  RINKEBY_TESTNET_USDC,
+  RINKEBY_TESTNET_ETH_PRICE_FEED,
+  RINKEBY_TESTNET_BTC_PRICE_FEED,
 } = require("../env.json");
 const { contractAt } = require("../scripts/shared/helpers");
+const { toChainlinkPrice } = require("../test/shared/chainlink");
 
 const ethConfig = {
-  address: AURORA_MAINNET_WETH,
   tokenDecimals: 18,
-  priceFeedAddress: AURORA_MAINNET_ETH_PRICE_FEED,
-  priceFeedDecimals: 16,
-  tokenWeight: 30,
+  priceFeedDecimals: 8,
+  tokenWeight: 60,
 };
 const btcConfig = {
-  address: AURORA_MAINNET_WBTC,
   tokenDecimals: 8,
-  priceFeedAddress: AURORA_MAINNET_BTC_PRICE_FEED,
-  priceFeedDecimals: 16,
-  tokenWeight: 20,
+  priceFeedDecimals: 8,
+  tokenWeight: 40,
 };
 
-const nearConfig = {
-  address: AURORA_MAINNET_WNEAR,
-  tokenDecimals: 24,
-  priceFeedAddress: AURORA_MAINNET_NEAR_PRICE_FEED,
-  priceFeedDecimals: 16,
-  tokenWeight: 50,
-};
+// const near = {
+//   address: "0xc42c30ac6cc15fac9bd938618bcaa1a1fae8501d", // RINKEBY_TESTNET_WNEAR
+// };
+// const nearTokenDecimals = 24;
+// const nearPriceFeedDecimals = 18;
+// const nearTokenWeight = 40;
 
 const minProfitBasisPoints = 0;
 const vaultPriceFeedSpreadBasisPoints = 0;
@@ -58,6 +54,24 @@ const deployExchangeDiamond = async function (hre) {
     log: true,
   });
   console.log("Deployed TestableVM");
+
+  let ethPriceFeed = await deployments.deploy("ETHPriceFeed", {
+    contract: "PriceFeed",
+    from: deployer.address,
+  });
+  let btcPriceFeed = await deployments.deploy("BTCPriceFeed", {
+    contract: "PriceFeed",
+    from: deployer.address,
+  });
+  const btc = await deployments.deploy("BTCToken", {
+    contract: "Token",
+    from: deployer.address,
+  });
+  const eth = await deployments.deploy("ETHToken", {
+    contract: "Token",
+    from: deployer.address,
+  });
+  console.log("Deployed Tokens");
 
   const exchangeDiamond = await diamond.deploy("ExchangeDiamond", {
     from: deployer.address,
@@ -89,19 +103,26 @@ const deployExchangeDiamond = async function (hre) {
     "ExchangeDiamond",
     { from: deployer.address },
     "initialize",
-    ethConfig.address,
+    eth.address,
     ndol.address
   );
   console.log("ExchangeDiamond initialize");
+
+  ethPriceFeed = await contractAt("PriceFeed", ethPriceFeed.address);
+  await ethPriceFeed.setLatestAnswer(toChainlinkPrice(4000));
+  console.log("ETHPriceFeed setLatestAnswer");
+
+  const x = await ethPriceFeed.latestAnswer();
+  console.log(x?.toString());
 
   await execute(
     "ExchangeDiamond",
     { from: deployer.address },
     "setTokenConfig",
-    ethConfig.address,
+    eth.address,
     ethConfig.tokenDecimals,
     minProfitBasisPoints,
-    ethConfig.priceFeedAddress,
+    ethPriceFeed.address,
     ethConfig.priceFeedDecimals,
     vaultPriceFeedSpreadBasisPoints,
     ethConfig.tokenWeight,
@@ -110,14 +131,17 @@ const deployExchangeDiamond = async function (hre) {
   );
   console.log("ExchangeDiamond setTokenConfig ETH");
 
+  btcPriceFeed = await contractAt("PriceFeed", btcPriceFeed.address);
+  await btcPriceFeed.setLatestAnswer(toChainlinkPrice(60000));
+
   await execute(
     "ExchangeDiamond",
     { from: deployer.address },
     "setTokenConfig",
-    btcConfig.address,
+    btc.address,
     btcConfig.tokenDecimals,
     minProfitBasisPoints,
-    btcConfig.priceFeedAddress,
+    btcPriceFeed.address,
     btcConfig.priceFeedDecimals,
     vaultPriceFeedSpreadBasisPoints,
     btcConfig.tokenWeight,
@@ -126,25 +150,8 @@ const deployExchangeDiamond = async function (hre) {
   );
   console.log("ExchangeDiamond setTokenConfig BTC");
 
-  await execute(
-    "ExchangeDiamond",
-    { from: deployer.address },
-    "setTokenConfig",
-    nearConfig.address,
-    nearConfig.tokenDecimals,
-    minProfitBasisPoints,
-    nearConfig.priceFeedAddress,
-    nearConfig.priceFeedDecimals,
-    vaultPriceFeedSpreadBasisPoints,
-    nearConfig.tokenWeight,
-    zeroAddress,
-    zeroAddress
-  );
-  console.log("ExchangeDiamond setTokenConfig NEAR");
-
-  console.log("WETH: " + ethConfig.address);
-  console.log("WBTC: " + btcConfig.address);
-  console.log("WNEAR: " + nearConfig.address);
+  console.log("WETH: " + eth.address);
+  console.log("WBTC: " + btc.address);
   console.log("ExchangeDiamond: " + exchangeDiamond.address);
   console.log("NDOL: " + ndol.address);
   console.log("VM: " + vm.address);

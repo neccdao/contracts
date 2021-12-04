@@ -39,7 +39,7 @@ contract nNeccFacet is ERC20, ERC20Permit {
         LibnNeccStorage.Layout storage n = LibnNeccStorage.layout();
 
         s.setName("Wrapped Staked Necc");
-        s.setSymbol("nNecc");
+        s.setSymbol("nNECC");
         s.setDecimals(18);
         n.stakingContract = _stakingContract;
         n.sNecc = _sNecc;

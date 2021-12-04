@@ -34,6 +34,7 @@ describe("Necc", () => {
     });
 
     it("increases total supply", async () => {
+      await necc.addVault(vault.address);
       let supplyBefore = await necc.totalSupply();
       await necc.connect(vault).mint(vault.address, 100);
       expect(supplyBefore.add(100)).to.equal(await necc.totalSupply());
@@ -42,6 +43,7 @@ describe("Necc", () => {
 
   describe("burn", () => {
     beforeEach(async () => {
+      await necc.addVault(vault.address);
       await necc.connect(vault).mint(vault.address, 100);
     });
 

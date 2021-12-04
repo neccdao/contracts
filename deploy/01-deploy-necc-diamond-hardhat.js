@@ -1,4 +1,14 @@
-const { AURORA_MAINNET_WETH } = require("../env.json");
+const {
+  RINKEBY_TESTNET_WETH,
+  RINKEBY_TESTNET_NECC,
+  RINKEBY_TESTNET_TREASURY,
+  RINKEBY_TESTNET_BONDING_CALCULATOR,
+  RINKEBY_TESTNET_DISTRIBUTOR,
+  RINKEBY_TESTNET_NNECC,
+  RINKEBY_TESTNET_STAKING,
+  RINKEBY_TESTNET_STAKING_HELPER,
+  RINKEBY_TESTNET_NDOL_BOND,
+} = require("../env.json");
 const { contractAt, sendTxn } = require("../scripts/shared/helpers");
 
 const eth = {
@@ -34,7 +44,7 @@ async function deployNecc(hre) {
   const epochLengthInSeconds = "3600";
 
   // Initial reward rate for epoch
-  const initialRewardRate = "750";
+  const initialRewardRate = "500";
 
   // Ethereum 0 address, used when toggling changes in treasury
   const zeroAddress = "0x0000000000000000000000000000000000000000";
@@ -69,7 +79,7 @@ async function deployNecc(hre) {
   const ndol = await contractAt("NdolFacet", NDOL.address);
   console.log((await ndol.balanceOf(DAO.address))?.toString());
 
-  const eth = await contractAt("Token", AURORA_MAINNET_WETH);
+  const eth = allDeployments?.ETHToken;
   const ExchangeDiamond = allDeployments.ExchangeDiamond;
   const router = await contractAt("RouterFacet", ExchangeDiamond.address);
   await sendTxn(
@@ -81,6 +91,15 @@ async function deployNecc(hre) {
   console.log((await ndol.balanceOf(deployer.address))?.toString());
   console.log("ndol balanceOf deployer");
 
+  // Deploy treasury
+  //@dev changed function in treaury from 'valueOf' to 'valueOfToken'... solidity function was coflicting w js object property name
+  const deployedTreasury = await diamond.deploy("TreasuryDiamond", {
+    from: deployer.address,
+    owner: deployer.address,
+    facets: ["TreasuryFacet", "BondingCalculatorFacet"],
+    log: true,
+  });
+  const treasury = { address: deployedTreasury.address };
   // Deploy Necc
   const necc = await diamond.deploy("NeccDiamond", {
     from: deployer.address,
@@ -93,35 +112,25 @@ async function deployNecc(hre) {
     "NeccDiamond",
     { from: deployer.address },
     "initialize",
-    DAO.address
+    treasury.address
   );
   console.log("necc initialize");
 
-  // Deploy sNecc
-  const NNecc = await diamond.deploy("sNeccDiamond", {
-    from: deployer.address,
-    owner: deployer.address,
-    facets: ["sNeccFacet"],
-    log: true,
-  });
-
-  // Deploy nNecc
-  const nNecc = await diamond.deploy("nNeccDiamond", {
+  const NNecc = await diamond.deploy("nNeccDiamond", {
     from: deployer.address,
     owner: deployer.address,
     facets: ["nNeccFacet"],
     log: true,
   });
 
-  // Deploy treasury
-  //@dev changed function in treaury from 'valueOf' to 'valueOfToken'... solidity function was coflicting w js object property name
-  const deployedTreasury = await diamond.deploy("TreasuryDiamond", {
+  // Deploy sNecc
+  const sNecc = await diamond.deploy("sNeccDiamond", {
     from: deployer.address,
     owner: deployer.address,
-    facets: ["TreasuryFacet", "BondingCalculatorFacet"],
+    facets: ["sNeccFacet"],
     log: true,
   });
-  const treasury = { address: deployedTreasury.address };
+  console.log("Deploy sNecc");
 
   await execute(
     "TreasuryDiamond",
@@ -163,8 +172,17 @@ async function deployNecc(hre) {
   );
   console.log("BondDepository initializeBondDepository");
 
+  const nNecc = await contractAt("nNeccFacet", NNecc.address);
+  await execute(
+    "nNeccDiamond",
+    { from: deployer.address },
+    "initialize",
+    staking.address,
+    sNecc.address
+  );
+  console.log("nNecc initialize");
+
   // sNecc initialize
-  const sNecc = await contractAt("sNeccFacet", NNecc.address);
   await execute(
     "sNeccDiamond",
     { from: deployer.address },
@@ -173,6 +191,8 @@ async function deployNecc(hre) {
     nNecc.address
   );
   console.log("sNecc initialize");
+
+  // nNecc initialize
 
   // Deploy staking distributor
   const distributor = { address: deployedNDOLBond.address };
@@ -196,15 +216,6 @@ async function deployNecc(hre) {
     nNecc.address
   );
   console.log("BondDepository initializeStaking");
-
-  await execute(
-    "nNeccDiamond",
-    { from: deployer.address },
-    "initialize",
-    staking.address,
-    sNecc.address
-  );
-  console.log("nNecc initialize");
 
   // Bonding calculator
   const bondingCalculator = { address: deployedNDOLBond.address };
@@ -341,13 +352,6 @@ async function deployNecc(hre) {
   await approvalTx.wait(1);
   console.log("necc approve staking");
 
-  const sNeccD = await contractAt("sNeccFacet", sNecc.address);
-  approvalTx = await sNeccD.approve(staking.address, largeApproval);
-  await approvalTx.wait(1);
-  console.log("sNecc approve staking");
-
-  const nNeccD = await contractAt("nNeccFacet", nNecc.address);
-
   // Deposit NDOL to treasury, deployer gets half back
   await execute(
     "TreasuryDiamond",
@@ -360,29 +364,22 @@ async function deployNecc(hre) {
   console.log("treasury deposit 5M NDOL");
   console.log("deployer receives 2.5M NECC");
 
-  let neccBalance = await neccD.balanceOf(deployer.address);
-  console.log(neccBalance?.toString());
+  // Stake 1000 Necc and claim
+  const b = await neccD.balanceOf(deployer.address);
+  console.log(b?.toString());
   console.log("necc balanceOf deployer");
 
+  // Bond 500 NDOL for Necc with a max price of 60000 (max payout is 0.5% of circulating supply)
   await execute(
     "BondDepositoryDiamond",
     { from: deployer.address },
-    "stake",
-    neccBalance?.toString(),
-    deployer.address
+    "deposit",
+    "5000000000000000000000",
+    "60000",
+    deployer.address,
+    ndol.address
   );
-
-  console.log("deployer stake necc balance");
-  neccBalance = await neccD.balanceOf(deployer.address);
-  console.log(neccBalance?.toString());
-  console.log("necc balanceOf deployer");
-  const sNeccBalance = await sNeccD.balanceOf(deployer.address);
-  console.log(sNeccBalance?.toString());
-  console.log("sNecc balanceOf deployer");
-
-  const nNeccBalance = await nNeccD.balanceOf(deployer.address);
-  console.log(nNeccBalance?.toString());
-  console.log("nNecc balanceOf deployer");
+  console.log("ndolBond deposit 5000 NDOL");
 
   const StakingD = await ethers.getContractFactory("StakingFacet"); // NDOL
   const stakingD = await StakingD.attach(staking.address);
