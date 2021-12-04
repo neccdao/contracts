@@ -108,6 +108,9 @@ contract BondDepositoryFacet is Facet {
         bool addition
     );
 
+    /* ======== ERRORS ======== */
+    error InvalidPrinciple(address _principle);
+
     /* ======== USER FUNCTIONS ======== */
 
     /**
@@ -171,16 +174,7 @@ contract BondDepositoryFacet is Facet {
                 IERC20(_principle).approve(address(s.treasury), _amount);
                 ITreasury(s.treasury).deposit(_amount, _principle, profit);
             } else {
-                /**
-            asset carries risk and is not minted against
-            asset transfered to treasury and rewards minted as payout
-         */
-                IERC20(_principle).safeTransferFrom(
-                    msg.sender,
-                    s.treasury,
-                    _amount
-                );
-                ITreasury(s.treasury).mintRewards(address(this), profit);
+                revert InvalidPrinciple(_principle);
             }
 
             if (fee != 0) {
@@ -228,14 +222,13 @@ contract BondDepositoryFacet is Facet {
     /**
      *  @notice redeem bond for user
      *  @param _recipient address
-     *  @param _stake bool
+     *  @param _principle address
      *  @return uint
      */
-    function redeem(
-        address _recipient,
-        address _principle,
-        bool _stake
-    ) external returns (uint256) {
+    function redeem(address _recipient, address _principle)
+        external
+        returns (uint256)
+    {
         uint256 _principleIndex = s.getIndexAt(_principle);
         LibBondStorage.Bond memory info = s.bondInfo[_recipient][
             _principleIndex
@@ -247,7 +240,7 @@ contract BondDepositoryFacet is Facet {
             // if fully vested
             delete s.bondInfo[_recipient][_principleIndex]; // delete user info
             emit BondRedeemed(_recipient, info.payout, 0); // emit bond data
-            return stakeOrSend(_recipient, _stake, info.payout, _principle); // pay user everything due
+            return stake(_recipient, info.payout); // pay user everything due
         } else {
             // if unfinished
             // calculate payout vested
@@ -267,7 +260,7 @@ contract BondDepositoryFacet is Facet {
                 payout,
                 s.bondInfo[_recipient][_principleIndex].payout
             );
-            return stakeOrSend(_recipient, _stake, payout, _principle);
+            return stake(_recipient, payout);
         }
     }
 
@@ -321,12 +314,7 @@ contract BondDepositoryFacet is Facet {
                     .decode112with18()
                     .div(1e16);
         } else {
-            // Reserve token like WETH
-            return
-                FixedPoint
-                    .fraction(_value, bondPrice(_principle))
-                    .decode112with18()
-                    .div(1e14);
+            revert InvalidPrinciple(_principle);
         }
     }
 
@@ -354,14 +342,7 @@ contract BondDepositoryFacet is Facet {
                 .mul(debtRatio(_principle))
                 .add(1000000000)
                 .div(1e7);
-        } else {
-            price_ = s
-                .terms[_principleIndex]
-                .controlVariable
-                .mul(debtRatio(_principle))
-                .div(1e5);
         }
-
         if (price_ < s.terms[_principleIndex].minimumPrice) {
             price_ = s.terms[_principleIndex].minimumPrice;
         }
@@ -388,14 +369,7 @@ contract BondDepositoryFacet is Facet {
                 .mul(debtRatio(_principle))
                 .add(1000000000)
                 .div(1e7);
-        } else {
-            price_ = s
-                .terms[_principleIndex]
-                .controlVariable
-                .mul(debtRatio(_principle))
-                .div(1e5);
         }
-
         if (price_ < s.terms[_principleIndex].minimumPrice) {
             price_ = s.terms[_principleIndex].minimumPrice;
         } else if (s.terms[_principleIndex].minimumPrice != 0) {
@@ -418,16 +392,12 @@ contract BondDepositoryFacet is Facet {
             price_ = bondPrice(_principle)
                 .mul(IBondCalculator(address(this)).markdown(_principle))
                 .div(100);
+        } else if (_principle == s.ndol) {
+            price_ = bondPrice(_principle)
+                .mul(10**IERC20Decimals(_principle).decimals())
+                .div(100);
         } else {
-            if (_principle == s.ndol) {
-                price_ = bondPrice(_principle)
-                    .mul(10**IERC20Decimals(_principle).decimals())
-                    .div(100);
-            } else {
-                price_ = bondPrice(_principle)
-                    .mul(uint256(assetPrice(_principle)))
-                    .mul(1e6);
-            }
+            revert InvalidPrinciple(_principle);
         }
     }
 
@@ -462,16 +432,10 @@ contract BondDepositoryFacet is Facet {
                 debtRatio(_principle)
                     .mul(IBondCalculator(address(this)).markdown(_principle))
                     .div(1e9);
+        } else if (_principle == s.ndol) {
+            return debtRatio(_principle);
         } else {
-            if (_principle == s.ndol) {
-                return debtRatio(_principle);
-            } else {
-                return
-                    debtRatio(_principle)
-                        .mul(uint256(assetPrice(_principle)))
-                        .div(IOracle(s.priceFeeds[_principleIndex]).decimals());
-                // ETH Feed is 8 decimals
-            }
+            revert InvalidPrinciple(_principle);
         }
     }
 
@@ -552,24 +516,16 @@ contract BondDepositoryFacet is Facet {
 
     /**
      *  @notice allow user to stake payout automatically
-     *  @param _stake bool
+     *  @param _recipient address
      *  @param _amount uint
      *  @return uint
      */
-    function stakeOrSend(
-        address _recipient,
-        bool _stake,
-        uint256 _amount,
-        address
-    ) internal returns (uint256) {
-        if (!_stake) {
-            // if user does not want to stake
-            IERC20(s.Necc).transfer(_recipient, _amount); // send payout
-        } else {
-            // if user wants to stake
-            IERC20(s.Necc).approve(address(this), _amount);
-            IStaking(address(this)).stake(_amount, _recipient);
-        }
+    function stake(address _recipient, uint256 _amount)
+        internal
+        returns (uint256)
+    {
+        IERC20(s.Necc).approve(address(this), _amount);
+        IStaking(address(this)).stake(_amount, _recipient);
 
         return _amount;
     }
