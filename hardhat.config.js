@@ -41,12 +41,12 @@ module.exports = {
     //   tags: ["local"],
     // },
     hardhat: {
-      chainId: 1337 || 1313161554,
+      chainId: 1337,
       live: false,
       saveDeployments: true,
       tags: ["hardhat"],
       forking: {
-        url: process.env.RINKEBY_TESTNET_URL || RINKEBY_TESTNET_URL,
+        url: "https://mainnet.aurora.dev",
       },
       accounts:
         process.env.NODE_ENV !== "test" && RINKEBY_TESTNET_DAO_KEY
