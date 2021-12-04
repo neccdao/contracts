@@ -112,25 +112,6 @@ contract StakingFacet is Facet {
     }
 
     /**
-        @notice redeem nNecc for Necc
-        @param _amount uint
-        @param _trigger bool
-     */
-    function unstake(uint256 _amount, bool _trigger)
-        external
-        returns (uint256 amount_)
-    {
-        if (_trigger) {
-            rebase();
-        }
-
-        InNecc(s.nNecc).burn(msg.sender, _amount); // amount was given in nNecc terms
-        amount_ = InNecc(s.nNecc).balanceFrom(_amount); // convert amount to Necc terms
-
-        IERC20(s.Necc).safeTransfer(msg.sender, amount_);
-    }
-
-    /**
      * @notice send staker their amount as nNecc (non-rebasing)
      * @param _recipient address
      * @param _amount uint

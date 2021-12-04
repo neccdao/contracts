@@ -178,15 +178,12 @@ contract BondDepositoryFacet is Facet {
             }
 
             if (fee != 0) {
-                // fee is transferred to dao
+                // fee is transferred to dao in nNecc
                 if (s.DAO != address(0)) {
-                    IERC20(s.Necc).safeTransfer(s.DAO, fee);
+                    stake(s.DAO, fee);
                 }
                 if (s.farmDistributor != address(0)) {
-                    IERC20(s.Necc).safeTransfer(
-                        s.farmDistributor,
-                        payout.mul(100).div(10000) // 1% farm distributor fee for minters
-                    );
+                    stake(s.farmDistributor, payout.mul(100).div(10000));
                 }
             }
         }
