@@ -50,13 +50,6 @@ contract BondConfigFacet is Facet {
 
     /**
      *  @notice initializes bond parameters
-     *  @param _controlVariable uint
-     *  @param _vestingTerm uint256
-     *  @param _minimumPrice uint
-     *  @param _maxPayout uint
-     *  @param _fee uint
-     *  @param _maxDebt uint
-     *  @param _initialDebt uint
      */
     function initializeBondTerms(
         uint256 _controlVariable,

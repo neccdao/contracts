@@ -22,6 +22,7 @@ async function deployNecc(hre) {
   const { deployments, ethers } = hre;
   const { diamond, execute, deploy, all } = deployments;
   const [deployer, DAO] = await ethers.getSigners();
+  return;
   const chainId = await getChainId();
   console.log({ chainId });
   if (chainId?.toString() !== "1337") {
@@ -44,7 +45,7 @@ async function deployNecc(hre) {
   const epochLengthInSeconds = "3600";
 
   // Initial reward rate for epoch
-  const initialRewardRate = "500";
+  const initialRewardRate = "400";
 
   // Ethereum 0 address, used when toggling changes in treasury
   const zeroAddress = "0x0000000000000000000000000000000000000000";
@@ -154,7 +155,6 @@ async function deployNecc(hre) {
       "DistributorFacet",
       "StakingFacet",
       "BondDepositoryLib",
-      "BondingCalculatorFacet",
     ],
     log: true,
   });
@@ -223,7 +223,7 @@ async function deployNecc(hre) {
     "BondingCalculatorFacet"
   );
   const standardBondingCalculatorD = await BondingCalculator.attach(
-    bondingCalculator.address
+    treasury.address
   );
 
   // Set NDOL bond terms

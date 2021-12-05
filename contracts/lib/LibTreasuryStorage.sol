@@ -11,12 +11,11 @@ library LibTreasuryStorage {
 
     // Single global store
     struct Storage {
-        // TODO: Refactor arrays to EnumerableSet
-        // Treasury
         address Necc;
+        address nNecc;
+        address sNecc;
         uint256 blocksNeededForQueue;
         address[] reserveTokens; // Push only, beware false-positives.
-        address sNecc;
         uint256 sNeccQueue; // Delays change to sNecc address
         uint256 totalReserves; // Risk-free value of all assets
         uint256 totalDebt;

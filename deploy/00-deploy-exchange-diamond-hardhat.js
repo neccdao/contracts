@@ -36,6 +36,7 @@ const deployExchangeDiamond = async function (hre) {
   const { diamond, execute, deploy } = deployments;
   const [deployer, DAO] = await ethers.getSigners();
   const chainId = await getChainId();
+  return;
   console.log({ chainId });
   if (chainId?.toString() !== "1337") {
     return;

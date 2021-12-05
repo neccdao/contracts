@@ -149,7 +149,6 @@ async function deployNecc(hre) {
       "DistributorFacet",
       "StakingFacet",
       "BondDepositoryLib",
-      "BondingCalculatorFacet",
     ],
     log: true,
   });
@@ -206,7 +205,7 @@ async function deployNecc(hre) {
     "BondingCalculatorFacet"
   );
   const standardBondingCalculatorD = await BondingCalculator.attach(
-    bondingCalculator.address
+    treasury.address
   );
 
   // Set NDOL bond terms

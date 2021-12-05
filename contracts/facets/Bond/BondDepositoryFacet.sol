@@ -387,7 +387,7 @@ contract BondDepositoryFacet is Facet {
 
         if (s.terms[_principleIndex].isLiquidityBond) {
             price_ = bondPrice(_principle)
-                .mul(IBondCalculator(address(this)).markdown(_principle))
+                .mul(IBondCalculator(s.treasury).markdown(_principle))
                 .div(100);
         } else if (_principle == s.ndol) {
             price_ = bondPrice(_principle)
@@ -427,7 +427,7 @@ contract BondDepositoryFacet is Facet {
         if (s.terms[_principleIndex].isLiquidityBond) {
             return
                 debtRatio(_principle)
-                    .mul(IBondCalculator(address(this)).markdown(_principle))
+                    .mul(IBondCalculator(s.treasury).markdown(_principle))
                     .div(1e9);
         } else if (_principle == s.ndol) {
             return debtRatio(_principle);

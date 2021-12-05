@@ -1,22 +1,18 @@
 const { AURORA_MAINNET_WETH } = require("../env.json");
 const { contractAt, sendTxn } = require("../scripts/shared/helpers");
 
-const eth = {
-  address: "0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", // RINKEBY_TESTNET_WETH
-};
-const near = {
-  address: "0xc42c30ac6cc15fac9bd938618bcaa1a1fae8501d", // RINKEBY_TESTNET_WNEAR
-};
-
 async function deployNecc(hre) {
   const { deployments, ethers } = hre;
   const { diamond, execute, deploy, all } = deployments;
   const [deployer, DAO] = await ethers.getSigners();
   const chainId = await getChainId();
   console.log({ chainId });
-  if (chainId?.toString() !== "1313161554") {
+  if (chainId?.toString() !== "1337") {
     return;
   }
+  // if (chainId?.toString() !== "1313161554") {
+  //   return;
+  // }
   const allDeployments = await all();
   console.log("*** Deploying for hardhat test ***");
   console.log("Deploying contracts with the account: " + deployer.address);
@@ -34,7 +30,7 @@ async function deployNecc(hre) {
   const epochLengthInSeconds = "3600";
 
   // Initial reward rate for epoch
-  const initialRewardRate = "750";
+  const initialRewardRate = "400";
 
   // Ethereum 0 address, used when toggling changes in treasury
   const zeroAddress = "0x0000000000000000000000000000000000000000";
@@ -43,23 +39,22 @@ async function deployNecc(hre) {
   const largeApproval = "100000000000000000000000000000000";
 
   // NDOL bond BCV
-  const ndolBondBCV = "369";
+  const ndolBondBCV = "1000";
 
   // Bond vesting length in seconds. 432000 ~ 5 days
   const bondVestingLengthInSeconds = "432000";
 
   // Min bond price
-  const minBondPrice = "50000";
+  const minBondPrice = "20000";
 
   // Max bond payout
-  const maxBondPayout = "50"; // 0.05%
+  const maxBondPayout = "75"; // 0.075%
 
-  // 25% DAO fee for bond
-  const bondFee = "2500";
+  // 20% DAO fee for bond
+  const bondFee = "2000";
 
   // Max debt bond can take on
-  // 1M %
-  const maxBondDebt = "1000000000000000";
+  const maxBondDebt = "2000000000000000";
 
   // Initial Bond debt
   const intialBondDebt = "0";
@@ -74,9 +69,9 @@ async function deployNecc(hre) {
   const router = await contractAt("RouterFacet", ExchangeDiamond.address);
   await sendTxn(
     router.swapETHToTokens([eth.address, NDOL.address], 0, deployer.address, {
-      value: ethers.utils.parseEther("1500"),
+      value: ethers.utils.parseEther("2500"),
     }),
-    "router.swapETHToTokens - ETH -> WETH -> NDOL (1500 ETH) (6,000,000 NDOL)"
+    "router.swapETHToTokens - ETH -> WETH -> NDOL (1500 ETH) (~10M NDOL)"
   );
   console.log((await ndol.balanceOf(deployer.address))?.toString());
   console.log("ndol balanceOf deployer");
@@ -128,6 +123,7 @@ async function deployNecc(hre) {
     { from: deployer.address },
     "initializeTreasury",
     necc.address,
+    nNecc.address,
     ndol.address,
     0
   );
@@ -145,7 +141,6 @@ async function deployNecc(hre) {
       "DistributorFacet",
       "StakingFacet",
       "BondDepositoryLib",
-      "BondingCalculatorFacet",
     ],
     log: true,
   });

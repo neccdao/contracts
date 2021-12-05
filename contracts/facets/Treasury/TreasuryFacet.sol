@@ -71,11 +71,14 @@ contract TreasuryFacet is Facet {
 
     function initializeTreasury(
         address _Necc,
+        address _nNecc,
         address _NDOL,
         uint256 _blocksNeededForQueue
     ) external {
         onlyGov();
         require(_Necc != address(0));
+        require(_nNecc != address(0));
+        s.nNecc = _nNecc;
         s.Necc = _Necc;
 
         s.isReserveToken[_NDOL] = true;
