@@ -111,16 +111,6 @@ async function deployNecc(hre) {
   });
   const treasury = { address: deployedTreasury.address };
 
-  await execute(
-    "TreasuryDiamond",
-    { from: deployer.address },
-    "initializeTreasury",
-    necc.address,
-    ndol.address,
-    0
-  );
-  console.log("Treasury initializeTreasury");
-
   // // Deploy sNecc
   const sNecc = await diamond.deploy("sNeccDiamond", {
     from: deployer.address,
@@ -136,6 +126,17 @@ async function deployNecc(hre) {
     facets: ["nNeccFacet"],
     log: true,
   });
+
+  await execute(
+    "TreasuryDiamond",
+    { from: deployer.address },
+    "initializeTreasury",
+    necc.address,
+    nNecc.address,
+    ndol.address,
+    0
+  );
+  console.log("Treasury initializeTreasury");
 
   // // Deploy NDOL bond
   // //@dev changed function call to Treasury of 'valueOf' to 'valueOfToken' in BondDepository due to change in Treausry contract
@@ -166,6 +167,15 @@ async function deployNecc(hre) {
     DAO.address
   );
   console.log("BondDepository initializeBondDepository");
+
+  await execute(
+    "sNeccDiamond",
+    { from: deployer.address },
+    "initialize",
+    staking.address,
+    nNecc.address
+  );
+  console.log("sNecc initialize");
 
   // Deploy staking distributor
   const distributor = { address: deployedNDOLBond.address };
@@ -226,16 +236,6 @@ async function deployNecc(hre) {
   );
   console.log("BondDepository initializeBondTerms ndolBond");
 
-  // Initialize sNecc and set the index
-  await execute(
-    "sNeccDiamond",
-    { from: deployer.address },
-    "initialize",
-    staking.address,
-    nNecc.address
-  );
-  console.log("sNecc initialize");
-
   await execute(
     "sNeccDiamond",
     { from: deployer.address },
@@ -243,15 +243,6 @@ async function deployNecc(hre) {
     initialIndex
   );
   console.log("sNecc setIndex");
-
-  // Set treasury for Necc token
-  await execute(
-    "NeccDiamond",
-    { from: deployer.address },
-    "setVault",
-    treasury.address
-  );
-  console.log("necc setVault => treasury");
 
   // Add staking contract as distributor recipient
   await execute(
@@ -344,6 +335,13 @@ async function deployNecc(hre) {
   await approvalTx.wait(1);
   console.log("necc approve staking");
 
+  const sNeccD = await contractAt("sNeccFacet", sNecc.address);
+  approvalTx = await sNeccD.approve(staking.address, largeApproval);
+  await approvalTx.wait(1);
+  console.log("sNecc approve staking");
+
+  const nNeccD = await contractAt("nNeccFacet", nNecc.address);
+
   // Deposit 500 NDOL to treasury, 80 Necc gets minted to deployer and 420 are in treasury as excesss reserves
   await execute(
     "TreasuryDiamond",
@@ -355,18 +353,17 @@ async function deployNecc(hre) {
   );
   console.log("treasury deposit 500 NDOL");
 
-  // Bond 500 NDOL for Necc with a max price of 60000 (max payout is 0.5%)
+  let neccBalance = await neccD.balanceOf(deployer.address);
+  console.log(neccBalance?.toString());
+  console.log("necc balanceOf deployer");
+
   await execute(
     "BondDepositoryDiamond",
     { from: deployer.address },
-    "deposit",
-    "5000000000000000000",
-    "60000",
-    deployer.address,
-    ndol.address
+    "stake",
+    neccBalance?.toString(),
+    deployer.address
   );
-  console.log("ndolBond deposit 5 NDOL");
-
   const StakingD = await ethers.getContractFactory("StakingFacet"); // NDOL
   const stakingD = await StakingD.attach(staking.address);
   const epoch = await stakingD.epoch();
