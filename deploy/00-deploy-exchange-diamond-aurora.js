@@ -41,12 +41,9 @@ const deployExchangeDiamond = async function (hre) {
   const [deployer, DAO] = await ethers.getSigners();
   const chainId = await getChainId();
   console.log({ chainId });
-  if (chainId?.toString() !== "1337") {
+  if (chainId?.toString() !== "1313161554") {
     return;
   }
-  // if (chainId?.toString() !== "1313161554") {
-  //   return;
-  // }
   console.log("Deploying contracts with the account: " + deployer.address);
   console.log("*** Deploying for hardhat test ***");
 

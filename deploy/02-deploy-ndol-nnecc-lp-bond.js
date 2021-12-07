@@ -1,15 +1,33 @@
 const {
   AURORA_MAINNET_AMM,
   AURORA_MAINNET_AMM_FACTORY,
+  RINKEBY_TESTNET_AMM,
+  RINKEBY_TESTNET_AMM_FACTORY,
 } = require("../env.json");
 const { sendTxn, contractAt } = require("../scripts/shared/helpers");
 const { expandDecimals } = require("../test/shared/utilities.js");
 
 async function deployNDOLNeccLPBond(hre) {
-  const { deployments, ethers } = hre;
+  const { deployments, ethers, getChainId } = hre;
   const { diamond, execute, all } = deployments;
   const [deployer, DAO] = await ethers.getSigners();
   const allDeployments = await all();
+  const chainId = await getChainId();
+  let ammAddress;
+  let ammFactoryAddress;
+  console.log({ chainId });
+  if (chainId?.toString() === "4") {
+    ammAddress = RINKEBY_TESTNET_AMM;
+    ammFactoryAddress = RINKEBY_TESTNET_AMM_FACTORY;
+  } else if (chainId?.toString() === "1337") {
+    ammAddress = AURORA_MAINNET_AMM;
+    ammFactoryAddress = AURORA_MAINNET_AMM_FACTORY;
+  } else if (chainId?.toString() === "1313161554") {
+    ammAddress = AURORA_MAINNET_AMM;
+    ammFactoryAddress = AURORA_MAINNET_AMM_FACTORY;
+  } else {
+    return;
+  }
   console.log("Deploying contracts with the account: " + deployer.address);
   // Initial staking index
   const initialIndex = "1000000000";
@@ -56,11 +74,11 @@ async function deployNDOLNeccLPBond(hre) {
   // - Seed the NDOL-NECC pair via the router
   const ammRouter = await ethers.getContractAt(
     "IUniswapV2Router01",
-    AURORA_MAINNET_AMM
+    ammAddress
   );
   const ammFactory = await ethers.getContractAt(
     "IUniswapV2Factory",
-    AURORA_MAINNET_AMM_FACTORY
+    ammFactoryAddress
   );
   const NDOL = await allDeployments?.NdolDiamond;
   const NECCD = await allDeployments?.NeccDiamond;

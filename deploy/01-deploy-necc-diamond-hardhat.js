@@ -22,7 +22,6 @@ async function deployNecc(hre) {
   const { deployments, ethers } = hre;
   const { diamond, execute, deploy, all } = deployments;
   const [deployer, DAO] = await ethers.getSigners();
-  return;
   const chainId = await getChainId();
   console.log({ chainId });
   if (chainId?.toString() !== "1337") {
@@ -138,6 +137,7 @@ async function deployNecc(hre) {
     { from: deployer.address },
     "initializeTreasury",
     necc.address,
+    NNecc.address,
     ndol.address,
     0
   );
