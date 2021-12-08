@@ -71,8 +71,6 @@ module.exports = {
         : [],
       url: RINKEBY_TESTNET_URL,
     },
-    // rinkeby: {
-    // },
 
     // arbitrumMainnet: {
     //   url: ARBITRUM_MAINNET_URL,
@@ -87,9 +85,9 @@ module.exports = {
     //   accounts: [ARBITRUM_KOVAN_DEPLOY_KEY],
     // },
   },
-  // etherscan: {
-  //   apiKey: RINKEBY_ETHERSCAN_API_KEY,
-  // },
+  etherscan: {
+    apiKey: RINKEBY_ETHERSCAN_API_KEY,
+  },
   solidity: {
     compilers: [{ version: "0.8.10" }],
     settings: {

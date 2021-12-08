@@ -66,6 +66,13 @@ async function ndeployNeccFarm(hre) {
 
   console.log("MintFarm: " + MintFarm.address);
   console.log("MintDistributor: " + MintDistributor.address);
+  console.log(
+    Object.keys(allDeployments).map((key) =>
+      console.log({
+        [key]: allDeployments[key].address,
+      })
+    )
+  );
 }
 
 module.exports = ndeployNeccFarm;

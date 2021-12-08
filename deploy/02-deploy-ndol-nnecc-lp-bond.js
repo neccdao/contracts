@@ -105,7 +105,10 @@ async function deployNDOLNeccLPBond(hre) {
   console.log("ndolBondPrice?.toString()");
 
   // 5M
-  const nNECCToAddLiquidity = 12500;
+  let nNECCToAddLiquidity = 12500;
+  if (chainId?.toString() === "4") {
+    nNECCToAddLiquidity = 2;
+  }
 
   await sendTxn(
     ammRouter.addLiquidity(
@@ -287,28 +290,28 @@ async function deployNDOLNeccLPBond(hre) {
   );
   console.log("bdD payoutFor 1% remaining ndolNeccLPPair");
 
-  await sendTxn(
-    ammRouter.addLiquidity(
-      nNECC.address,
-      NDOL.address,
-      expandDecimals(4000, 18),
-      ndolBondPrice?.mul(4000),
-      0,
-      0,
-      deployer.address,
-      Math.round(Date.now() / 1000) + 360
-    ),
-    `ammRouter.addLiquidity(
-      ${nNECC.address},
-      ${NDOL.address},
-      10k Necc,
-      10k * ndol bond price,
-      0,
-      0,
-      deployer.address,
-      Math.round(Date.now() / 1000) + 360
-    )`
-  );
+  // await sendTxn(
+  //   ammRouter.addLiquidity(
+  //     nNECC.address,
+  //     NDOL.address,
+  //     expandDecimals(4000, 18),
+  //     ndolBondPrice?.mul(4000),
+  //     0,
+  //     0,
+  //     deployer.address,
+  //     Math.round(Date.now() / 1000) + 360
+  //   ),
+  //   `ammRouter.addLiquidity(
+  //     ${nNECC.address},
+  //     ${NDOL.address},
+  //     10k Necc,
+  //     10k * ndol bond price,
+  //     0,
+  //     0,
+  //     deployer.address,
+  //     Math.round(Date.now() / 1000) + 360
+  //   )`
+  // );
 
   // Bond 0.0005 ~500USD ndolNeccLPPair for Necc with a max price of 60000 (max payout is 0.5%)
   // await execute(

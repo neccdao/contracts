@@ -562,4 +562,16 @@ contract TreasuryFacet is Facet {
         }
         return false;
     }
+
+    function isReserveToken(address _principle) external view returns (bool) {
+        return s.isReserveToken[_principle];
+    }
+
+    function isReserveDepositor(address _depositor)
+        external
+        view
+        returns (bool)
+    {
+        return s.isReserveDepositor[_depositor];
+    }
 }

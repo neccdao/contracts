@@ -34,9 +34,6 @@ const minProfitBasisPoints = 0;
 const vaultPriceFeedSpreadBasisPoints = 5;
 
 const zeroAddress = "0x0000000000000000000000000000000000000000";
-const usdc = {
-  address: RINKEBY_TESTNET_USDC,
-};
 // Chainlink Price feed
 const ethPriceFeed = {
   address: RINKEBY_TESTNET_ETH_PRICE_FEED,
@@ -53,7 +50,6 @@ const deployExchangeDiamond = async function (hre) {
   const { deployments, ethers } = hre;
   const { diamond, execute, deploy } = deployments;
   const [deployer, DAO] = await ethers.getSigners();
-
   const chainId = await getChainId();
   console.log({ chainId });
   if (chainId?.toString() !== "4") {
@@ -90,6 +86,7 @@ const deployExchangeDiamond = async function (hre) {
     ],
     log: true,
   });
+  console.log("Deployed ExchangeDiamond");
 
   const NDOL = await diamond.deploy("NdolDiamond", {
     from: deployer.address,
@@ -101,12 +98,19 @@ const deployExchangeDiamond = async function (hre) {
   console.log("Ndol initialize");
   await wait(10000);
 
+  const vaultConfigFacet = await contractAt(
+    "VaultConfigFacet",
+    exchangeDiamond.address
+  );
+  console.log("vaultConfigFacet.isInitialized()");
+  console.log(await vaultConfigFacet.isInitialized());
+
   await execute(
     "ExchangeDiamond",
     { from: deployer.address },
     "initialize",
     eth.address,
-    ndol.address
+    NDOL.address
   );
   console.log("ExchangeDiamond initialize");
   await wait(10000);
@@ -144,6 +148,8 @@ const deployExchangeDiamond = async function (hre) {
   );
   console.log("ExchangeDiamond setTokenConfig BTC");
 
+  console.log("WETH: " + eth.address);
+  console.log("WBTC: " + btc.address);
   console.log("ExchangeDiamond: " + exchangeDiamond.address);
   console.log("NDOL: " + ndol.address);
   console.log("VM: " + vm.address);
