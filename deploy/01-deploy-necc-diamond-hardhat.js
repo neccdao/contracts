@@ -137,7 +137,7 @@ async function deployNecc(hre) {
     { from: deployer.address },
     "initializeTreasury",
     necc.address,
-    NNecc.address,
+    sNecc.address,
     ndol.address,
     0
   );

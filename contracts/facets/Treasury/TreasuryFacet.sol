@@ -64,21 +64,21 @@ contract TreasuryFacet is Facet {
         LIQUIDITYDEPOSITOR,
         LIQUIDITYTOKEN,
         LIQUIDITYMANAGER,
-        DEBTOR,
         REWARDMANAGER,
-        NNECC
+        DEBTOR,
+        SNECC
     }
 
     function initializeTreasury(
         address _Necc,
-        address _nNecc,
+        address _sNecc,
         address _NDOL,
         uint256 _blocksNeededForQueue
     ) external {
         onlyGov();
         require(_Necc != address(0));
-        require(_nNecc != address(0));
-        s.nNecc = _nNecc;
+        require(_sNecc != address(0));
+        s.sNecc = _sNecc;
         s.Necc = _Necc;
 
         s.isReserveToken[_NDOL] = true;
@@ -361,7 +361,7 @@ contract TreasuryFacet is Facet {
             s.rewardManagerQueue[_address] = block.number.add(
                 s.blocksNeededForQueue
             );
-        } else if (_managing == MANAGING.NNECC) {
+        } else if (_managing == MANAGING.SNECC) {
             // 9
             s.sNeccQueue = block.number.add(s.blocksNeededForQueue);
         } else return false;
@@ -513,7 +513,7 @@ contract TreasuryFacet is Facet {
             }
             _result = !s.isRewardManager[_address];
             s.isRewardManager[_address] = _result;
-        } else if (_managing == MANAGING.NNECC) {
+        } else if (_managing == MANAGING.SNECC) {
             // 9
             s.sNeccQueue = 0;
             s.sNecc = _address;
