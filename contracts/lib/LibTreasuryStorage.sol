@@ -12,8 +12,8 @@ library LibTreasuryStorage {
     // Single global store
     struct Storage {
         address Necc;
-        address nNecc;
         address sNecc;
+        address nNecc;
         uint256 blocksNeededForQueue;
         address[] reserveTokens; // Push only, beware false-positives.
         uint256 sNeccQueue; // Delays change to sNecc address

@@ -1,4 +1,5 @@
 const {
+  AURORA_MAINNET_WETH,
   AURORA_MAINNET_AMM,
   AURORA_MAINNET_AMM_FACTORY,
   RINKEBY_TESTNET_AMM,
@@ -26,6 +27,7 @@ async function deployNDOLNeccLPBond(hre) {
     ammAddress = AURORA_MAINNET_AMM;
     ammFactoryAddress = AURORA_MAINNET_AMM_FACTORY;
   } else {
+    // Don't do anything for Rinkeby for now
     return;
   }
   console.log("Deploying contracts with the account: " + deployer.address);
@@ -51,13 +53,13 @@ async function deployNDOLNeccLPBond(hre) {
   const largeApproval = "100000000000000000000000000000000";
 
   // ndolnNeccLP bond BCV
-  const ndolnNeccLPBondBCV = "725";
+  const ndolnNeccLPBondBCV = "500";
 
   // Bond vesting length in seconds. 432000 ~ 5 days
   const bondVestingLengthInSeconds = "432000";
 
   // Min bond price
-  const minBondPrice = "1600";
+  const minBondPrice = "1200";
 
   // Max bond payout
   const maxBondPayout = "75"; // 0.075%
@@ -80,12 +82,16 @@ async function deployNDOLNeccLPBond(hre) {
     "IUniswapV2Factory",
     ammFactoryAddress
   );
+
+  const eth = allDeployments?.ETHToken || { address: AURORA_MAINNET_WETH };
+  const Exchange = await allDeployments?.ExchangeDiamond;
   const NDOL = await allDeployments?.NdolDiamond;
   const NECCD = await allDeployments?.NeccDiamond;
   const nNECCD = await allDeployments?.nNeccDiamond;
   const bondDepository = allDeployments?.BondDepositoryDiamond;
   const treasury = allDeployments?.TreasuryDiamond;
 
+  const router = await contractAt("RouterFacet", Exchange.address);
   const necc = await contractAt("NeccFacet", NECCD.address);
   // Approve the router to spend NDOL and nNECC
   const nNECC = await contractAt("nNeccFacet", nNECCD.address);
@@ -105,9 +111,22 @@ async function deployNDOLNeccLPBond(hre) {
   console.log("ndolBondPrice?.toString()");
 
   // 5M
-  let nNECCToAddLiquidity = 12500;
+  console.log((await nNECC.balanceOf(deployer.address))?.toString());
+  console.log("nNECC.balanceOf(deployer.address)");
+  let nNECCToAddLiquidity = 0;
   if (chainId?.toString() === "4") {
     nNECCToAddLiquidity = 2;
+  }
+  if (chainId?.toString() === "1337") {
+    nNECCToAddLiquidity = 12500;
+
+    // Get more NDOL
+    await sendTxn(
+      router.swapETHToTokens([eth.address, NDOL.address], 0, deployer.address, {
+        value: ethers.utils.parseEther("1500"),
+      }),
+      "router.swapETHToTokens - ETH -> WETH -> NDOL (1500 ETH) (6,000,000 NDOL)"
+    );
   }
 
   await sendTxn(
@@ -290,28 +309,30 @@ async function deployNDOLNeccLPBond(hre) {
   );
   console.log("bdD payoutFor 1% remaining ndolNeccLPPair");
 
-  // await sendTxn(
-  //   ammRouter.addLiquidity(
-  //     nNECC.address,
-  //     NDOL.address,
-  //     expandDecimals(4000, 18),
-  //     ndolBondPrice?.mul(4000),
-  //     0,
-  //     0,
-  //     deployer.address,
-  //     Math.round(Date.now() / 1000) + 360
-  //   ),
-  //   `ammRouter.addLiquidity(
-  //     ${nNECC.address},
-  //     ${NDOL.address},
-  //     10k Necc,
-  //     10k * ndol bond price,
-  //     0,
-  //     0,
-  //     deployer.address,
-  //     Math.round(Date.now() / 1000) + 360
-  //   )`
-  // );
+  if (chainId?.toString() === "1337") {
+    await sendTxn(
+      ammRouter.addLiquidity(
+        nNECC.address,
+        NDOL.address,
+        expandDecimals(4000, 18),
+        ndolBondPrice?.mul(4000),
+        0,
+        0,
+        deployer.address,
+        Math.round(Date.now() / 1000) + 360
+      ),
+      `ammRouter.addLiquidity(
+      ${nNECC.address},
+      ${NDOL.address},
+      10k Necc,
+      10k * ndol bond price,
+      0,
+      0,
+      deployer.address,
+      Math.round(Date.now() / 1000) + 360
+    )`
+    );
+  }
 
   // Bond 0.0005 ~500USD ndolNeccLPPair for Necc with a max price of 60000 (max payout is 0.5%)
   // await execute(

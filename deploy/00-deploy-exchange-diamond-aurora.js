@@ -44,6 +44,9 @@ const deployExchangeDiamond = async function (hre) {
   if (chainId?.toString() !== "1313161554") {
     return;
   }
+  // if (chainId?.toString() !== "1337") {
+  //   return;
+  // }
   console.log("Deploying contracts with the account: " + deployer.address);
   console.log("*** Deploying for hardhat test ***");
 

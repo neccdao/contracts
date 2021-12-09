@@ -144,6 +144,7 @@ async function deployNecc(hre) {
     "initializeTreasury",
     necc.address,
     sNecc.address,
+    nNecc.address,
     ndol.address,
     0
   );
@@ -160,7 +161,6 @@ async function deployNecc(hre) {
       "BondDepositoryFacet",
       "DistributorFacet",
       "StakingFacet",
-      "BondDepositoryLib",
     ],
     log: true,
   });

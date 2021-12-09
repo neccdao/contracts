@@ -53,16 +53,16 @@ async function deployNecc(hre) {
   const largeApproval = "100000000000000000000000000000000";
 
   // NDOL bond BCV
-  const ndolBondBCV = "369";
+  const ndolBondBCV = "1000";
 
   // Bond vesting length in seconds. 432000 ~ 5 days
   const bondVestingLengthInSeconds = "432000";
 
   // Min bond price
-  const minBondPrice = "50000";
+  const minBondPrice = "20000";
 
   // Max bond payout
-  const maxBondPayout = "50"; // 0.05%
+  const maxBondPayout = "75"; // 0.075%
 
   // 25% DAO fee for bond
   const bondFee = "2500";
@@ -122,6 +122,7 @@ async function deployNecc(hre) {
     facets: ["nNeccFacet"],
     log: true,
   });
+  const nNecc = await contractAt("nNeccFacet", NNecc.address);
 
   // Deploy sNecc
   const sNecc = await diamond.deploy("sNeccDiamond", {
@@ -138,6 +139,7 @@ async function deployNecc(hre) {
     "initializeTreasury",
     necc.address,
     sNecc.address,
+    nNecc.address,
     ndol.address,
     0
   );
@@ -154,7 +156,6 @@ async function deployNecc(hre) {
       "BondDepositoryFacet",
       "DistributorFacet",
       "StakingFacet",
-      "BondDepositoryLib",
     ],
     log: true,
   });
@@ -172,7 +173,6 @@ async function deployNecc(hre) {
   );
   console.log("BondDepository initializeBondDepository");
 
-  const nNecc = await contractAt("nNeccFacet", NNecc.address);
   await execute(
     "nNeccDiamond",
     { from: deployer.address },
@@ -355,10 +355,25 @@ async function deployNecc(hre) {
   console.log("treasury deposit 5M NDOL");
   console.log("deployer receives 2.5M NECC");
 
-  // Stake 1000 Necc and claim
+  const neccBalance = await neccD.balanceOf(deployer.address);
+
+  // Stake Necc
+  await execute(
+    "BondDepositoryDiamond",
+    { from: deployer.address },
+    "stake",
+    neccBalance,
+    deployer.address
+  );
+  console.log("stake necc for nNecc, half profit");
+
   const b = await neccD.balanceOf(deployer.address);
   console.log(b?.toString());
   console.log("necc balanceOf deployer");
+
+  const n = await nNecc.balanceOf(deployer.address);
+  console.log(n?.toString());
+  console.log("nNecc balanceOf deployer");
 
   // Bond 500 NDOL for Necc with a max price of 60000 (max payout is 0.5% of circulating supply)
   await execute(

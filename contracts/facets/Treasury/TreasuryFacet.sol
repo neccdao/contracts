@@ -56,6 +56,7 @@ contract TreasuryFacet is Facet {
         bool result
     );
 
+    // Do not change the order of the following constants
     enum MANAGING {
         RESERVEDEPOSITOR,
         RESERVESPENDER,
@@ -64,22 +65,25 @@ contract TreasuryFacet is Facet {
         LIQUIDITYDEPOSITOR,
         LIQUIDITYTOKEN,
         LIQUIDITYMANAGER,
-        REWARDMANAGER,
         DEBTOR,
+        REWARDMANAGER,
         SNECC
     }
 
     function initializeTreasury(
         address _Necc,
         address _sNecc,
+        address _nNecc,
         address _NDOL,
         uint256 _blocksNeededForQueue
     ) external {
         onlyGov();
         require(_Necc != address(0));
         require(_sNecc != address(0));
-        s.sNecc = _sNecc;
+        require(_nNecc != address(0));
         s.Necc = _Necc;
+        s.sNecc = _sNecc;
+        s.nNecc = _nNecc;
 
         s.isReserveToken[_NDOL] = true;
         s.reserveTokens.push(_NDOL);
