@@ -37,17 +37,20 @@ contract DistributorFacet is Facet {
                     .add(s.epochLength); // set next epoch timestamp
 
                 // distribute rewards to each recipient
-                for (uint256 i = 0; i < s.info.length; i++) {
-                    if (s.info[i].rate > 0) {
-                        ITreasury(s.treasury).mintRewards( // mint and send from treasury
-                            s.info[i].recipient,
-                            nextRewardAt(s.info[i].rate)
-                        );
-                        adjust(i); // check for adjustment
-                    }
-                }
             } else {
                 _success = false;
+            }
+        }
+
+        if (_success) {
+            for (uint256 i = 0; i < s.info.length; i++) {
+                if (s.info[i].rate > 0) {
+                    ITreasury(s.treasury).mintRewards( // mint and send from treasury
+                        s.info[i].recipient,
+                        nextRewardAt(s.info[i].rate)
+                    );
+                    adjust(i); // check for adjustment
+                }
             }
         }
 
