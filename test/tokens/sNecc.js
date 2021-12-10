@@ -57,7 +57,9 @@ describe("sNecc", () => {
 
       it("emits Transfer event", async () => {
         await expect(
-          sNecc.connect(deployer).initialize(staking.address, nNecc.address)
+          sNecc
+            .connect(deployer)
+            .initialize(staking.address, nNecc.address, treasury.address)
         )
           .to.emit(sNecc, "Transfer")
           .withArgs(ZERO_ADDRESS, staking.address, TOTAL_GONS);
@@ -65,7 +67,9 @@ describe("sNecc", () => {
 
       it("emits LogStakingContractUpdated event", async () => {
         await expect(
-          sNecc.connect(deployer).initialize(staking.address, nNecc.address)
+          sNecc
+            .connect(deployer)
+            .initialize(staking.address, nNecc.address, treasury.address)
         )
           .to.emit(sNecc, "LogStakingContractUpdated")
           .withArgs(staking.address);
