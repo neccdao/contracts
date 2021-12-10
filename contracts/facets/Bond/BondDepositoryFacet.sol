@@ -11,41 +11,9 @@ import "../../lib/LibBondStorage.sol";
 import "./BondDepositoryLib.sol";
 import "./Facet.sol";
 
-// Chainlink price feed
-interface IOracle {
-    function decimals() external view returns (uint8);
-
-    function description() external view returns (string memory);
-
-    function version() external view returns (uint256);
-
-    // getRoundData and latestRoundData should both raise "No data present"
-    // if they do not have data to report, instead of returning unset values
-    // which could be misinterpreted as actual reported values.
-    function getRoundData(uint80 _roundId)
-        external
-        view
-        returns (
-            uint80 roundId,
-            int256 answer,
-            uint256 startedAt,
-            uint256 updatedAt,
-            uint80 answeredInRound
-        );
-
-    function latestRoundData()
-        external
-        view
-        returns (
-            uint80 roundId,
-            int256 answer,
-            uint256 startedAt,
-            uint256 updatedAt,
-            uint80 answeredInRound
-        );
-}
-
 interface ITreasury {
+    function baseSupply() external view returns (uint256);
+
     function mintRewards(address _recipient, uint256 _amount) external;
 
     function deposit(
@@ -281,8 +249,8 @@ contract BondDepositoryFacet is Facet {
     function maxPayout(address _principle) public view returns (uint256) {
         uint256 _principleIndex = s.getIndexAt(_principle);
         return
-            IERC20(s.Necc)
-                .totalSupply()
+            ITreasury(s.treasury)
+                .baseSupply()
                 .mul(s.terms[_principleIndex].maxPayout)
                 .div(100000);
     }
@@ -298,6 +266,7 @@ contract BondDepositoryFacet is Facet {
         returns (uint256)
     {
         uint256 _principleIndex = s.getIndexAt(_principle);
+
         if (s.terms[_principleIndex].isLiquidityBond) {
             return
                 FixedPoint
@@ -407,9 +376,11 @@ contract BondDepositoryFacet is Facet {
         view
         returns (uint256 debtRatio_)
     {
-        uint256 supply = IERC20(s.Necc).totalSupply();
         debtRatio_ = FixedPoint
-            .fraction(currentDebt(_principle).mul(1e9), supply)
+            .fraction(
+                currentDebt(_principle).mul(1e9),
+                ITreasury(s.treasury).baseSupply()
+            )
             .decode112with18()
             .div(1e18);
     }
@@ -424,6 +395,7 @@ contract BondDepositoryFacet is Facet {
         returns (uint256)
     {
         uint256 _principleIndex = s.getIndexAt(_principle);
+
         if (s.terms[_principleIndex].isLiquidityBond) {
             return
                 debtRatio(_principle)
@@ -442,6 +414,7 @@ contract BondDepositoryFacet is Facet {
      */
     function currentDebt(address _principle) public view returns (uint256) {
         uint256 _principleIndex = s.getIndexAt(_principle);
+
         return s.totalDebt[_principleIndex].sub(debtDecay(_principle));
     }
 
