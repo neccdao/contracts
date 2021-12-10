@@ -23,6 +23,14 @@ interface IERC20Mintable {
     function burnFrom(address account_, uint256 amount_) external;
 }
 
+interface IsNecc {
+    function changeDebt(
+        uint256 _amount,
+        address _debtor,
+        bool _add
+    ) external;
+}
+
 contract TreasuryFacet is Facet {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
@@ -70,6 +78,8 @@ contract TreasuryFacet is Facet {
         SNECC
     }
 
+    error InvalidToken(address _token);
+
     function initializeTreasury(
         address _Necc,
         address _sNecc,
@@ -95,7 +105,10 @@ contract TreasuryFacet is Facet {
         @notice send epoch reward to staking contract
      */
     function mintRewards(address _recipient, uint256 _amount) external {
-        require(s.isRewardManager[msg.sender], "Treasury: Not approved");
+        require(
+            s.isRewardManager[msg.sender],
+            "Treasury: Reward Manager Not approved"
+        );
         require(_amount <= excessReserves(), "Treasury: Insufficient reserves");
 
         IERC20Mintable(s.Necc).mint(_recipient, _amount);
@@ -115,20 +128,18 @@ contract TreasuryFacet is Facet {
         address _token,
         uint256 _profit
     ) external returns (uint256 send_) {
-        require(
-            s.isReserveToken[_token] || s.isLiquidityToken[_token],
-            "Treasury: Not accepted"
-        );
-        IERC20(_token).safeTransferFrom(msg.sender, address(this), _amount);
-
         if (s.isReserveToken[_token]) {
             require(s.isReserveDepositor[msg.sender], "Treasury: Not approved");
-        } else {
+        } else if (s.isLiquidityToken[_token]) {
             require(
                 s.isLiquidityDepositor[msg.sender],
                 "Treasury: Not approved"
             );
+        } else {
+            revert InvalidToken(_token);
         }
+
+        IERC20(_token).safeTransferFrom(msg.sender, address(this), _amount);
 
         uint256 value = valueOfToken(_token, _amount);
         // mint Necc needed and store amount of rewards for distribution
@@ -136,8 +147,8 @@ contract TreasuryFacet is Facet {
         IERC20Mintable(s.Necc).mint(msg.sender, send_);
 
         s.totalReserves = s.totalReserves.add(value);
-        emit ReservesUpdated(s.totalReserves);
 
+        emit ReservesUpdated(s.totalReserves);
         emit Deposit(_token, _amount, value);
 
         return send_;
@@ -172,22 +183,36 @@ contract TreasuryFacet is Facet {
         @param _token address
      */
     function incurDebt(uint256 _amount, address _token) external {
-        require(s.isDebtor[msg.sender], "Treasury: Not approved");
-        require(s.isReserveToken[_token], "Treasury: Not accepted");
+        uint256 _value;
+        if (_token == address(s.Necc)) {
+            require(
+                s.isReserveDepositor[msg.sender],
+                "Treasury: Debtor Not approved"
+            );
+            _value = _amount;
+        } else {
+            require(
+                s.isReserveDepositor[msg.sender],
+                "Treasury: Debtor Not approved"
+            );
+            require(
+                s.isReserveToken[_token],
+                "Treasury: Reserve Token Not approved"
+            );
+            _value = valueOfToken(_token, _amount);
+        }
+        require(_value != 0, "Treasury: Invalid token");
 
-        uint256 _value = valueOfToken(_token, _amount);
-
-        uint256 maximumDebt = IERC20(s.sNecc).balanceOf(msg.sender); // Can only borrow against sNecc held
-        uint256 availableDebt = maximumDebt.sub(s.debtorBalance[msg.sender]);
-        require(_value <= availableDebt, "Exceeds debt limit");
-
-        s.debtorBalance[msg.sender] = s.debtorBalance[msg.sender].add(_value);
+        IsNecc(s.sNecc).changeDebt(_value, msg.sender, true);
         s.totalDebt = s.totalDebt.add(_value);
 
-        s.totalReserves = s.totalReserves.sub(_value);
-        emit ReservesUpdated(s.totalReserves);
-
-        IERC20(_token).transfer(msg.sender, _amount);
+        if (_token == address(s.Necc)) {
+            IERC20Mintable(s.Necc).mint(msg.sender, _value);
+            s.neccDebt = s.neccDebt.add(_value);
+        } else {
+            s.totalReserves = s.totalReserves.sub(_value);
+            IERC20(_token).safeTransfer(msg.sender, _amount);
+        }
 
         emit CreateDebt(msg.sender, _token, _amount, _value);
     }
@@ -204,10 +229,10 @@ contract TreasuryFacet is Facet {
         IERC20(_token).safeTransferFrom(msg.sender, address(this), _amount);
 
         uint256 _value = valueOfToken(_token, _amount);
-        s.debtorBalance[msg.sender] = s.debtorBalance[msg.sender].sub(_value);
+        IsNecc(s.sNecc).changeDebt(_value, msg.sender, false);
         s.totalDebt = s.totalDebt.sub(_value);
-
         s.totalReserves = s.totalReserves.add(_value);
+
         emit ReservesUpdated(s.totalReserves);
 
         emit RepayDebt(msg.sender, _token, _amount, _value);
@@ -221,10 +246,10 @@ contract TreasuryFacet is Facet {
         require(s.isDebtor[msg.sender], "Treasury: Not approved");
 
         IERC20Mintable(s.Necc).burnFrom(msg.sender, _amount);
+        IsNecc(s.sNecc).changeDebt(_amount, msg.sender, false);
 
-        s.debtorBalance[msg.sender] = s.debtorBalance[msg.sender].sub(_amount);
         s.totalDebt = s.totalDebt.sub(_amount);
-
+        s.neccDebt = s.neccDebt.sub(_amount);
         emit RepayDebt(msg.sender, s.Necc, _amount, _amount);
     }
 
@@ -240,13 +265,16 @@ contract TreasuryFacet is Facet {
             require(s.isReserveManager[msg.sender], "Treasury: Not approved");
         }
 
-        uint256 _value = valueOfToken(_token, _amount);
-        (_token, _amount);
-        require(_value <= excessReserves(), "Treasury: Insufficient reserves");
+        if (s.isLiquidityToken[_token] || s.isReserveToken[_token]) {
+            uint256 _value = valueOfToken(_token, _amount);
+            require(
+                _value <= excessReserves(),
+                "Treasury: Insufficient reserves"
+            );
+            s.totalReserves = s.totalReserves.sub(_value);
+        }
 
-        s.totalReserves = s.totalReserves.sub(_value);
         emit ReservesUpdated(s.totalReserves);
-
         IERC20(_token).safeTransfer(msg.sender, _amount);
 
         emit ReservesManaged(_token, _amount);
@@ -577,5 +605,13 @@ contract TreasuryFacet is Facet {
         returns (bool)
     {
         return s.isReserveDepositor[_depositor];
+    }
+
+    /**
+     * @notice returns supply metric that cannot be manipulated by debt
+     * @dev use this any time you need to query supply
+     */
+    function baseSupply() external view returns (uint256) {
+        return IERC20(s.Necc).totalSupply() - s.neccDebt;
     }
 }
