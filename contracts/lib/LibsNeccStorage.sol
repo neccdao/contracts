@@ -35,12 +35,15 @@ library LibsNeccStorage {
         uint256 INDEX; // Index Gons - tracks rebase growth
         address stakingContract; // balance used to calc rebase
         address nNecc; // balance used to calc rebase
+        address treasury;
         IOracle oracle; // pulls price from pool
         address pool;
         Rebase[] rebases; // past rebase data
         uint256 _gonsPerFragment;
         mapping(address => uint256) _gonBalances;
+        mapping(address => uint256) debtBalances;
         mapping(address => mapping(address => uint256)) _allowedValue;
+        // Always add below here
     }
 
     bytes32 internal constant STORAGE_SLOT =
