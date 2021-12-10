@@ -91,13 +91,18 @@ contract BondingCalculatorFacet is Facet {
             .decimals();
         uint256 token1 = IERC20Metadata(IUniswapV2Pair(_pair).token1())
             .decimals();
-        uint256 decimals = token0.add(token1).sub(
-            IERC20Metadata(_pair).decimals()
-        );
-
         (uint256 reserve0, uint256 reserve1, ) = IUniswapV2Pair(_pair)
             .getReserves();
-        k_ = reserve0.mul(reserve1).div(10**decimals);
+        uint256 reserveDecimals = token0.add(token1);
+        uint256 pairDecimals = IERC20Metadata(_pair).decimals();
+
+        if (reserveDecimals >= pairDecimals) {
+            uint256 decimals = reserveDecimals.sub(pairDecimals);
+            k_ = reserve0.mul(reserve1).div(10**decimals);
+        } else {
+            uint256 decimals = pairDecimals.sub(reserveDecimals);
+            k_ = reserve0.mul(reserve1).mul(10**decimals);
+        }
     }
 
     function getTotalValue(address _pair) public view returns (uint256 _value) {
@@ -122,14 +127,19 @@ contract BondingCalculatorFacet is Facet {
             .getReserves();
 
         uint256 reserve;
-        if (IUniswapV2Pair(_pair).token0() == address(s.Necc)) {
+        if (IUniswapV2Pair(_pair).token0() == address(s.nNecc)) {
             reserve = reserve1;
         } else {
+            require(
+                IUniswapV2Pair(_pair).token1() == address(s.nNecc),
+                "Invalid pair"
+            );
             reserve = reserve0;
         }
         return
             reserve
-                .mul(2 * (10**IERC20Metadata(address(s.Necc)).decimals()))
-                .div(getTotalValue(_pair));
+                .mul(2 * (10**IERC20Metadata(address(s.nNecc)).decimals()))
+                .div(getTotalValue(_pair))
+                .div(1e9);
     }
 }

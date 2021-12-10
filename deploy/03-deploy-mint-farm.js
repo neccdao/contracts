@@ -2,12 +2,12 @@ const {
   RINKEBY_TESTNET_AMM,
   RINKEBY_TESTNET_AMM_FACTORY,
   RINKEBY_TESTNET_ETH_PRICE_FEED,
-  RINKEBY_TESTNET_NDOL_NECC_PAIR,
-  RINKEBY_TESTNET_NECC,
+  nRINKEBY_TESTNET_NDOL_NECC_PAIR,
+  nRINKEBY_TESTNET_NECC,
   RINKEBY_TESTNET_TREASURY,
   RINKEBY_TESTNET_BONDING_CALCULATOR,
   RINKEBY_TESTNET_DISTRIBUTOR,
-  RINKEBY_TESTNET_NNECC,
+  nRINKEBY_TESTNET_NNECC,
   RINKEBY_TESTNET_STAKING,
   RINKEBY_TESTNET_STAKING_HELPER,
   RINKEBY_TESTNET_NDOL_BOND,
@@ -15,7 +15,7 @@ const {
 const { sendTxn, contractAt } = require("../scripts/shared/helpers");
 const { expandDecimals } = require("../test/shared/utilities.js");
 
-async function deployNeccFarm(hre) {
+async function ndeployNeccFarm(hre) {
   const { deployments, ethers } = hre;
   const { diamond, execute, all } = deployments;
   const [deployer, DAO] = await ethers.getSigners();
@@ -36,14 +36,14 @@ async function deployNeccFarm(hre) {
   });
   console.log("Deployed MintDistributor");
   const NDOL = allDeployments.NdolDiamond;
-  const Necc = allDeployments.NeccDiamond;
+  const nNecc = allDeployments.nNeccDiamond;
 
   await execute(
     "MintDistributor",
     { from: deployer.address },
     "initialize",
     MintFarm.address,
-    Necc.address
+    nNecc.address
   );
   console.log("MintDistributor initialize");
 
@@ -66,7 +66,14 @@ async function deployNeccFarm(hre) {
 
   console.log("MintFarm: " + MintFarm.address);
   console.log("MintDistributor: " + MintDistributor.address);
+  console.log(
+    Object.keys(allDeployments).map((key) =>
+      console.log({
+        [key]: allDeployments[key].address,
+      })
+    )
+  );
 }
 
-module.exports = deployNeccFarm;
-module.exports.tags = ["local", "NeccFarm"];
+module.exports = ndeployNeccFarm;
+module.exports.tags = ["local", "nNeccFarm"];

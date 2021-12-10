@@ -81,7 +81,8 @@ library LibBondStorage {
     // Single global store
     struct Storage {
         address Necc; // token given as payment for bond
-        address nNecc; // token given for staking
+        address sNecc; // token given for staking
+        address nNecc; // wrapped staked token
         address ndol; // principle token without price feed
         address treasury; // mints Necc when receives principle
         address DAO; // receives profit share from bond
@@ -104,7 +105,6 @@ library LibBondStorage {
         uint256 epochLength;
         address distributor;
         address locker;
-        uint256 totalBonus;
         uint256 warmupPeriod;
         mapping(address => Claim) warmupInfo;
         //

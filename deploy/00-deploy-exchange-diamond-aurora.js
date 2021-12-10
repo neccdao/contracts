@@ -1,52 +1,39 @@
 const {
-  RINKEBY_TESTNET_WETH,
-  RINKEBY_TESTNET_VAULT_PRICE_FEED,
-  RINKEBY_TESTNET_WBTC,
-  RINKEBY_TESTNET_ETH_PRICE_FEED,
-  RINKEBY_TESTNET_BTC_PRICE_FEED,
+  AURORA_MAINNET_WETH,
+  AURORA_MAINNET_WBTC,
+  AURORA_MAINNET_WNEAR,
+  AURORA_MAINNET_ETH_PRICE_FEED,
+  AURORA_MAINNET_BTC_PRICE_FEED,
+  AURORA_MAINNET_NEAR_PRICE_FEED,
 } = require("../env.json");
 const { contractAt } = require("../scripts/shared/helpers");
 
-// Config variables
-const eth = {
-  address: "0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", // RINKEBY_TESTNET_WETH
+const ethConfig = {
+  address: AURORA_MAINNET_WETH,
+  tokenDecimals: 18,
+  priceFeedAddress: AURORA_MAINNET_ETH_PRICE_FEED,
+  priceFeedDecimals: 16,
+  tokenWeight: 30,
 };
-const ethTokenDecimals = 18;
-const ethPriceFeedDecimals = 12;
-const ethTokenWeight = 60;
+const btcConfig = {
+  address: AURORA_MAINNET_WBTC,
+  tokenDecimals: 8,
+  priceFeedAddress: AURORA_MAINNET_BTC_PRICE_FEED,
+  priceFeedDecimals: 16,
+  tokenWeight: 20,
+};
 
-const btc = {
-  address: "0xF4eB217Ba2454613b15dBdea6e5f22276410e89e", // RINKEBY_TESTNET_WBTC
+const nearConfig = {
+  address: AURORA_MAINNET_WNEAR,
+  tokenDecimals: 24,
+  priceFeedAddress: AURORA_MAINNET_NEAR_PRICE_FEED,
+  priceFeedDecimals: 16,
+  tokenWeight: 50,
 };
-const btcTokenDecimals = 8;
-const btcPriceFeedDecimals = 8;
-const btcTokenWeight = 40;
-
-const near = {
-  address: "0xc42c30ac6cc15fac9bd938618bcaa1a1fae8501d", // RINKEBY_TESTNET_WNEAR
-};
-const nearTokenDecimals = 24;
-const nearPriceFeedDecimals = 18;
-const nearTokenWeight = 40;
 
 const minProfitBasisPoints = 0;
-const vaultPriceFeedSpreadBasisPoints = 5;
-
+const vaultPriceFeedSpreadBasisPoints = 0;
 const zeroAddress = "0x0000000000000000000000000000000000000000";
-const usdc = {
-  address: "0xB12BFcA5A55806AaF64E99521918A4bf0fC40802", // RINKEBY_TESTNET_USDC
-};
-// Chainlink Price feed
-const ethPriceFeed = {
-  address: RINKEBY_TESTNET_ETH_PRICE_FEED,
-};
-const btcPriceFeed = {
-  address: RINKEBY_TESTNET_BTC_PRICE_FEED,
-};
-
-function wait(milliseconds) {
-  return new Promise((resolve) => setTimeout(resolve, milliseconds));
-}
 
 const deployExchangeDiamond = async function (hre) {
   const { deployments, ethers } = hre;
@@ -57,7 +44,11 @@ const deployExchangeDiamond = async function (hre) {
   if (chainId?.toString() !== "1313161554") {
     return;
   }
+  // if (chainId?.toString() !== "1337") {
+  //   return;
+  // }
   console.log("Deploying contracts with the account: " + deployer.address);
+  console.log("*** Deploying for hardhat test ***");
 
   const vm = await deploy("VM", {
     from: deployer.address,
@@ -70,23 +61,6 @@ const deployExchangeDiamond = async function (hre) {
     log: true,
   });
   console.log("Deployed TestableVM");
-
-  const ammFactory = await ethers.getContractAt(
-    "IUniswapV2Factory",
-    "0xc66F594268041dB60507F00703b152492fb176E7"
-  );
-
-  const btcNEARPair = await ammFactory.getPair(btc.address, near.address);
-  console.log("BTC/NEAR pair", btcNEARPair);
-
-  const nearUSDCPair = await ammFactory.getPair(near.address, usdc.address);
-  console.log("NEAR/USDC pair", nearUSDCPair);
-
-  const ethNEARPair = await ammFactory.getPair(eth.address, near.address);
-  console.log("ETH/NEAR pair", ethNEARPair);
-
-  const ethUSDCPair = await ammFactory.getPair(eth.address, usdc.address);
-  console.log("ETH/USDC pair", ethUSDCPair);
 
   const exchangeDiamond = await diamond.deploy("ExchangeDiamond", {
     from: deployer.address,
@@ -103,6 +77,7 @@ const deployExchangeDiamond = async function (hre) {
     ],
     log: true,
   });
+  console.log("Deployed ExchangeDiamond");
 
   const NDOL = await diamond.deploy("NdolDiamond", {
     from: deployer.address,
@@ -112,68 +87,67 @@ const deployExchangeDiamond = async function (hre) {
   const ndol = await contractAt("NdolFacet", NDOL.address);
   await ndol.initialize(exchangeDiamond.address);
   console.log("Ndol initialize");
-  await wait(1000);
 
   await execute(
     "ExchangeDiamond",
     { from: deployer.address },
     "initialize",
-    eth.address, // RINKEBY_TESTNET_WETH,
+    ethConfig.address,
     ndol.address
   );
   console.log("ExchangeDiamond initialize");
-  await wait(1000);
 
   await execute(
     "ExchangeDiamond",
     { from: deployer.address },
     "setTokenConfig",
-    eth.address,
-    ethTokenDecimals,
+    ethConfig.address,
+    ethConfig.tokenDecimals,
     minProfitBasisPoints,
-    zeroAddress, // ethPriceFeed.address,
-    ethPriceFeedDecimals,
+    ethConfig.priceFeedAddress,
+    ethConfig.priceFeedDecimals,
     vaultPriceFeedSpreadBasisPoints,
-    ethTokenWeight,
-    nearUSDCPair,
-    ethNEARPair
+    ethConfig.tokenWeight,
+    zeroAddress,
+    zeroAddress
   );
-  await wait(1000);
   console.log("ExchangeDiamond setTokenConfig ETH");
 
-  // TODO: Uncomment for mainnet once BTC pair has liquidity
-  // await execute(
-  //   "ExchangeDiamond",
-  //   { from: deployer.address },
-  //   "setTokenConfig",
-  //   btc.address, // _token
-  //   btcTokenDecimals,
-  //   minProfitBasisPoints,
-  //   zeroAddress, // btcPriceFeed.address,
-  //   32, // btcPriceFeedDecimals,
-  //   vaultPriceFeedSpreadBasisPoints,
-  //   btcTokenWeight,
-  //   wNearUSDCPair,
-  //   btcWNEARPair
-  // );
-  // console.log("ExchangeDiamond setTokenConfig BTC");
+  await execute(
+    "ExchangeDiamond",
+    { from: deployer.address },
+    "setTokenConfig",
+    btcConfig.address,
+    btcConfig.tokenDecimals,
+    minProfitBasisPoints,
+    btcConfig.priceFeedAddress,
+    btcConfig.priceFeedDecimals,
+    vaultPriceFeedSpreadBasisPoints,
+    btcConfig.tokenWeight,
+    zeroAddress,
+    zeroAddress
+  );
+  console.log("ExchangeDiamond setTokenConfig BTC");
 
   await execute(
     "ExchangeDiamond",
     { from: deployer.address },
     "setTokenConfig",
-    near.address, // _token
-    nearTokenDecimals,
+    nearConfig.address,
+    nearConfig.tokenDecimals,
     minProfitBasisPoints,
-    zeroAddress, // wNEARPriceFeed.address,
-    nearPriceFeedDecimals,
+    nearConfig.priceFeedAddress,
+    nearConfig.priceFeedDecimals,
     vaultPriceFeedSpreadBasisPoints,
-    nearTokenWeight,
-    nearUSDCPair,
-    nearUSDCPair
+    nearConfig.tokenWeight,
+    zeroAddress,
+    zeroAddress
   );
   console.log("ExchangeDiamond setTokenConfig NEAR");
 
+  console.log("WETH: " + ethConfig.address);
+  console.log("WBTC: " + btcConfig.address);
+  console.log("WNEAR: " + nearConfig.address);
   console.log("ExchangeDiamond: " + exchangeDiamond.address);
   console.log("NDOL: " + ndol.address);
   console.log("VM: " + vm.address);
@@ -181,4 +155,4 @@ const deployExchangeDiamond = async function (hre) {
 };
 
 module.exports = deployExchangeDiamond;
-module.exports.tags = ["aurora", "ExchangeDiamond"];
+module.exports.tags = ["hardhat", "ExchangeDiamond-hardhat"];

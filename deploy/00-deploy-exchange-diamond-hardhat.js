@@ -63,19 +63,11 @@ const deployExchangeDiamond = async function (hre) {
     contract: "PriceFeed",
     from: deployer.address,
   });
-  const bnb = await deployments.deploy("BNBToken", {
-    contract: "Token",
-    from: deployer.address,
-  });
   const btc = await deployments.deploy("BTCToken", {
     contract: "Token",
     from: deployer.address,
   });
   const eth = await deployments.deploy("ETHToken", {
-    contract: "Token",
-    from: deployer.address,
-  });
-  const dai = await deployments.deploy("DAIToken", {
     contract: "Token",
     from: deployer.address,
   });

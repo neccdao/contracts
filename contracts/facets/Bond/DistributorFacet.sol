@@ -37,17 +37,20 @@ contract DistributorFacet is Facet {
                     .add(s.epochLength); // set next epoch timestamp
 
                 // distribute rewards to each recipient
-                for (uint256 i = 0; i < s.info.length; i++) {
-                    if (s.info[i].rate > 0) {
-                        ITreasury(s.treasury).mintRewards( // mint and send from treasury
-                            s.info[i].recipient,
-                            nextRewardAt(s.info[i].rate)
-                        );
-                        adjust(i); // check for adjustment
-                    }
-                }
             } else {
                 _success = false;
+            }
+        }
+
+        if (_success) {
+            for (uint256 i = 0; i < s.info.length; i++) {
+                if (s.info[i].rate > 0) {
+                    ITreasury(s.treasury).mintRewards( // mint and send from treasury
+                        s.info[i].recipient,
+                        nextRewardAt(s.info[i].rate)
+                    );
+                    adjust(i); // check for adjustment
+                }
             }
         }
 
@@ -60,27 +63,32 @@ contract DistributorFacet is Facet {
         @notice increment reward rate for collector
      */
     function adjust(uint256 _index) internal {
-        LibBondStorage.DistributorAdjustment storage distributorAdjustment = s
+        LibBondStorage.DistributorAdjustment storage adjustment = s
             .distributorAdjustments[_index];
 
-        if (distributorAdjustment.rate != 0) {
-            if (distributorAdjustment.add) {
+        if (adjustment.rate != 0) {
+            if (adjustment.add) {
                 // if rate should increase
-                s.info[_index].rate = s.info[_index].rate.add(
-                    distributorAdjustment.rate
-                ); // raise rate
-                if (s.info[_index].rate >= distributorAdjustment.target) {
+                s.info[_index].rate = s.info[_index].rate.add(adjustment.rate); // raise rate
+                if (s.info[_index].rate >= adjustment.target) {
                     // if target met
                     s.distributorAdjustments[_index].rate = 0; // turn off distributorAdjustment
                 }
             } else {
                 // if rate should decrease
-                s.info[_index].rate = s.info[_index].rate.sub(
-                    distributorAdjustment.rate
-                ); // lower rate
-                if (s.info[_index].rate <= distributorAdjustment.target) {
+                if (s.info[_index].rate > adjustment.rate) {
+                    // protect from underflow
+                    s.info[_index].rate = s.info[_index].rate.sub(
+                        adjustment.rate
+                    ); // lower rate
+                } else {
+                    s.info[_index].rate = 0;
+                }
+
+                if (s.info[_index].rate <= adjustment.target) {
                     // if target met
                     s.distributorAdjustments[_index].rate = 0; // turn off adjustment
+                    s.info[_index].rate = adjustment.target; // set to target
                 }
             }
         }

@@ -50,13 +50,6 @@ contract BondConfigFacet is Facet {
 
     /**
      *  @notice initializes bond parameters
-     *  @param _controlVariable uint
-     *  @param _vestingTerm uint256
-     *  @param _minimumPrice uint
-     *  @param _maxPayout uint
-     *  @param _fee uint
-     *  @param _maxDebt uint
-     *  @param _initialDebt uint
      */
     function initializeBondTerms(
         uint256 _controlVariable,
@@ -217,9 +210,12 @@ contract BondConfigFacet is Facet {
     function initializeStaking(
         uint256 _firstEpochNumber,
         uint32 _firstEpochTime,
+        address _sNecc,
         address _nNecc
     ) public {
+        require(_sNecc != address(0));
         require(_nNecc != address(0));
+        s.sNecc = _sNecc;
         s.nNecc = _nNecc;
         s.epoch = LibBondStorage.Epoch({
             length: s.epochLength,

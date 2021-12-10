@@ -14,6 +14,18 @@ interface IDistributor {
 }
 
 interface InNecc is IERC20 {
+    function mint(address _to, uint256 _amount) external;
+
+    function burn(address _from, uint256 _amount) external;
+
+    function index() external view returns (uint256);
+
+    function balanceFrom(uint256 _amount) external view returns (uint256);
+
+    function balanceTo(uint256 _amount) external view returns (uint256);
+}
+
+interface IsNecc is IERC20 {
     function rebase(uint256 neccProfit_, uint256 epoch_)
         external
         returns (uint256);
@@ -32,10 +44,10 @@ interface InNecc is IERC20 {
 contract StakingFacet is Facet {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
-    using SafeERC20 for InNecc;
+    using SafeERC20 for IsNecc;
 
     /**
-        @notice stake Necc to enter warmup
+        @notice stake Necc to enter warmup or for nNecc
         @param _amount uint
         @return bool
      */
@@ -55,20 +67,20 @@ contract StakingFacet is Facet {
 
             s.warmupInfo[_recipient] = LibBondStorage.Claim({
                 deposit: info.deposit.add(_amount),
-                gons: info.gons.add(InNecc(s.nNecc).gonsForBalance(_amount)),
+                gons: info.gons.add(IsNecc(s.sNecc).gonsForBalance(_amount)),
                 expiry: s.epoch.number.add(s.warmupPeriod),
                 lock: false
             });
 
             s.gonsInWarmup = s.gonsInWarmup.add(
-                InNecc(s.nNecc).gonsForBalance(_amount)
+                IsNecc(s.sNecc).gonsForBalance(_amount)
             );
         }
         return true;
     }
 
     /**
-        @notice retrieve nNecc from warmup
+        @notice retrieve sNecc from warmup
         @param _recipient address
      */
     function claim(address _recipient) public {
@@ -84,12 +96,12 @@ contract StakingFacet is Facet {
             delete s.warmupInfo[_recipient];
             s.gonsInWarmup = s.gonsInWarmup.sub(info.gons);
 
-            _send(_recipient, InNecc(s.nNecc).balanceForGons(info.gons));
+            _send(_recipient, IsNecc(s.sNecc).balanceForGons(info.gons));
         }
     }
 
     /**
-        @notice forfeit nNecc in warmup and retrieve Necc
+        @notice forfeit sNecc in warmup and retrieve Necc
      */
     function forfeit() external {
         LibBondStorage.Claim memory info = s.warmupInfo[msg.sender];
@@ -100,20 +112,7 @@ contract StakingFacet is Facet {
     }
 
     /**
-        @notice redeem nNecc for Necc
-        @param _amount uint
-        @param _trigger bool
-     */
-    function unstake(uint256 _amount, bool _trigger) external {
-        if (_trigger) {
-            rebase();
-        }
-        IERC20(s.nNecc).safeTransferFrom(msg.sender, address(this), _amount);
-        IERC20(s.Necc).safeTransfer(msg.sender, _amount);
-    }
-
-    /**
-     * @notice send staker their amount as sOHM or gOHM
+     * @notice send staker their amount as nNecc (non-rebasing)
      * @param _recipient address
      * @param _amount uint
      */
@@ -121,18 +120,16 @@ contract StakingFacet is Facet {
         internal
         returns (uint256)
     {
-        InNecc(s.nNecc).safeTransfer(_recipient, _amount); // send as sOHM (equal unit as OHM)
-        return _amount;
+        InNecc(s.nNecc).mint(_recipient, InNecc(s.nNecc).balanceTo(_amount)); // send as nNecc (convert units from Necc)
+        return InNecc(s.nNecc).balanceTo(_amount);
     }
 
-    //
-
     /**
-        @notice returns the nNecc index, which tracks rebase growth
+        @notice returns the sNecc index, which tracks rebase growth
         @return uint
      */
     function index() public view returns (uint256) {
-        return InNecc(s.nNecc).index();
+        return IsNecc(s.sNecc).index();
     }
 
     /**
@@ -140,7 +137,7 @@ contract StakingFacet is Facet {
      */
     function rebase() public {
         if (s.epoch.endTime <= uint256(block.timestamp)) {
-            InNecc(s.nNecc).rebase(s.epoch.distribute, s.epoch.number);
+            IsNecc(s.sNecc).rebase(s.epoch.distribute, s.epoch.number);
 
             s.epoch.endTime = s.epoch.endTime.add(s.epoch.length);
             s.epoch.number++;
@@ -160,27 +157,7 @@ contract StakingFacet is Facet {
         @return uint
      */
     function contractBalance() public view returns (uint256) {
-        return IERC20(s.Necc).balanceOf(address(this)).add(s.totalBonus);
-    }
-
-    /**
-        @notice provide bonus to locked staking contract
-        @param _amount uint
-     */
-    function giveLockBonus(uint256 _amount) external {
-        require(msg.sender == s.locker);
-        s.totalBonus = s.totalBonus.add(_amount);
-        IERC20(s.nNecc).safeTransfer(s.locker, _amount);
-    }
-
-    /**
-        @notice reclaim bonus from locked staking contract
-        @param _amount uint
-     */
-    function returnLockBonus(uint256 _amount) external {
-        require(msg.sender == s.locker);
-        s.totalBonus = s.totalBonus.sub(_amount);
-        IERC20(s.nNecc).safeTransferFrom(s.locker, address(this), _amount);
+        return IERC20(s.Necc).balanceOf(address(this));
     }
 
     function epoch() public view returns (LibBondStorage.Epoch memory) {
@@ -196,10 +173,10 @@ contract StakingFacet is Facet {
     }
 
     function supplyInWarmup() public view returns (uint256) {
-        return InNecc(s.nNecc).balanceForGons(s.gonsInWarmup);
+        return IsNecc(s.sNecc).balanceForGons(s.gonsInWarmup);
     }
 
     function totalStaked() public view returns (uint256) {
-        return InNecc(s.nNecc).circulatingSupply();
+        return IsNecc(s.sNecc).circulatingSupply();
     }
 }

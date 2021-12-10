@@ -56,6 +56,7 @@ contract TreasuryFacet is Facet {
         bool result
     );
 
+    // Do not change the order of the following constants
     enum MANAGING {
         RESERVEDEPOSITOR,
         RESERVESPENDER,
@@ -66,17 +67,23 @@ contract TreasuryFacet is Facet {
         LIQUIDITYMANAGER,
         DEBTOR,
         REWARDMANAGER,
-        NNECC
+        SNECC
     }
 
     function initializeTreasury(
         address _Necc,
+        address _sNecc,
+        address _nNecc,
         address _NDOL,
         uint256 _blocksNeededForQueue
     ) external {
         onlyGov();
         require(_Necc != address(0));
+        require(_sNecc != address(0));
+        require(_nNecc != address(0));
         s.Necc = _Necc;
+        s.sNecc = _sNecc;
+        s.nNecc = _nNecc;
 
         s.isReserveToken[_NDOL] = true;
         s.reserveTokens.push(_NDOL);
@@ -170,7 +177,7 @@ contract TreasuryFacet is Facet {
 
         uint256 _value = valueOfToken(_token, _amount);
 
-        uint256 maximumDebt = IERC20(s.nNecc).balanceOf(msg.sender); // Can only borrow against nNecc held
+        uint256 maximumDebt = IERC20(s.sNecc).balanceOf(msg.sender); // Can only borrow against sNecc held
         uint256 availableDebt = maximumDebt.sub(s.debtorBalance[msg.sender]);
         require(_value <= availableDebt, "Exceeds debt limit");
 
@@ -358,9 +365,9 @@ contract TreasuryFacet is Facet {
             s.rewardManagerQueue[_address] = block.number.add(
                 s.blocksNeededForQueue
             );
-        } else if (_managing == MANAGING.NNECC) {
+        } else if (_managing == MANAGING.SNECC) {
             // 9
-            s.nNeccQueue = block.number.add(s.blocksNeededForQueue);
+            s.sNeccQueue = block.number.add(s.blocksNeededForQueue);
         } else return false;
 
         emit ChangeQueued(_managing, _address);
@@ -510,10 +517,10 @@ contract TreasuryFacet is Facet {
             }
             _result = !s.isRewardManager[_address];
             s.isRewardManager[_address] = _result;
-        } else if (_managing == MANAGING.NNECC) {
+        } else if (_managing == MANAGING.SNECC) {
             // 9
-            s.nNeccQueue = 0;
-            s.nNecc = _address;
+            s.sNeccQueue = 0;
+            s.sNecc = _address;
             _result = true;
         } else return false;
 
@@ -558,5 +565,17 @@ contract TreasuryFacet is Facet {
             }
         }
         return false;
+    }
+
+    function isReserveToken(address _principle) external view returns (bool) {
+        return s.isReserveToken[_principle];
+    }
+
+    function isReserveDepositor(address _depositor)
+        external
+        view
+        returns (bool)
+    {
+        return s.isReserveDepositor[_depositor];
     }
 }
