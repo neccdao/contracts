@@ -595,17 +595,6 @@ contract BondDepositoryFacet is Facet {
         }
     }
 
-    /**
-     *  @notice get asset price from chainlink
-     */
-    function assetPrice(address _principle) public view returns (int256) {
-        uint256 _principleIndex = s.getIndexAt(_principle);
-        (, int256 price, , , ) = IOracle(s.priceFeeds[_principleIndex])
-            .latestRoundData();
-
-        return price;
-    }
-
     function terms(address _principle)
         public
         view

@@ -102,7 +102,7 @@ contract DistributorFacet is Facet {
         @return uint
      */
     function nextRewardAt(uint256 _rate) public view returns (uint256) {
-        return IERC20(s.Necc).totalSupply().mul(_rate).div(1000000);
+        return IERC20(s.Necc).totalSupply().mul(_rate).div(1_000_000);
     }
 
     /**
@@ -111,12 +111,13 @@ contract DistributorFacet is Facet {
         @return uint
      */
     function nextRewardFor(address _recipient) public view returns (uint256) {
-        uint256 reward;
+        uint256 _reward;
         for (uint256 i = 0; i < s.info.length; i++) {
             if (s.info[i].recipient == _recipient) {
-                reward = nextRewardAt(s.info[i].rate);
+                _reward = _reward.add(nextRewardAt(s.info[i].rate));
             }
         }
-        return reward;
+
+        return _reward;
     }
 }
