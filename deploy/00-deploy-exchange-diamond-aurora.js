@@ -27,7 +27,7 @@ const nearConfig = {
   address: AURORA_MAINNET_WNEAR,
   tokenDecimals: 24,
   priceFeedAddress: AURORA_MAINNET_NEAR_PRICE_FEED,
-  priceFeedDecimals: 16,
+  priceFeedDecimals: 8,
   tokenWeight: 50,
 };
 
@@ -41,7 +41,7 @@ const deployExchangeDiamond = async function (hre) {
   const [deployer, DAO] = await ethers.getSigners();
   const chainId = await getChainId();
   console.log({ chainId });
-  if (chainId?.toString() !== "1313161554") {
+  if (chainId?.toString() !== "1337") {
     return;
   }
   // if (chainId?.toString() !== "1337") {

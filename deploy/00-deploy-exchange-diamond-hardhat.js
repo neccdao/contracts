@@ -32,6 +32,7 @@ const vaultPriceFeedSpreadBasisPoints = 0;
 const zeroAddress = "0x0000000000000000000000000000000000000000";
 
 const deployExchangeDiamond = async function (hre) {
+  return;
   const { deployments, ethers } = hre;
   const { diamond, execute, deploy } = deployments;
   const [deployer, DAO] = await ethers.getSigners();

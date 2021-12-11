@@ -19,6 +19,7 @@ const near = {
 };
 
 async function deployNecc(hre) {
+  return;
   const { deployments, ethers } = hre;
   const { diamond, execute, deploy, all } = deployments;
   const [deployer, DAO] = await ethers.getSigners();

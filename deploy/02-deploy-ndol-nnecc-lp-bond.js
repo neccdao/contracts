@@ -44,9 +44,6 @@ async function deployNDOLNeccLPBond(hre) {
   // How many seconds are in each epoch
   const epochLengthInTimestamp = "3600";
 
-  // Initial reward rate for epoch
-  const initialRewardRate = "400";
-
   // Ethereum 0 address, used when toggling changes in treasury
   const zeroAddress = "0x0000000000000000000000000000000000000000";
 
@@ -54,7 +51,7 @@ async function deployNDOLNeccLPBond(hre) {
   const largeApproval = "100000000000000000000000000000000";
 
   // ndolnNeccLP bond BCV
-  const ndolnNeccLPBondBCV = "500";
+  const ndolnNeccLPBondBCV = "200";
 
   // Bond vesting length in seconds. 432000 ~ 5 days
   const bondVestingLengthInSeconds = "432000";
@@ -63,7 +60,7 @@ async function deployNDOLNeccLPBond(hre) {
   const minBondPrice = "1200";
 
   // Max bond payout
-  const maxBondPayout = "75"; // 0.075%
+  const maxBondPayout = "100"; // 0.1%
 
   // 20% DAO fee for bond
   const bondFee = "2000";
@@ -119,7 +116,7 @@ async function deployNDOLNeccLPBond(hre) {
     nNECCToAddLiquidity = 2;
   }
   if (chainId?.toString() === "1337") {
-    nNECCToAddLiquidity = 12500;
+    nNECCToAddLiquidity = 1250;
 
     // Get more NDOL
     await sendTxn(
@@ -144,8 +141,8 @@ async function deployNDOLNeccLPBond(hre) {
     `ammRouter.addLiquidity(
       ${nNECC.address},
       ${NDOL.address},
-      10k Necc,
-      10k * ndol bond price,
+      ${nNECCToAddLiquidity} nNecc,
+      ${nNECCToAddLiquidity} * ndol bond price in NDOL,
       0,
       0,
       deployer.address,

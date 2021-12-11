@@ -1,5 +1,6 @@
 const { AURORA_MAINNET_WETH } = require("../env.json");
 const { contractAt, sendTxn } = require("../scripts/shared/helpers");
+const { expandDecimals } = require("../test/shared/utilities");
 
 async function deployNecc(hre) {
   const { deployments, ethers } = hre;
@@ -7,7 +8,7 @@ async function deployNecc(hre) {
   const [deployer, DAO] = await ethers.getSigners();
   const chainId = await getChainId();
   console.log({ chainId });
-  if (chainId?.toString() !== "1313161554") {
+  if (chainId?.toString() !== "1337") {
     return;
   }
   // if (chainId?.toString() !== "1337") {
@@ -39,7 +40,7 @@ async function deployNecc(hre) {
   const largeApproval = "100000000000000000000000000000000";
 
   // NDOL bond BCV
-  const ndolBondBCV = "1000";
+  const ndolBondBCV = "300";
 
   // Bond vesting length in seconds. 432000 ~ 5 days
   const bondVestingLengthInSeconds = "432000";
@@ -48,7 +49,7 @@ async function deployNecc(hre) {
   const minBondPrice = "20000";
 
   // Max bond payout
-  const maxBondPayout = "75"; // 0.075%
+  const maxBondPayout = "100"; // 0.1%
 
   // 20% DAO fee for bond
   const bondFee = "2000";
@@ -324,17 +325,18 @@ async function deployNecc(hre) {
 
   const nNeccD = await contractAt("nNeccFacet", nNecc.address);
 
+  const ndolAmount = 500_000;
   // Deposit NDOL to treasury, deployer gets half back
   await execute(
     "TreasuryDiamond",
     { from: deployer.address },
     "deposit",
-    "5000000000000000000000000",
+    expandDecimals(ndolAmount, 18),
     ndol.address,
-    "2500000000000000"
+    expandDecimals(ndolAmount / 2, 9)
   );
-  console.log("treasury deposit 5M NDOL");
-  console.log("deployer receives 2.5M NECC");
+  console.log(`treasury deposit ${ndolAmount} NDOL`);
+  console.log(`deployer receives ${ndolAmount / 2} NECC`);
 
   let neccBalance = await neccD.balanceOf(deployer.address);
   console.log(neccBalance?.toString());
