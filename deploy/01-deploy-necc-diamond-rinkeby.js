@@ -185,7 +185,8 @@ async function deployNecc(hre) {
     { from: deployer.address },
     "initialize",
     staking.address,
-    nNecc.address
+    nNecc.address,
+    treasury.address
   );
   console.log("sNecc initialize");
 
@@ -351,7 +352,7 @@ async function deployNecc(hre) {
   await approvalTx.wait(1);
   console.log("sNecc approve staking");
 
-  // const nNeccD = await contractAt("nNeccFacet", nNecc.address);
+  const nNeccD = await contractAt("nNeccFacet", nNecc.address);
 
   let ndolBalance = await ndol.balanceOf(deployer.address);
   console.log(ndolBalance?.toString());

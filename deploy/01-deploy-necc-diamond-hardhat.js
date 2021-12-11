@@ -188,7 +188,8 @@ async function deployNecc(hre) {
     { from: deployer.address },
     "initialize",
     staking.address,
-    nNecc.address
+    nNecc.address,
+    treasury.address
   );
   console.log("sNecc initialize");
 

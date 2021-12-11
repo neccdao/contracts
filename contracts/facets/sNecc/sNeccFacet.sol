@@ -40,7 +40,11 @@ contract sNeccFacet is ERC20, ERC20Permit {
     event LogRebase(uint256 indexed epoch, uint256 rebase, uint256 index);
     event LogStakingContractUpdated(address stakingContract);
 
-    function initialize(address _stakingContract, address _nNecc) external {
+    function initialize(
+        address _stakingContract,
+        address _nNecc,
+        address _treasury
+    ) external {
         LibsNeccStorage._onlyGov();
         ERC20BaseStorage.Layout storage b = ERC20BaseStorage.layout();
         ERC20MetadataStorage.Layout storage s = ERC20MetadataStorage.layout();
@@ -54,6 +58,7 @@ contract sNeccFacet is ERC20, ERC20Permit {
         n.stakingContract = _stakingContract;
         n.nNecc = _nNecc;
         n._gonBalances[n.stakingContract] = TOTAL_GONS;
+        n.treasury = _treasury;
 
         emit Transfer(address(0x0), _stakingContract, b.totalSupply);
         emit LogStakingContractUpdated(_stakingContract);
@@ -180,6 +185,10 @@ contract sNeccFacet is ERC20, ERC20Permit {
         n._gonBalances[msg.sender] = n._gonBalances[msg.sender].sub(gonValue);
         n._gonBalances[to] = n._gonBalances[to].add(gonValue);
 
+        require(
+            balanceOf(msg.sender) >= n.debtBalances[msg.sender],
+            "Debt: cannot transfer amount"
+        );
         emit Transfer(msg.sender, to, value);
         return true;
     }
@@ -197,6 +206,10 @@ contract sNeccFacet is ERC20, ERC20Permit {
         n._gonBalances[from] = n._gonBalances[from].sub(gonValue);
         n._gonBalances[to] = n._gonBalances[to].add(gonValue);
 
+        require(
+            balanceOf(from) >= n.debtBalances[from],
+            "Debt: cannot transfer amount"
+        );
         emit Transfer(from, to, value);
         return true;
     }
@@ -249,5 +262,31 @@ contract sNeccFacet is ERC20, ERC20Permit {
         require(n.INDEX == 0, "Index already set");
         n.INDEX = gonsForBalance(_INDEX);
         return true;
+    }
+
+    // this function is called by the treasury, and informs sNecc of changes to debt.
+    // note that addresses with debt balances cannot transfer collateralized sNecc
+    // until the debt has been repaid.
+    function changeDebt(
+        uint256 _amount,
+        address _debtor,
+        bool _add
+    ) external {
+        LibsNeccStorage.Layout storage n = LibsNeccStorage.layout();
+        require(msg.sender == n.treasury, "Only treasury");
+        if (_add) {
+            n.debtBalances[_debtor] = n.debtBalances[_debtor].add(_amount);
+        } else {
+            n.debtBalances[_debtor] = n.debtBalances[_debtor].sub(_amount);
+        }
+        require(
+            n.debtBalances[_debtor] <= balanceOf(_debtor),
+            "sNecc: insufficient balance"
+        );
+    }
+
+    function debtBalances(address _debtor) public view returns (uint256) {
+        LibsNeccStorage.Layout storage n = LibsNeccStorage.layout();
+        return n.debtBalances[_debtor];
     }
 }

@@ -18,6 +18,8 @@ async function deployNDOLNeccLPBond(hre) {
   let ammFactoryAddress;
   console.log({ chainId });
   if (chainId?.toString() === "4") {
+    // Don't do anything for Rinkeby for now
+    return;
     ammAddress = RINKEBY_TESTNET_AMM;
     ammFactoryAddress = RINKEBY_TESTNET_AMM_FACTORY;
   } else if (chainId?.toString() === "1337") {
@@ -27,7 +29,6 @@ async function deployNDOLNeccLPBond(hre) {
     ammAddress = AURORA_MAINNET_AMM;
     ammFactoryAddress = AURORA_MAINNET_AMM_FACTORY;
   } else {
-    // Don't do anything for Rinkeby for now
     return;
   }
   console.log("Deploying contracts with the account: " + deployer.address);

@@ -19,6 +19,7 @@ library LibTreasuryStorage {
         uint256 sNeccQueue; // Delays change to sNecc address
         uint256 totalReserves; // Risk-free value of all assets
         uint256 totalDebt;
+        uint256 neccDebt;
         mapping(address => bool) isReserveToken;
         mapping(address => uint256) reserveTokenQueue; // Delays changes to mapping.
         address[] reserveDepositors; // Push only, beware false-positives. Only for viewing.
@@ -42,7 +43,6 @@ library LibTreasuryStorage {
         address[] debtors; // Push only, beware false-positives. Only for viewing.
         mapping(address => bool) isDebtor;
         mapping(address => uint256) debtorQueue; // Delays changes to mapping.
-        mapping(address => uint256) debtorBalance;
         address[] rewardManagers; // Push only, beware false-positives. Only for viewing.
         mapping(address => bool) isRewardManager;
         mapping(address => uint256) rewardManagerQueue; // Delays changes to mapping.

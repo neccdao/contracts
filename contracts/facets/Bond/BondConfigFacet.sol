@@ -170,6 +170,10 @@ contract BondConfigFacet is Facet {
     function addRecipient(address _recipient, uint256 _rewardRate) external {
         onlyGov();
         require(_recipient != address(0));
+        require(
+            _rewardRate <= 1_000_000,
+            "Reward Rate cannot exceed denominator"
+        );
         s.info.push(
             LibBondStorage.Info({recipient: _recipient, rate: _rewardRate})
         );
@@ -182,7 +186,7 @@ contract BondConfigFacet is Facet {
      */
     function removeRecipient(uint256 _index, address _recipient) external {
         onlyGov();
-        require(_recipient == s.info[_index].recipient);
+        require(_recipient == s.info[_index].recipient, "Invalid recipient");
         s.info[_index].recipient = address(0);
         s.info[_index].rate = 0;
     }
@@ -201,6 +205,14 @@ contract BondConfigFacet is Facet {
         uint256 _target
     ) external {
         onlyGov();
+        require(address(0) != s.info[_index].recipient, "Invalid recipient");
+        if (!_add) {
+            require(
+                _rate <= s.distributorAdjustments[_index].rate,
+                "Cannot decrease rate"
+            );
+        }
+
         s.distributorAdjustments[_index] = LibBondStorage
             .DistributorAdjustment({add: _add, rate: _rate, target: _target});
     }
