@@ -112,6 +112,9 @@ async function deployNDOLNeccLPBond(hre) {
   console.log((await nNECC.balanceOf(deployer.address))?.toString());
   console.log("nNECC.balanceOf(deployer.address)");
   let nNECCToAddLiquidity = 0;
+  if (chainId?.toString() === "1313161554") {
+    nNECCToAddLiquidity = 2;
+  }
   if (chainId?.toString() === "4") {
     nNECCToAddLiquidity = 2;
   }
@@ -378,7 +381,7 @@ async function deployNDOLNeccLPBond(hre) {
   // Adjusts Reward rate
   // await distributor.setAdjustment(0, true, 500, 5000);
 
-  console.log("ndolNeccLPPair: " + ndolnNeccLPPair.address);
+  console.log("ndolnNeccLPPair: " + ndolnNeccLPPair.address);
 }
 
 module.exports = deployNDOLNeccLPBond;

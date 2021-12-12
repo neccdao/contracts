@@ -1,14 +1,18 @@
-const { AURORA_MAINNET_WETH } = require("../env.json");
+const {
+  AURORA_MAINNET_WETH,
+  AURORA_MAINNET_DAO_ADDRESS,
+} = require("../env.json");
 const { contractAt, sendTxn } = require("../scripts/shared/helpers");
 const { expandDecimals } = require("../test/shared/utilities");
 
 async function deployNecc(hre) {
   const { deployments, ethers } = hre;
   const { diamond, execute, deploy, all } = deployments;
-  const [deployer, DAO] = await ethers.getSigners();
+  const [deployer] = await ethers.getSigners();
+  const DAO = { address: AURORA_MAINNET_DAO_ADDRESS };
   const chainId = await getChainId();
   console.log({ chainId });
-  if (chainId?.toString() !== "1337") {
+  if (chainId?.toString() !== "1313161554") {
     return;
   }
   // if (chainId?.toString() !== "1337") {
@@ -22,7 +26,13 @@ async function deployNecc(hre) {
   const initialIndex = "1000000000";
 
   // First epoch occurs
-  const firstEpochTimestamp = Math.round(Date.now() / 1000) + 360; // 1 minute from now
+  /*
+  Epoch timestamp: 1639918800
+  Timestamp in milliseconds: 1639918800000
+  Date and time (GMT): Sunday, 19 December 2021 13:00:00
+  Date and time (your time zone): Sunday, 19 December 2021 13:00:00 GMT+00:00
+  */
+  const firstEpochTimestamp = 1639918800;
 
   // What epoch will be first epoch
   const firstEpochNumber = "1";
@@ -70,9 +80,9 @@ async function deployNecc(hre) {
   const router = await contractAt("RouterFacet", ExchangeDiamond.address);
   await sendTxn(
     router.swapETHToTokens([eth.address, NDOL.address], 0, deployer.address, {
-      value: ethers.utils.parseEther("2500"),
+      value: ethers.utils.parseEther("1.25"),
     }),
-    "router.swapETHToTokens - ETH -> WETH -> NDOL (1500 ETH) (~10M NDOL)"
+    "router.swapETHToTokens - ETH -> WETH -> NDOL (1.25 ETH) (~5000 NDOL)"
   );
   console.log((await ndol.balanceOf(deployer.address))?.toString());
   console.log("ndol balanceOf deployer");
@@ -325,7 +335,7 @@ async function deployNecc(hre) {
 
   const nNeccD = await contractAt("nNeccFacet", nNecc.address);
 
-  const ndolAmount = 500_000;
+  const ndolAmount = 12;
   // Deposit NDOL to treasury, deployer gets half back
   await execute(
     "TreasuryDiamond",

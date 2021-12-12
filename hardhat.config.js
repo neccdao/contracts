@@ -7,10 +7,8 @@ require("hardhat-deploy-ethers");
 require("@atixlabs/hardhat-time-n-mine");
 
 const {
-  ARBITRUM_MAINNET_URL,
-  ARBITRUM_MAINNET_DEPLOY_KEY,
-  ARBITRUM_KOVAN_URL,
-  ARBITRUM_KOVAN_DEPLOY_KEY,
+  AURORA_MAINNET_DEPLOY_KEY,
+  AURORA_MAINNET_DAO_KEY,
   RINKEBY_TESTNET_DEPLOY_KEY,
   RINKEBY_TESTNET_DAO_KEY,
   RINKEBY_TESTNET_URL,
@@ -71,19 +69,13 @@ module.exports = {
         : [],
       url: RINKEBY_TESTNET_URL,
     },
-
-    // arbitrumMainnet: {
-    //   url: ARBITRUM_MAINNET_URL,
-    //   chainId: 42161,
-    //   gasPrice: 0,
-    //   accounts: [ARBITRUM_MAINNET_DEPLOY_KEY],
-    // },
-    // arbitrumKovan: {
-    //   url: ARBITRUM_KOVAN_URL,
-    //   chainId: 144545313136048,
-    //   gasPrice: 0,
-    //   accounts: [ARBITRUM_KOVAN_DEPLOY_KEY],
-    // },
+    aurora_mainnet: {
+      live: true,
+      saveDeployments: true,
+      tags: ["mainnet"],
+      accounts: [AURORA_MAINNET_DEPLOY_KEY],
+      url: AURORA_MAINNET_URL,
+    },
   },
   etherscan: {
     apiKey: RINKEBY_ETHERSCAN_API_KEY,
