@@ -36,7 +36,13 @@ async function deployNDOLNeccLPBond(hre) {
   const initialIndex = "1000000000";
 
   // First epoch occurs
-  const firstEpochTimestamp = Math.round(Date.now() / 1000) + 360; // 1 minute from now
+  /*
+  Epoch timestamp: 1639918800
+  Timestamp in milliseconds: 1639918800000
+  Date and time (GMT): Sunday, 19 December 2021 13:00:00
+  Date and time (your time zone): Sunday, 19 December 2021 13:00:00 GMT+00:00
+  */
+  const firstEpochTimestamp = 1639918800;
 
   // What epoch will be first epoch
   const firstEpochNumber = "1";
@@ -108,7 +114,6 @@ async function deployNDOLNeccLPBond(hre) {
   console.log(ndolBondPrice?.toString());
   console.log("ndolBondPrice?.toString()");
 
-  // 5M
   console.log((await nNECC.balanceOf(deployer.address))?.toString());
   console.log("nNECC.balanceOf(deployer.address)");
   let nNECCToAddLiquidity = 0;

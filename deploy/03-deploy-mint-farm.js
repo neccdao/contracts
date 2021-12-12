@@ -15,7 +15,7 @@ const {
 const { sendTxn, contractAt } = require("../scripts/shared/helpers");
 const { expandDecimals } = require("../test/shared/utilities.js");
 
-async function ndeployNeccFarm(hre) {
+async function deployNdolFarm(hre) {
   const { deployments, ethers } = hre;
   const { diamond, execute, all } = deployments;
   const [deployer, DAO] = await ethers.getSigners();
@@ -75,5 +75,5 @@ async function ndeployNeccFarm(hre) {
   );
 }
 
-module.exports = ndeployNeccFarm;
+module.exports = deployNdolFarm;
 module.exports.tags = ["local", "nNeccFarm"];

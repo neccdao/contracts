@@ -5,6 +5,10 @@ const {
 const { contractAt, sendTxn } = require("../scripts/shared/helpers");
 const { expandDecimals } = require("../test/shared/utilities");
 
+function wait(milliseconds) {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+}
+
 async function deployNecc(hre) {
   const { deployments, ethers } = hre;
   const { diamond, execute, deploy, all } = deployments;
@@ -19,7 +23,6 @@ async function deployNecc(hre) {
   //   return;
   // }
   const allDeployments = await all();
-  console.log("*** Deploying for hardhat test ***");
   console.log("Deploying contracts with the account: " + deployer.address);
 
   // Initial staking index
@@ -84,6 +87,7 @@ async function deployNecc(hre) {
     }),
     "router.swapETHToTokens - ETH -> WETH -> NDOL (1.25 ETH) (~5000 NDOL)"
   );
+  await wait(5000);
   console.log((await ndol.balanceOf(deployer.address))?.toString());
   console.log("ndol balanceOf deployer");
 

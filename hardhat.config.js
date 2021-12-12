@@ -7,6 +7,7 @@ require("hardhat-deploy-ethers");
 require("@atixlabs/hardhat-time-n-mine");
 
 const {
+  AURORA_MAINNET_URL,
   AURORA_MAINNET_DEPLOY_KEY,
   AURORA_MAINNET_DAO_KEY,
   RINKEBY_TESTNET_DEPLOY_KEY,

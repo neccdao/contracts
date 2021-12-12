@@ -48,7 +48,6 @@ const deployExchangeDiamond = async function (hre) {
   //   return;
   // }
   console.log("Deploying contracts with the account: " + deployer.address);
-  console.log("*** Deploying for hardhat test ***");
 
   const vm = await deploy("VM", {
     from: deployer.address,
@@ -62,6 +61,8 @@ const deployExchangeDiamond = async function (hre) {
   });
   console.log("Deployed TestableVM");
 
+  // *** NOTE ***
+  // Had to Diamond cut multiple times due to EVM tx gas exceeding native NEAR contract gas per block
   const exchangeDiamond = await diamond.deploy("ExchangeDiamond", {
     from: deployer.address,
     owner: deployer.address,
@@ -72,8 +73,8 @@ const deployExchangeDiamond = async function (hre) {
       "VaultLib",
       "RouterFacet",
       "RouterLib",
-      "ReaderFacet",
       "VaultPriceFeedFacet",
+      "ReaderFacet",
     ],
     log: true,
   });

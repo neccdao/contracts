@@ -155,6 +155,7 @@ contract BondConfigFacet is Facet {
         uint256 _nextEpochTimestamp,
         address _principle
     ) public {
+        onlyGov();
         uint256 _principleIndex = s.getIndexAt(_principle);
         s.epochLength = _epochLength;
         s.nextEpochTimestamp[_principleIndex] = _nextEpochTimestamp;
@@ -225,6 +226,7 @@ contract BondConfigFacet is Facet {
         address _sNecc,
         address _nNecc
     ) public {
+        onlyGov();
         require(_sNecc != address(0));
         require(_nNecc != address(0));
         s.sNecc = _sNecc;
