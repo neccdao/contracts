@@ -13,6 +13,7 @@ jobs:
       ARBITRUM_KOVAN_URL: "https://kovan5.arbitrum.io/rpc"
       ARBITRUM_KOVAN_DEPLOY_KEY: ""
       RINKEBY_TESTNET_URL: ${{ secrets.RINKEBY_TESTNET_URL }}
+      AURORA_MAINNET_URL: "https://mainnet.aurora.dev"
 
     steps:
       - uses: actions/checkout@v2

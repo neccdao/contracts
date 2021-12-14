@@ -74,7 +74,7 @@ module.exports = {
       live: true,
       saveDeployments: true,
       tags: ["mainnet"],
-      accounts: [AURORA_MAINNET_DEPLOY_KEY],
+      accounts: AURORA_MAINNET_DEPLOY_KEY ? [AURORA_MAINNET_DEPLOY_KEY] : [],
       url: AURORA_MAINNET_URL,
     },
   },
