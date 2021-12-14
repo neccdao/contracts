@@ -295,7 +295,7 @@ describe("Router", function () {
       );
     await reportGasUsed(provider, sellTx, "sellNDOL gas used");
 
-    expect(await eth.balanceOf(user0.address)).gt(expandDecimals(11077, 14)); // 0.997 * 4000/3600
+    expect(await eth.balanceOf(user0.address)).eq(expandDecimals(997, 15)); // 0.997 * 4000 * 3600/4000
     expect(await ndol.balanceOf(user0.address)).eq("3976000000000000000000"); // 3976
   });
 
