@@ -247,13 +247,40 @@ contract VaultNdolFacet is Facet {
         returns (uint256)
     {
         uint256 _price = VaultLib.getMaxPrice(_token, s.includeAmmPrice);
+
+        uint256 _priceBasedAmount = VaultLib.adjustForDecimals(
+            s,
+            _ndolAmount.mul(PRICE_PRECISION).div(_price),
+            s.ndol,
+            _token
+        );
+
+        uint256 _redemptionCollateral = getRedemptionCollateral(_token);
+        if (_redemptionCollateral == 0) {
+            return 0;
+        }
+
+        uint256 totalNdolAmount = s.ndolAmounts[_token];
+
+        // if there is no NDOL debt then the redemption amount based just on price can be supported
+        if (totalNdolAmount == 0) {
+            return _priceBasedAmount;
+        }
+
+        // calculate the collateralBasedAmount from the amount of backing collateral and the
+        // total debt in NDOL tokens for the asset
+        uint256 _collateralBasedAmount = _ndolAmount
+            .mul(_redemptionCollateral)
+            .div(totalNdolAmount);
+        uint256 _basisPoints = getRedemptionBasisPoints(_token);
+        _collateralBasedAmount = _collateralBasedAmount.mul(_basisPoints).div(
+            BASIS_POINTS_DIVISOR
+        );
+
         return
-            VaultLib.adjustForDecimals(
-                s,
-                _ndolAmount.mul(PRICE_PRECISION).div(_price),
-                s.ndol,
-                _token
-            );
+            _collateralBasedAmount < _priceBasedAmount
+                ? _collateralBasedAmount
+                : _priceBasedAmount;
     }
 
     function getTargetAdjustedFee(address _token, uint256 _fee)
