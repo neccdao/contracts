@@ -1,0 +1,35 @@
+name: "Lint and Unit Tests"
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      ARBITRUM_MAINNET_URL: ""
+      ARBITRUM_MAINNET_DEPLOY_KEY: ""
+      ARBITRUM_KOVAN_URL: "https://kovan5.arbitrum.io/rpc"
+      ARBITRUM_KOVAN_DEPLOY_KEY: ""
+      RINKEBY_TESTNET_URL: ${{ secrets.RINKEBY_TESTNET_URL }}
+      AURORA_MAINNET_URL: "https://mainnet.aurora.dev"
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Create empty env.json
+        run: |
+          cp sample-env.json env.json
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+          cache: "yarn"
+
+      - name: Install Dependencies
+        run: yarn
+
+      - name: Compile
+        run: yarn contracts:compile
+
+      - name: Test
+        run: yarn test

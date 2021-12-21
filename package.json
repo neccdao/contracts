@@ -1,0 +1,57 @@
+{
+  "name": "necc-contracts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_ENV=test hardhat test",
+    "contracts:compile": "hardhat compile",
+    "contracts:watch": "hardhat node --watch",
+    "arbitrum:verify": "hardhat verify --network arbitrum DEPLOYED_CONTRACT_ADDRESS 'Constructor argument 1'",
+    "commit": "git-cz",
+    "prepare": "husky install",
+    "prettier:solidity": "prettier --write contracts/**/*.sol",
+    "lint:solidity": "solhint -f table contracts/**/*.sol"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@atixlabs/hardhat-time-n-mine": "^0.0.5",
+    "@defi-wonderland/smock": "^2.0.1",
+    "@ethersproject/hardware-wallets": "^5.4.0",
+    "@nomiclabs/ethereumjs-vm": "^4",
+    "@nomiclabs/hardhat-ethers": "^2.0.2",
+    "@nomiclabs/hardhat-etherscan": "^2.1.1",
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "@uniswap/v2-periphery": "^1.1.0-beta.0",
+    "chai": "^4.3.0",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "3.3.0",
+    "ethereum-waffle": "^3.3.0",
+    "ethers": "^5.0.31",
+    "git-cz": "^4.7.6",
+    "hardhat": "^2.6.8",
+    "hardhat-contract-sizer": "^2.0.3",
+    "hardhat-deploy": "^0.9.5",
+    "hardhat-deploy-ethers": "^0.3.0-beta.11",
+    "husky": "^7.0.0",
+    "prettier": "^2.3.2",
+    "prettier-plugin-solidity": "^1.0.0-beta.17",
+    "solhint": "^3.3.6",
+    "solhint-plugin-prettier": "^0.0.5",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "@ethersproject/abi": "^5.5.0",
+    "@ethersproject/abstract-provider": "^5.5.1",
+    "@ethersproject/abstract-signer": "^5.5.0",
+    "@openzeppelin/contracts": "4.3.2",
+    "@solidstate/contracts": "^0.0.27",
+    "@weiroll/weiroll.js": "^0.3.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "git-cz"
+    }
+  }
+}
