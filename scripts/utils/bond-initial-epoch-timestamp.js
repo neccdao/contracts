@@ -4,7 +4,6 @@ const { contractAt } = require("../shared/helpers");
 async function main() {
   console.info("*** AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
-  // Date and time (GMT): Thursday, 23 December 2021 04:00:00
   const firstEpochTimestamp = 1640232000;
   // What epoch will be first epoch
   const firstEpochNumber = "1";

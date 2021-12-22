@@ -112,6 +112,7 @@ library LibBondStorage {
         mapping(uint256 => Payout[]) payouts; // storage of all past payouts
         uint256 gonsInWarmup; // total gons in warmup period
         //
+        mapping(address => uint256) bondFees; // stores fees for each bond
         // Always add new storage variable to the end of this struct
     }
 }

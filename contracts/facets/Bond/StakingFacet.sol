@@ -55,7 +55,8 @@ contract StakingFacet is Facet {
         external
         returns (bool)
     {
-        rebase();
+        // TODO:
+        // rebase();
 
         IERC20(s.Necc).safeTransferFrom(msg.sender, address(this), _amount);
 

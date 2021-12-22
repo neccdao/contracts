@@ -96,10 +96,12 @@ contract BondDepositoryFacet is Facet {
     ) external returns (uint256) {
         require(_depositor != address(0), "Invalid address");
         uint256 _principleIndex = s.getIndexAt(_principle);
+        LibBondStorage.Terms memory _terms = s.terms[_principleIndex];
 
         decayDebt(_principle);
+
         require(
-            s.totalDebt[_principleIndex] <= s.terms[_principleIndex].maxDebt,
+            s.totalDebt[_principleIndex] <= _terms.maxDebt,
             "Max capacity reached"
         );
 
@@ -115,16 +117,14 @@ contract BondDepositoryFacet is Facet {
         uint256 payout = payoutFor(value, _principle); // payout to bonder is computed
         require(payout >= 10000000, "Bond too small"); // must be > 0.01 Necc ( underflow protection )
         require(payout <= maxPayout(_principle), "Bond too large"); // size protection because there is no slippage
-        // profits are calculated
-        uint256 fee = payout.mul(s.terms[_principleIndex].fee).div(10000);
-        uint256 profit = value.sub(payout);
-        if (profit > 0) {
-            profit = profit.sub(fee);
-            /**
+
+        /**
             principle is transferred in
             approved and
             deposited into the treasury, returning (_amount - profit) Necc
          */
+        //  Profit > 0
+        if (payout.sub(payout.mul(_terms.fee).div(10000)) > 0) {
             if (s.terms[_principleIndex].isLiquidityBond) {
                 IERC20(_principle).safeTransferFrom(
                     msg.sender,
@@ -132,7 +132,11 @@ contract BondDepositoryFacet is Facet {
                     _amount
                 );
                 IERC20(_principle).approve(address(s.treasury), _amount);
-                ITreasury(s.treasury).deposit(_amount, _principle, profit);
+                ITreasury(s.treasury).deposit(
+                    _amount,
+                    _principle,
+                    value.sub(payout).sub(payout.mul(_terms.fee).div(10000))
+                );
             } else if (_principle == s.ndol) {
                 IERC20(_principle).safeTransferFrom(
                     msg.sender,
@@ -140,19 +144,25 @@ contract BondDepositoryFacet is Facet {
                     _amount
                 );
                 IERC20(_principle).approve(address(s.treasury), _amount);
-                ITreasury(s.treasury).deposit(_amount, _principle, profit);
+                ITreasury(s.treasury).deposit(
+                    _amount,
+                    _principle,
+                    value.sub(payout).sub(payout.mul(_terms.fee).div(10000))
+                );
             } else {
                 revert InvalidPrinciple(_principle);
             }
 
-            if (fee != 0) {
-                // fee is transferred to dao in nNecc
-                if (s.DAO != address(0)) {
-                    stake(s.DAO, fee);
-                }
-                if (s.farmDistributor != address(0)) {
-                    stake(s.farmDistributor, payout.mul(100).div(10000));
-                }
+            // fee is transferred to dao in nNecc
+            if (s.DAO != address(0)) {
+                s.bondFees[s.DAO] = s.bondFees[s.DAO].add(
+                    payout.mul(_terms.fee).div(10000)
+                );
+            }
+            if (s.farmDistributor != address(0)) {
+                s.bondFees[s.farmDistributor] = s
+                    .bondFees[s.farmDistributor]
+                    .add(payout.mul(100).div(10000));
             }
         }
 
@@ -162,7 +172,7 @@ contract BondDepositoryFacet is Facet {
         // depositor info is stored
         s.bondInfo[_depositor][_principleIndex] = LibBondStorage.Bond({
             payout: s.bondInfo[_depositor][_principleIndex].payout.add(payout),
-            vesting: s.terms[_principleIndex].vestingTerm,
+            vesting: _terms.vestingTerm,
             lastTime: uint256(block.timestamp),
             pricePaid: priceInUSD
         });
@@ -171,17 +181,45 @@ contract BondDepositoryFacet is Facet {
         emit BondCreated(
             _amount,
             payout,
-            block.timestamp.add(s.terms[_principleIndex].vestingTerm),
+            block.timestamp.add(_terms.vestingTerm),
             priceInUSD
         );
-        emit BondPriceChanged(
-            bondPriceInUSD(_principle),
-            _bondPrice(_principle),
-            debtRatio(_principle)
-        );
 
-        adjust(_principle); // control variable is adjusted
+        // TODO:
+        // adjust(_principle); // control variable is adjusted
+        // emit BondPriceChanged(
+        //     bondPriceInUSD(_principle),
+        //     _bondPrice(_principle),
+        //     debtRatio(_principle)
+        // );
+
         return payout;
+    }
+
+    function distributeFees() external {
+        onlyGov();
+
+        if (s.DAO != address(0) && s.bondFees[s.DAO] != 0) {
+            require(
+                stake(s.DAO, s.bondFees[s.DAO]) != 0,
+                "Failed to distribute fees for DAO"
+            );
+            s.bondFees[s.DAO] = 0;
+        }
+        if (
+            s.farmDistributor != address(0) &&
+            s.bondFees[s.farmDistributor] != 0
+        ) {
+            require(
+                stake(s.farmDistributor, s.bondFees[s.farmDistributor]) != 0,
+                "Failed to distribute fees for farm"
+            );
+            s.bondFees[s.farmDistributor] = 0;
+        }
+    }
+
+    function bondFees(address _recipient) external view returns (uint256) {
+        return s.bondFees[_recipient];
     }
 
     /**
@@ -602,5 +640,17 @@ contract BondDepositoryFacet is Facet {
     {
         uint256 _principleIndex = s.getIndexAt(_principle);
         return s.terms[_principleIndex];
+    }
+
+    function DAO() external view returns (address) {
+        return s.DAO;
+    }
+
+    function farmDistributor() external view returns (address) {
+        return s.farmDistributor;
+    }
+
+    function treasury() external view returns (address) {
+        return s.treasury;
     }
 }
