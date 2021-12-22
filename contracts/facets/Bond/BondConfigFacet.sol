@@ -278,4 +278,14 @@ contract BondConfigFacet is Facet {
         onlyGov();
         s.farmDistributor = _farmDistributor;
     }
+
+    function setDAO(address _DAO) external {
+        onlyGov();
+        s.DAO = _DAO;
+    }
+
+    function setTreasury(address _treasury) external {
+        onlyGov();
+        s.treasury = _treasury;
+    }
 }

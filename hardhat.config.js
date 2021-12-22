@@ -82,11 +82,11 @@ module.exports = {
     apiKey: RINKEBY_ETHERSCAN_API_KEY,
   },
   solidity: {
-    compilers: [{ version: "0.8.10" }],
+    version: "0.8.10",
     settings: {
       optimizer: {
         enabled: true,
-        runs: 1,
+        runs: 2000,
       },
       // for smock
       outputSelection: {
