@@ -7,7 +7,7 @@ artifacts
 bin
 # TODO: Remove
 # deployments
-deploy
+# deploy
 
 #Editor
 .vscode
