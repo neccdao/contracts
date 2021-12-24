@@ -71,7 +71,6 @@ contract VaultFacet is Facet {
         uint256 _sizeDelta,
         bool _isLong
     ) external {
-        contractEntered();
         VaultLib._validateRouter(_account);
         VaultLib.validateTokens(s, _collateralToken, _indexToken);
         VaultLib.updateCumulativeFundingRate(s, _collateralToken);
@@ -192,8 +191,6 @@ contract VaultFacet is Facet {
             position.reserveAmount,
             position.realisedPnl
         );
-
-        contractExited();
     }
 
     function decreasePosition(
@@ -205,7 +202,6 @@ contract VaultFacet is Facet {
         bool _isLong,
         address _receiver
     ) external returns (uint256) {
-        contractEntered();
         VaultLib._validateRouter(_account);
         VaultLib.validateTokens(s, _collateralToken, _indexToken);
 
@@ -218,7 +214,6 @@ contract VaultFacet is Facet {
             _isLong,
             _receiver
         );
-        contractExited();
 
         return _amountOutAfterFees;
     }
@@ -361,7 +356,6 @@ contract VaultFacet is Facet {
         bool _isLong,
         address _feeReceiver
     ) external {
-        contractEntered();
         // set INCLUDE_AMM_PRICE to false prevent manipulated liquidations
         s.includeAmmPrice = false;
 
@@ -451,8 +445,6 @@ contract VaultFacet is Facet {
             VaultLib.usdToTokenMin(s, _collateralToken, LIQUIDATION_FEE_USD),
             _feeReceiver
         );
-
-        contractExited();
     }
 
     function validateLiquidation(

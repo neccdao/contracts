@@ -142,14 +142,12 @@ contract VaultConfigFacet is Facet {
     }
 
     function directPoolDeposit(address _token) external {
-        contractEntered();
         VaultLib.isTokenWhitelisted(s, _token);
         uint256 _tokenAmount = VaultLib.transferIn(s, _token);
         require(_tokenAmount > 0, "Vault: invalid _tokenAmount");
         VaultLib._increasePoolAmount(s, _token, _tokenAmount);
 
         emit DirectPoolDeposit(_token, _tokenAmount);
-        contractExited();
     }
 
     /**

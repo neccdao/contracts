@@ -29,6 +29,21 @@ task("accounts", "Prints the list of accounts", async () => {
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
 
+const OVERRIDE_COMPILER_SETTINGS = {
+  version: "0.8.10",
+  settings: {
+    optimizer: {
+      enabled: true,
+      runs: 2000,
+    },
+    outputSelection: {
+      "*": {
+        "*": ["storageLayout"],
+      },
+    },
+  },
+};
+
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
@@ -82,6 +97,31 @@ module.exports = {
     apiKey: RINKEBY_ETHERSCAN_API_KEY,
   },
   solidity: {
+    // Uncomment for ExchangeDiamond
+    // compilers: [{ version: "0.8.10" }],
+    // settings: {
+    //   optimizer: {
+    //     enabled: true,
+    //     runs: 1,
+    //   },
+    //   outputSelection: {
+    //     "*": {
+    //       "*": ["storageLayout"],
+    //     },
+    //   },
+    // },
+    overrides: {
+      "contracts/facets/Router/RouterFacet.sol": OVERRIDE_COMPILER_SETTINGS,
+      "contracts/facets/Router/RouterLib.sol": OVERRIDE_COMPILER_SETTINGS,
+      "contracts/facets/Vault/VaultNdolFacet.sol": OVERRIDE_COMPILER_SETTINGS,
+      "contracts/facets/Vault/VaultConfigFacet.sol": OVERRIDE_COMPILER_SETTINGS,
+      "contracts/facets/Vault/VaultFacet.sol": OVERRIDE_COMPILER_SETTINGS,
+      "contracts/facets/Vault/VaultLib.sol": OVERRIDE_COMPILER_SETTINGS,
+      "contracts/facets/VaultPriceFeed/VaultPriceFeedFacet.sol":
+        OVERRIDE_COMPILER_SETTINGS,
+      "contracts/facets/Reader/ReaderFacet.sol": OVERRIDE_COMPILER_SETTINGS,
+    },
+
     version: "0.8.10",
     settings: {
       optimizer: {

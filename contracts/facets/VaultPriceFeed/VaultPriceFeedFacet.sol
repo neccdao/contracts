@@ -62,86 +62,18 @@ contract VaultPriceFeedFacet is Facet {
         return price.mul(PRICE_PRECISION).div(10**_priceDecimals);
     }
 
-    // if divByReserve0: calculate price as reserve1 / reserve0
-    // if !divByReserve1: calculate price as reserve0 / reserve1
-    function getPairPrice(address _pair, bool _divByReserve0)
-        public
-        view
-        returns (uint256)
-    {
-        (uint256 reserve0, uint256 reserve1, ) = IUniswapV2Pair(_pair)
-            .getReserves();
-        if (_divByReserve0) {
-            if (reserve0 == 0) {
-                return 0;
-            }
-            return reserve1.mul(PRICE_PRECISION).div(reserve0);
-        }
-        if (reserve1 == 0) {
-            return 0;
-        }
-        return reserve0.mul(PRICE_PRECISION).div(reserve1);
-    }
-
-    function getAmmPrice(address _token, uint256 _primaryPrice)
-        public
-        view
-        returns (uint256)
-    {
-        // Usually wXUSDC
-        address _basePair = s.baseTokenPairs[_token];
-        // Usually xETHwX
-        address _tokenPair = s.tokenPairs[_token];
-
-        uint256 _price0 = getPairPrice(_basePair, false);
-        uint256 _price1 = getPairPrice(_tokenPair, false);
-
-        if (_basePair == _tokenPair) {
-            return _price0.mul(10**(s.priceDecimals[_token]));
-        } else if (_price0 == 0 || _price1 == 0) {
-            return _primaryPrice;
-        }
-
-        // this calculation could overflow if (price0 / 10**30) * (price1 / 10**30) is more than 10**17
-        return
-            _price0.mul(_price1).mul(10**(s.priceDecimals[_token])).div(
-                PRICE_PRECISION
-            );
-    }
-
     function getPrice(
         address _token,
         bool _maximise,
-        bool _includeAmmPrice
+        bool
     ) public view returns (uint256) {
         address _priceFeed = s.priceFeeds[_token];
-        uint256 _priceSpreadBasisPoints = s.priceSpreadBasisPoints[_token];
         uint256 _price = 0;
 
         if (_priceFeed != address(0)) {
             _price = getPrimaryPrice(_token, _maximise);
-        } else if (
-            _includeAmmPrice &&
-            s.baseTokenPairs[_token] != address(0) &&
-            s.tokenPairs[_token] != address(0)
-        ) {
-            _price = getAmmPrice(_token, _price);
         }
 
-        if (_price == 0) {
-            return _price;
-        }
-
-        if (_maximise) {
-            return
-                _price
-                    .mul(BASIS_POINTS_DIVISOR.add(_priceSpreadBasisPoints))
-                    .div(BASIS_POINTS_DIVISOR);
-        }
-
-        return
-            _price.mul(BASIS_POINTS_DIVISOR.sub(_priceSpreadBasisPoints)).div(
-                BASIS_POINTS_DIVISOR
-            );
+        return _price;
     }
 }

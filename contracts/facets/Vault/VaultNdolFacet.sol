@@ -44,8 +44,6 @@ contract VaultNdolFacet is Facet {
         external
         returns (uint256)
     {
-        contractEntered();
-        require(s.isInitialized, "Vault: not initialized");
         VaultLib.isTokenWhitelisted(s, _token);
         uint256 _price = VaultLib.getMinPrice(_token, s.includeAmmPrice);
 
@@ -77,8 +75,6 @@ contract VaultNdolFacet is Facet {
 
         INDOL(s.ndol).mint(_receiver, _ndolAmount);
 
-        contractExited();
-
         return _ndolAmount;
     }
 
@@ -86,7 +82,6 @@ contract VaultNdolFacet is Facet {
         external
         returns (uint256)
     {
-        contractEntered();
         VaultLib.isTokenWhitelisted(s, _token);
 
         uint256 _ndolAmount = VaultLib.transferIn(s, s.ndol);
@@ -120,8 +115,6 @@ contract VaultNdolFacet is Facet {
 
         VaultLib.transferOut(s, _token, _tokenAmount, _receiver);
 
-        contractExited();
-
         return _tokenAmount;
     }
 
@@ -130,8 +123,6 @@ contract VaultNdolFacet is Facet {
         address _tokenOut,
         address _receiver
     ) external returns (uint256) {
-        contractEntered();
-        require(s.isInitialized, "Vault: not initialized");
         require(_tokenIn != _tokenOut, "Vault: invalid tokens");
         VaultLib.isTokenWhitelisted(s, _tokenIn);
         VaultLib.isTokenWhitelisted(s, _tokenOut);
@@ -145,10 +136,9 @@ contract VaultNdolFacet is Facet {
         uint256 priceIn = VaultLib.getMinPrice(_tokenIn, s.includeAmmPrice);
         uint256 priceOut = VaultLib.getMaxPrice(_tokenOut, s.includeAmmPrice);
 
-        uint256 amountOut = amountIn.mul(priceIn).div(priceOut);
-        amountOut = VaultLib.adjustForDecimals(
+        uint256 amountOut = VaultLib.adjustForDecimals(
             s,
-            amountOut,
+            amountIn.mul(priceIn).div(priceOut),
             _tokenIn,
             _tokenOut
         );
@@ -160,10 +150,9 @@ contract VaultNdolFacet is Facet {
         );
 
         // adjust ndolAmounts by the same ndolAmount as debt is shifted between the assets
-        uint256 ndolAmount = amountIn.mul(priceIn).div(PRICE_PRECISION);
-        ndolAmount = VaultLib.adjustForDecimals(
+        uint256 ndolAmount = VaultLib.adjustForDecimals(
             s,
-            ndolAmount,
+            amountIn.mul(priceIn).div(PRICE_PRECISION),
             _tokenIn,
             s.ndol
         );
@@ -177,8 +166,6 @@ contract VaultNdolFacet is Facet {
         emit Swap(_receiver, _tokenIn, _tokenOut, amountIn, amountOutAfterFees);
 
         VaultLib.transferOut(s, _tokenOut, amountOutAfterFees, _receiver);
-
-        contractExited();
 
         return amountOutAfterFees;
     }
@@ -272,6 +259,7 @@ contract VaultNdolFacet is Facet {
         uint256 _collateralBasedAmount = _ndolAmount
             .mul(_redemptionCollateral)
             .div(totalNdolAmount);
+
         uint256 _basisPoints = getRedemptionBasisPoints(_token);
         _collateralBasedAmount = _collateralBasedAmount.mul(_basisPoints).div(
             BASIS_POINTS_DIVISOR
