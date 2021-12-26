@@ -197,8 +197,6 @@ contract BondDepositoryFacet is Facet {
     }
 
     function distributeFees() external {
-        onlyGov();
-
         if (s.DAO != address(0) && s.bondFees[s.DAO] != 0) {
             require(
                 stake(s.DAO, s.bondFees[s.DAO]) != 0,
