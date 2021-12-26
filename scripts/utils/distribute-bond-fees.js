@@ -56,6 +56,13 @@ async function main() {
   await bondDepositoryDiamond.distributeFees();
   console.info("Distributed fees for DAO and farmDistributor");
 
+  console.info(
+    "Fees for DAO now are: " +
+      (
+        await bondDepositoryDiamond.bondFees(AURORA_MAINNET_DAO_ADDRESS)
+      )?.toString()
+  );
+
   console.info("*** AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 }
 
