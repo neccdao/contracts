@@ -13,6 +13,12 @@ interface IDistributor {
     function distribute() external returns (uint256);
 }
 
+interface INecc is IERC20 {
+    function burn(uint256 _amount) external;
+
+    function burnFrom(address _account, uint256 _amount) external;
+}
+
 interface InNecc is IERC20 {
     function mint(address _to, uint256 _amount) external;
 
@@ -197,5 +203,15 @@ contract StakingFacet is Facet {
 
     function totalStaked() public view returns (uint256) {
         return IsNecc(s.sNecc).circulatingSupply();
+    }
+
+    function govBurn(uint256 _amount) external returns (uint256 amount_) {
+        onlyGov();
+        amount_ = _amount;
+
+        InNecc(s.nNecc).burn(msg.sender, _amount); // amount was given in nNecc terms
+
+        amount_ = InNecc(s.nNecc).balanceFrom(amount_);
+        INecc(s.Necc).burn(amount_);
     }
 }
