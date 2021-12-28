@@ -100,6 +100,17 @@ contract VaultConfigFacet is Facet {
         );
     }
 
+    function setTokenWeight(address _token, uint256 _tokenWeight) external {
+        onlyGov();
+        if (s.tokenWeights[_token] == 0) {
+            s.totalTokenWeight = s.totalTokenWeight.add(_tokenWeight);
+        } else {
+            s.totalTokenWeight = s.totalTokenWeight.sub(s.tokenWeights[_token]);
+            s.totalTokenWeight = s.totalTokenWeight.add(_tokenWeight);
+        }
+        s.tokenWeights[_token] = _tokenWeight;
+    }
+
     function clearTokenConfig(address _token) external {
         onlyGov();
         VaultLib.isTokenWhitelisted(s, _token);
