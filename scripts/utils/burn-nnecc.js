@@ -89,6 +89,8 @@ async function main() {
   console.log("nNeccAllowance?.toString()");
   console.log(nNeccAllowance?.toString());
 
+  const nNeccBalanceDeployer = await nNecc.balanceOf(deployer.address);
+
   // const largeApproval = "100000000000000000000000000000000";
   // await nNecc.approve(
   //   allDeployments?.BondDepositoryDiamond?.address,
@@ -96,7 +98,7 @@ async function main() {
   // );
   // console.log("*** Approved nNecc ***");
 
-  await staking.govBurn(expandDecimals(10, 18));
+  await staking.govBurn(expandDecimals(100, 18));
   console.log("*** Gov Burned ***");
 
   await staking.rebase();
@@ -111,6 +113,8 @@ async function main() {
   console.log("await nNecc.balanceOf(deployer.address)?.toString()");
   console.log((await nNecc.balanceOf(deployer.address))?.toString());
 
+  console.log("await sNecc.circulatingSupply()?.toString()");
+  console.log((await sNecc.circulatingSupply())?.toString());
   //
 
   console.log(
@@ -142,7 +146,11 @@ async function main() {
 
   // 2512425901762710000000000 - 2512325901762710000000000
   // 2517707151762710 - 2517607151762710
+  // 5212342560662832 - 5213189693866373
+  // 5212342.56066283 - 5213189.69386637
+  // 131527.47916297
 
+  // 5212342560662832
   console.info("*** AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 }
 
