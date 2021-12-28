@@ -28,6 +28,8 @@ contract VaultConfigFacet is Facet {
         address _tokenPair
     );
     event ClearTokenConfig(address _token);
+    event SetTokenWeight(address _token, uint256 _tokenWeight);
+    event SetTotalTokenWeight(uint256 _totalTokenWeight);
     event SetRedemptionBasisPoints(address _token, uint256 _basisPoints);
     event SetPriceSpreadBasisPoints(
         address _token,
@@ -170,6 +172,20 @@ contract VaultConfigFacet is Facet {
         s.redemptionBasisPoints[_token] = _redemptionBasisPoints;
 
         emit SetRedemptionBasisPoints(_token, _redemptionBasisPoints);
+    }
+
+    function setTokenWeight(address _token, uint256 _tokenWeight) external {
+        onlyGov();
+        if (s.tokenWeights[_token] == 0) {
+            s.totalTokenWeight = s.totalTokenWeight.add(_tokenWeight);
+        } else {
+            s.totalTokenWeight = s.totalTokenWeight.sub(s.tokenWeights[_token]);
+            s.totalTokenWeight = s.totalTokenWeight.add(_tokenWeight);
+        }
+        s.tokenWeights[_token] = _tokenWeight;
+
+        emit SetTokenWeight(_token, _tokenWeight);
+        emit SetTotalTokenWeight(s.totalTokenWeight);
     }
 
     /**
