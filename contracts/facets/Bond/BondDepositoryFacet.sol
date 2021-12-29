@@ -88,6 +88,13 @@ contract BondDepositoryFacet is Facet {
 
     /* ======== USER FUNCTIONS ======== */
 
+    function transferAndApproveToTreasury(address _principle, uint256 _amount)
+        internal
+    {
+        IERC20(_principle).safeTransferFrom(msg.sender, address(this), _amount);
+        IERC20(_principle).approve(address(s.treasury), _amount);
+    }
+
     /**
      *  @notice deposit bond
      *  @param _amount uint
@@ -131,26 +138,22 @@ contract BondDepositoryFacet is Facet {
             deposited into the treasury, returning (_amount - profit) Necc
          */
         //  Profit > 0
-        if (payout.sub(payout.mul(_terms.fee).div(10000)) > 0) {
-            IERC20(_principle).safeTransferFrom(
-                msg.sender,
-                address(this),
-                _amount
-            );
-            IERC20(_principle).approve(address(s.treasury), _amount);
+        uint256 _daoFee = payout.mul(_terms.fee).div(10000);
+        if (payout.sub(_daoFee) > 0) {
+            transferAndApproveToTreasury(_principle, _amount);
 
             if (s.terms[_principleIndex].isLiquidityBond) {
                 ITreasury(s.treasury).depositLP(
                     _amount,
                     _principle,
                     value,
-                    value.sub(payout).sub(payout.mul(_terms.fee).div(10000))
+                    value.sub(payout).sub(_daoFee)
                 );
             } else if (_principle == s.ndol) {
                 ITreasury(s.treasury).deposit(
                     _amount,
                     _principle,
-                    value.sub(payout).sub(payout.mul(_terms.fee).div(10000))
+                    value.sub(payout).sub(_daoFee)
                 );
             } else {
                 revert InvalidPrinciple(_principle);
@@ -158,9 +161,7 @@ contract BondDepositoryFacet is Facet {
 
             // fee is transferred to dao in nNecc
             if (s.DAO != address(0)) {
-                s.bondFees[s.DAO] = s.bondFees[s.DAO].add(
-                    payout.mul(_terms.fee).div(10000)
-                );
+                s.bondFees[s.DAO] = s.bondFees[s.DAO].add(_daoFee);
             }
             if (s.farmDistributor != address(0)) {
                 s.bondFees[s.farmDistributor] = s
