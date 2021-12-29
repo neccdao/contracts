@@ -155,6 +155,43 @@ contract TreasuryFacet is Facet {
     }
 
     /**
+        @notice allow approved address to deposit an asset for Necc
+        @param _amount uint
+        @param _token address
+        @param _value uint
+        @param _profit uint
+        @return send_ uint
+     */
+    function depositLP(
+        uint256 _amount,
+        address _token,
+        uint256 _value,
+        uint256 _profit
+    ) external returns (uint256 send_) {
+        if (s.isLiquidityToken[_token]) {
+            require(
+                s.isLiquidityDepositor[msg.sender],
+                "Treasury: Not approved"
+            );
+        } else {
+            revert InvalidToken(_token);
+        }
+
+        IERC20(_token).safeTransferFrom(msg.sender, address(this), _amount);
+
+        // mint Necc needed and store amount of rewards for distribution
+        send_ = _value.sub(_profit);
+        IERC20Mintable(s.Necc).mint(msg.sender, send_);
+
+        s.totalReserves = s.totalReserves.add(_value);
+
+        emit ReservesUpdated(s.totalReserves);
+        emit Deposit(_token, _amount, _value);
+
+        return send_;
+    }
+
+    /**
         @notice allow approved address to burn Necc for reserves
         @param _amount uint
         @param _token address

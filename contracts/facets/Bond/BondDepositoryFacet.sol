@@ -16,6 +16,13 @@ interface ITreasury {
 
     function mintRewards(address _recipient, uint256 _amount) external;
 
+    function depositLP(
+        uint256 _amount,
+        address _token,
+        uint256 _value,
+        uint256 _profit
+    ) external;
+
     function deposit(
         uint256 _amount,
         address _token,
@@ -132,9 +139,10 @@ contract BondDepositoryFacet is Facet {
                     _amount
                 );
                 IERC20(_principle).approve(address(s.treasury), _amount);
-                ITreasury(s.treasury).deposit(
+                ITreasury(s.treasury).depositLP(
                     _amount,
                     _principle,
+                    value,
                     value.sub(payout).sub(payout.mul(_terms.fee).div(10000))
                 );
             } else if (_principle == s.ndol) {
