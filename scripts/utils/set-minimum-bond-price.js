@@ -65,7 +65,7 @@ async function main() {
   console.log(nNeccNDOLLPBondPrice?.toString());
 
   // Different calculations based on LP or Reserve principle due to BondCalculator markdown btw
-  const minimumPrice = 60_00;
+  const minimumPrice = 55_00;
 
   // Stake Necc
   await execute(

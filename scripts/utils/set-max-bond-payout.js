@@ -51,7 +51,7 @@ async function main() {
     { from: deployer.address },
     "setBondTerms",
     1,
-    1,
+    75,
     nNeccNDOLLPPair.address
   );
 
