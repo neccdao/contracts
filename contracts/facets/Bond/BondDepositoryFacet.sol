@@ -132,13 +132,14 @@ contract BondDepositoryFacet is Facet {
          */
         //  Profit > 0
         if (payout.sub(payout.mul(_terms.fee).div(10000)) > 0) {
+            IERC20(_principle).safeTransferFrom(
+                msg.sender,
+                address(this),
+                _amount
+            );
+            IERC20(_principle).approve(address(s.treasury), _amount);
+
             if (s.terms[_principleIndex].isLiquidityBond) {
-                IERC20(_principle).safeTransferFrom(
-                    msg.sender,
-                    address(this),
-                    _amount
-                );
-                IERC20(_principle).approve(address(s.treasury), _amount);
                 ITreasury(s.treasury).depositLP(
                     _amount,
                     _principle,
@@ -146,12 +147,6 @@ contract BondDepositoryFacet is Facet {
                     value.sub(payout).sub(payout.mul(_terms.fee).div(10000))
                 );
             } else if (_principle == s.ndol) {
-                IERC20(_principle).safeTransferFrom(
-                    msg.sender,
-                    address(this),
-                    _amount
-                );
-                IERC20(_principle).approve(address(s.treasury), _amount);
                 ITreasury(s.treasury).deposit(
                     _amount,
                     _principle,
@@ -309,23 +304,11 @@ contract BondDepositoryFacet is Facet {
         view
         returns (uint256)
     {
-        uint256 _principleIndex = s.getIndexAt(_principle);
-
-        if (s.terms[_principleIndex].isLiquidityBond) {
-            return
-                FixedPoint
-                    .fraction(_value, bondPrice(_principle))
-                    .decode112with18()
-                    .div(1e16);
-        } else if (_principle == s.ndol) {
-            return
-                FixedPoint
-                    .fraction(_value, bondPrice(_principle))
-                    .decode112with18()
-                    .div(1e16);
-        } else {
-            revert InvalidPrinciple(_principle);
-        }
+        return
+            FixedPoint
+                .fraction(_value, bondPrice(_principle))
+                .decode112with18()
+                .div(1e16);
     }
 
     /**
@@ -338,21 +321,12 @@ contract BondDepositoryFacet is Facet {
         returns (uint256 price_)
     {
         uint256 _principleIndex = s.getIndexAt(_principle);
-        if (s.terms[_principleIndex].isLiquidityBond) {
-            price_ = s
-                .terms[_principleIndex]
-                .controlVariable
-                .mul(debtRatio(_principle))
-                .add(1000000000)
-                .div(1e7);
-        } else if (_principle == s.ndol) {
-            price_ = s
-                .terms[_principleIndex]
-                .controlVariable
-                .mul(debtRatio(_principle))
-                .add(1000000000)
-                .div(1e7);
-        }
+        price_ = s
+            .terms[_principleIndex]
+            .controlVariable
+            .mul(debtRatio(_principle))
+            .add(1000000000)
+            .div(1e7);
         if (price_ < s.terms[_principleIndex].minimumPrice) {
             price_ = s.terms[_principleIndex].minimumPrice;
         }
@@ -365,21 +339,13 @@ contract BondDepositoryFacet is Facet {
     function _bondPrice(address _principle) internal returns (uint256 price_) {
         uint256 _principleIndex = s.getIndexAt(_principle);
 
-        if (s.terms[_principleIndex].isLiquidityBond) {
-            price_ = s
-                .terms[_principleIndex]
-                .controlVariable
-                .mul(debtRatio(_principle))
-                .add(1000000000)
-                .div(1e7);
-        } else if (_principle == s.ndol) {
-            price_ = s
-                .terms[_principleIndex]
-                .controlVariable
-                .mul(debtRatio(_principle))
-                .add(1000000000)
-                .div(1e7);
-        }
+        price_ = s
+            .terms[_principleIndex]
+            .controlVariable
+            .mul(debtRatio(_principle))
+            .add(1000000000)
+            .div(1e7);
+
         if (price_ < s.terms[_principleIndex].minimumPrice) {
             price_ = s.terms[_principleIndex].minimumPrice;
         } else if (s.terms[_principleIndex].minimumPrice != 0) {
