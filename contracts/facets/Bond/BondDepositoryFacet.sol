@@ -119,7 +119,7 @@ contract BondDepositoryFacet is Facet {
             "Max capacity reached"
         );
 
-        uint256 priceInUSD = bondPriceInUSD(_principle); // Stored in bond info
+        uint256 priceInUSD = 0; // Stored in bond info, calculated later based on principle
         uint256 nativePrice = _bondPrice(_principle);
 
         require(
@@ -140,9 +140,15 @@ contract BondDepositoryFacet is Facet {
         //  Profit > 0
         uint256 _daoFee = payout.mul(_terms.fee).div(10000);
         if (payout.sub(_daoFee) > 0) {
+            priceInUSD = _amount;
+
             transferAndApproveToTreasury(_principle, _amount);
 
             if (s.terms[_principleIndex].isLiquidityBond) {
+                // TODO: Uncomment when Aurora works as it should
+                // priceInUSD = bondPriceInUSD(_principle);
+                priceInUSD = value;
+
                 ITreasury(s.treasury).depositLP(
                     _amount,
                     _principle,
@@ -150,6 +156,8 @@ contract BondDepositoryFacet is Facet {
                     value.sub(payout).sub(_daoFee)
                 );
             } else if (_principle == s.ndol) {
+                priceInUSD = bondPriceInUSD(_principle);
+
                 ITreasury(s.treasury).deposit(
                     _amount,
                     _principle,
