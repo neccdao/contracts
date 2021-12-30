@@ -16,6 +16,12 @@ async function main() {
   console.log(
     "Running against contracts with the account: " + deployer.address
   );
+  const chainId = await getChainId();
+  console.log({ chainId });
+  if (chainId?.toString() !== "1313161554") {
+    return;
+  }
+  // console.log(Object.keys(allDeployments));
   // console.log(Object.keys(allDeployments));
   let ammAddress = AURORA_MAINNET_AMM;
   let ammFactoryAddress = AURORA_MAINNET_AMM_FACTORY;
@@ -30,99 +36,23 @@ async function main() {
   const bondDepository = {
     address: allDeployments?.BondDepositoryDiamond.address,
   };
+
   const BondDepositoryD = await ethers.getContractFactory(
     "BondDepositoryFacet"
   ); // ndolNeccLP
   const bondDepositoryD = await BondDepositoryD.attach(bondDepository.address);
-  const ndolBondPrice = await bondDepositoryD.bondPriceInUSD(ndol.address);
+  const ndolBondPrice = await bondDepositoryD.bondPriceInUSD(
+    nNeccNDOLLPPair.address
+  );
   console.log(ndolBondPrice?.toString());
 
-  const neccD = await contractAt("NeccFacet", necc.address);
-  const treasury = await contractAt(
-    "TreasuryFacet",
-    allDeployments?.TreasuryDiamond.address
-  );
-  // await treasury.deposit(
-  //   expandDecimals(300_000, 18),
-  //   ndol.address,
-  //   expandDecimals(240_000, 9)
-  // );
-  // console.log("treasury deposit NDOL");
-  // console.log("deployer receives NECC");
-
-  const neccBalance = await neccD.balanceOf(deployer.address);
-  console.log(neccBalance?.toString());
-
-  // Stake Necc
   await execute(
     "BondDepositoryDiamond",
     { from: deployer.address },
-    "setMaxBondPayout",
-    1
-    ndol.address,
-    0
-  );
-  console.log("stake necc for nNecc");
-
-  return;
-  //
-
-  // - Seed the NDOL-NECC pair via the router
-  const ammRouter = await ethers.getContractAt(
-    "IUniswapV2Router01",
-    ammAddress
-  );
-  const ammFactory = await ethers.getContractAt(
-    "IUniswapV2Factory",
-    ammFactoryAddress
-  );
-
-  const ndolMarketPrice = 277;
-  const nNECCToAddLiquidity = 50_000 / ndolMarketPrice;
-
-  await sendTxn(
-    ammRouter.addLiquidity(
-      nNecc.address,
-      ndol.address,
-      expandDecimals(nNECCToAddLiquidity, 18),
-      expandDecimals(ndolMarketPrice, 18)?.mul(nNECCToAddLiquidity),
-      0,
-      0,
-      deployer.address,
-      Math.round(Date.now() / 1000) + 360
-    ),
-    `ammRouter.addLiquidity(
-      ${nNECC.address},
-      ${NDOL.address},
-      ${nNECCToAddLiquidity} nNecc,
-      ${nNECCToAddLiquidity} * ndol bond price in NDOL,
-      0,
-      0,
-      deployer.address,
-      Math.round(Date.now() / 1000) + 360
-    )`
-  );
-
-  const ERC20 = await ethers.getContractFactory("Token");
-  const ndolnNeccLPPair = await ERC20.attach(
-    await ammFactory.getPair(ndol.address, nNecc.address)
-  );
-  let ndolnNeccLPDeployerBalance = await ndolnNeccLPPair.balanceOf(
-    deployer.address
-  );
-
-  const LPValuation = await bondingCalculatorD.valuation(
-    nNeccNDOLLPPair.address,
-    ndolnNeccLPDeployerBalance?.mul(99)?.div(100)
-  );
-
-  await execute(
-    "TreasuryDiamond",
-    { from: deployer.address },
-    "deposit",
-    ndolnNeccLPDeployerBalance.mul(99).div(100),
-    nNeccNDOLLPPair.address,
-    LPValuation?.mul(99)?.div(100)?.div(2)
+    "setBondTerms",
+    1,
+    75,
+    nNeccNDOLLPPair.address
   );
 
   console.info("*** AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");

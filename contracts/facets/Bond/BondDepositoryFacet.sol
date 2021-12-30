@@ -16,6 +16,13 @@ interface ITreasury {
 
     function mintRewards(address _recipient, uint256 _amount) external;
 
+    function depositLP(
+        uint256 _amount,
+        address _token,
+        uint256 _value,
+        uint256 _profit
+    ) external;
+
     function deposit(
         uint256 _amount,
         address _token,
@@ -81,6 +88,13 @@ contract BondDepositoryFacet is Facet {
 
     /* ======== USER FUNCTIONS ======== */
 
+    function transferAndApproveToTreasury(address _principle, uint256 _amount)
+        internal
+    {
+        IERC20(_principle).safeTransferFrom(msg.sender, address(this), _amount);
+        IERC20(_principle).approve(address(s.treasury), _amount);
+    }
+
     /**
      *  @notice deposit bond
      *  @param _amount uint
@@ -105,7 +119,7 @@ contract BondDepositoryFacet is Facet {
             "Max capacity reached"
         );
 
-        uint256 priceInUSD = bondPriceInUSD(_principle); // Stored in bond info
+        uint256 priceInUSD = 0; // Stored in bond info, calculated later based on principle
         uint256 nativePrice = _bondPrice(_principle);
 
         require(
@@ -124,30 +138,30 @@ contract BondDepositoryFacet is Facet {
             deposited into the treasury, returning (_amount - profit) Necc
          */
         //  Profit > 0
-        if (payout.sub(payout.mul(_terms.fee).div(10000)) > 0) {
+        uint256 _daoFee = payout.mul(_terms.fee).div(10000);
+        if (payout.sub(_daoFee) > 0) {
+            priceInUSD = _amount;
+
+            transferAndApproveToTreasury(_principle, _amount);
+
             if (s.terms[_principleIndex].isLiquidityBond) {
-                IERC20(_principle).safeTransferFrom(
-                    msg.sender,
-                    address(this),
-                    _amount
-                );
-                IERC20(_principle).approve(address(s.treasury), _amount);
-                ITreasury(s.treasury).deposit(
+                // TODO: Uncomment when Aurora works as it should
+                // priceInUSD = bondPriceInUSD(_principle);
+                priceInUSD = value;
+
+                ITreasury(s.treasury).depositLP(
                     _amount,
                     _principle,
-                    value.sub(payout).sub(payout.mul(_terms.fee).div(10000))
+                    value,
+                    value.sub(payout).sub(_daoFee)
                 );
             } else if (_principle == s.ndol) {
-                IERC20(_principle).safeTransferFrom(
-                    msg.sender,
-                    address(this),
-                    _amount
-                );
-                IERC20(_principle).approve(address(s.treasury), _amount);
+                priceInUSD = bondPriceInUSD(_principle);
+
                 ITreasury(s.treasury).deposit(
                     _amount,
                     _principle,
-                    value.sub(payout).sub(payout.mul(_terms.fee).div(10000))
+                    value.sub(payout).sub(_daoFee)
                 );
             } else {
                 revert InvalidPrinciple(_principle);
@@ -155,9 +169,7 @@ contract BondDepositoryFacet is Facet {
 
             // fee is transferred to dao in nNecc
             if (s.DAO != address(0)) {
-                s.bondFees[s.DAO] = s.bondFees[s.DAO].add(
-                    payout.mul(_terms.fee).div(10000)
-                );
+                s.bondFees[s.DAO] = s.bondFees[s.DAO].add(_daoFee);
             }
             if (s.farmDistributor != address(0)) {
                 s.bondFees[s.farmDistributor] = s
@@ -301,23 +313,11 @@ contract BondDepositoryFacet is Facet {
         view
         returns (uint256)
     {
-        uint256 _principleIndex = s.getIndexAt(_principle);
-
-        if (s.terms[_principleIndex].isLiquidityBond) {
-            return
-                FixedPoint
-                    .fraction(_value, bondPrice(_principle))
-                    .decode112with18()
-                    .div(1e16);
-        } else if (_principle == s.ndol) {
-            return
-                FixedPoint
-                    .fraction(_value, bondPrice(_principle))
-                    .decode112with18()
-                    .div(1e16);
-        } else {
-            revert InvalidPrinciple(_principle);
-        }
+        return
+            FixedPoint
+                .fraction(_value, bondPrice(_principle))
+                .decode112with18()
+                .div(1e16);
     }
 
     /**
@@ -330,21 +330,12 @@ contract BondDepositoryFacet is Facet {
         returns (uint256 price_)
     {
         uint256 _principleIndex = s.getIndexAt(_principle);
-        if (s.terms[_principleIndex].isLiquidityBond) {
-            price_ = s
-                .terms[_principleIndex]
-                .controlVariable
-                .mul(debtRatio(_principle))
-                .add(1000000000)
-                .div(1e7);
-        } else if (_principle == s.ndol) {
-            price_ = s
-                .terms[_principleIndex]
-                .controlVariable
-                .mul(debtRatio(_principle))
-                .add(1000000000)
-                .div(1e7);
-        }
+        price_ = s
+            .terms[_principleIndex]
+            .controlVariable
+            .mul(debtRatio(_principle))
+            .add(1000000000)
+            .div(1e7);
         if (price_ < s.terms[_principleIndex].minimumPrice) {
             price_ = s.terms[_principleIndex].minimumPrice;
         }
@@ -357,21 +348,13 @@ contract BondDepositoryFacet is Facet {
     function _bondPrice(address _principle) internal returns (uint256 price_) {
         uint256 _principleIndex = s.getIndexAt(_principle);
 
-        if (s.terms[_principleIndex].isLiquidityBond) {
-            price_ = s
-                .terms[_principleIndex]
-                .controlVariable
-                .mul(debtRatio(_principle))
-                .add(1000000000)
-                .div(1e7);
-        } else if (_principle == s.ndol) {
-            price_ = s
-                .terms[_principleIndex]
-                .controlVariable
-                .mul(debtRatio(_principle))
-                .add(1000000000)
-                .div(1e7);
-        }
+        price_ = s
+            .terms[_principleIndex]
+            .controlVariable
+            .mul(debtRatio(_principle))
+            .add(1000000000)
+            .div(1e7);
+
         if (price_ < s.terms[_principleIndex].minimumPrice) {
             price_ = s.terms[_principleIndex].minimumPrice;
         } else if (s.terms[_principleIndex].minimumPrice != 0) {

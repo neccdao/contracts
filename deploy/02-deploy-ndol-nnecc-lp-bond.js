@@ -6,7 +6,10 @@ const {
   RINKEBY_TESTNET_AMM_FACTORY,
 } = require("../env.json");
 const { sendTxn, contractAt } = require("../scripts/shared/helpers");
-const { expandDecimals } = require("../test/shared/utilities.js");
+const {
+  expandDecimals,
+  reportGasUsed,
+} = require("../test/shared/utilities.js");
 
 async function deployNDOLNeccLPBond(hre) {
   const { deployments, ethers, getChainId } = hre;
@@ -350,9 +353,21 @@ async function deployNDOLNeccLPBond(hre) {
   //   deployer.address,
   //   ndolnNeccLPPair.address
   // );
-  // console.log(
-  //   "deployer BondDepositoryDiamond deposit 1% ndolNeccLPPair ~500USD"
-  // );
+  const depositTx = await bondDepositoryD.deposit(
+    ndolnNeccLPDeployerBalance,
+    "60000",
+    deployer.address,
+    ndolnNeccLPPair.address
+  );
+  console.log(
+    "deployer BondDepositoryDiamond deposit 1% ndolNeccLPPair ~500USD"
+  );
+
+  await reportGasUsed(
+    hre.ethers.provider,
+    depositTx,
+    "BondDepository.deposit -  gas used"
+  );
 
   nNeccBalance = await nNECC.balanceOf(deployer.address);
   console.log(nNeccBalance?.toString());
