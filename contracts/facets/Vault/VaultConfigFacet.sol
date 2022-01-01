@@ -152,6 +152,12 @@ contract VaultConfigFacet is Facet {
         emit DirectPoolDeposit(_token, _tokenAmount);
     }
 
+    function updateTokenBalance(address _token) external {
+        onlyGov();
+        VaultLib.isTokenWhitelisted(s, _token);
+        VaultLib.updateTokenBalance(s, _token);
+    }
+
     /**
         @notice
         Uses:
