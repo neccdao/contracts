@@ -1,17 +1,21 @@
 const {
-  AURORA_MAINNET_WETH,
-  AURORA_MAINNET_AMM,
-  AURORA_MAINNET_AMM_FACTORY,
   RINKEBY_TESTNET_AMM,
   RINKEBY_TESTNET_AMM_FACTORY,
+  RINKEBY_TESTNET_ETH_PRICE_FEED,
+  nRINKEBY_TESTNET_NDOL_NECC_PAIR,
+  nRINKEBY_TESTNET_NECC,
+  RINKEBY_TESTNET_TREASURY,
+  RINKEBY_TESTNET_BONDING_CALCULATOR,
+  RINKEBY_TESTNET_DISTRIBUTOR,
+  RINKEBY_TESTNET_NNECC,
+  RINKEBY_TESTNET_STAKING,
+  RINKEBY_TESTNET_STAKING_HELPER,
+  RINKEBY_TESTNET_NDOL_BOND,
 } = require("../env.json");
 const { sendTxn, contractAt } = require("../scripts/shared/helpers");
-const {
-  expandDecimals,
-  reportGasUsed,
-} = require("../test/shared/utilities.js");
+const { expandDecimals } = require("../test/shared/utilities.js");
 
-async function deployNDOLnNeccLPBond(hre) {
+async function deployNDOLNeccLPBond(hre) {
   const { deployments, ethers, getChainId } = hre;
   const { diamond, execute, all } = deployments;
   const [deployer, DAO] = await ethers.getSigners();
@@ -35,9 +39,6 @@ async function deployNDOLnNeccLPBond(hre) {
     return;
   }
   console.log("Deploying contracts with the account: " + deployer.address);
-  // Initial staking index
-  const initialIndex = "1000000000";
-
   // First epoch occurs
   /*
   Epoch timestamp: 1639918800
@@ -46,9 +47,6 @@ async function deployNDOLnNeccLPBond(hre) {
   Date and time (your time zone): Sunday, 19 December 2021 13:00:00 GMT+00:00
   */
   const firstEpochTimestamp = 1639918800;
-
-  // What epoch will be first epoch
-  const firstEpochNumber = "1";
 
   // How many seconds are in each epoch
   const epochLengthInTimestamp = "3600";
@@ -59,14 +57,14 @@ async function deployNDOLnNeccLPBond(hre) {
   // Large number for approval NDOL
   const largeApproval = "100000000000000000000000000000000";
 
-  // ndolnNeccLP bond BCV
-  const ndolnNeccLPBondBCV = "200";
+  // dolnNeccLP bond BCV
+  const dolnNeccLPBondBCV = "200";
 
   // Bond vesting length in seconds. 432000 ~ 5 days
   const bondVestingLengthInSeconds = "432000";
 
   // Min bond price
-  const minBondPrice = "1200";
+  const minBondPrice = "4500"; // 4500 / 1.58
 
   // Max bond payout
   const maxBondPayout = "100"; // 0.1%
@@ -94,16 +92,14 @@ async function deployNDOLnNeccLPBond(hre) {
   const Exchange = await allDeployments?.ExchangeDiamond;
   const NDOL = await allDeployments?.NdolDiamond;
   const NECCD = await allDeployments?.NeccDiamond;
-  const nNECCD = await allDeployments?.nNeccDiamond;
   const bondDepository = allDeployments?.BondDepositoryDiamond;
   const treasury = allDeployments?.TreasuryDiamond;
 
   const router = await contractAt("RouterFacet", Exchange.address);
-  const necc = await contractAt("NeccFacet", NECCD.address);
-  // Approve the router to spend NDOL and nNECC
-  const nNECC = await contractAt("nNeccFacet", nNECCD.address);
-  await nNECC.approve(ammRouter.address, largeApproval);
-  console.log("nNecc approved for AMM router");
+  // Approve the router to spend NDOL and NECC
+  const NECC = await contractAt("NeccFacet", NECCD.address);
+  await NECC.approve(ammRouter.address, largeApproval);
+  console.log("Necc approved for AMM router");
   const NDOLD = await ethers.getContractFactory("NdolFacet");
   const ndol = await NDOLD.attach(NDOL.address);
   await ndol.approve(ammRouter.address, largeApproval);
@@ -117,17 +113,17 @@ async function deployNDOLnNeccLPBond(hre) {
   console.log(ndolBondPrice?.toString());
   console.log("ndolBondPrice?.toString()");
 
-  console.log((await nNECC.balanceOf(deployer.address))?.toString());
-  console.log("nNECC.balanceOf(deployer.address)");
-  let nNECCToAddLiquidity = 0;
+  console.log((await NECC.balanceOf(deployer.address))?.toString());
+  console.log("NECC.balanceOf(deployer.address)");
+  let NECCToAddLiquidity = 0;
   if (chainId?.toString() === "1313161554") {
-    nNECCToAddLiquidity = 2;
+    NECCToAddLiquidity = 2;
   }
   if (chainId?.toString() === "4") {
-    nNECCToAddLiquidity = 2;
+    NECCToAddLiquidity = 2;
   }
   if (chainId?.toString() === "1337") {
-    nNECCToAddLiquidity = 1250;
+    NECCToAddLiquidity = 300;
 
     // Get more NDOL
     await sendTxn(
@@ -138,22 +134,30 @@ async function deployNDOLnNeccLPBond(hre) {
     );
   }
 
+  const stakingFacet = await contractAt("StakingFacet", bondDepository.address);
+
+  await stakingFacet.unstake(
+    expandDecimals(NECCToAddLiquidity, 18),
+    deployer.address
+  );
+  console.log("Unstake nNECC for NECCToAddLiquidity");
+
   await sendTxn(
     ammRouter.addLiquidity(
-      nNECC.address,
+      NECC.address,
       NDOL.address,
-      expandDecimals(nNECCToAddLiquidity, 18),
-      ndolBondPrice?.mul(nNECCToAddLiquidity),
+      expandDecimals(NECCToAddLiquidity, 18),
+      ndolBondPrice?.mul(NECCToAddLiquidity),
       0,
       0,
       deployer.address,
       Math.round(Date.now() / 1000) + 360
     ),
     `ammRouter.addLiquidity(
-      ${nNECC.address},
+      ${NECC.address},
       ${NDOL.address},
-      ${nNECCToAddLiquidity} nNecc,
-      ${nNECCToAddLiquidity} * ndol bond price in NDOL,
+      ${NECCToAddLiquidity} Necc,
+      ${NECCToAddLiquidity} * ndol bond price in NDOL,
       0,
       0,
       deployer.address,
@@ -162,8 +166,8 @@ async function deployNDOLnNeccLPBond(hre) {
   );
 
   const ERC20 = await ethers.getContractFactory("Token");
-  const ndolnNeccLPPair = await ERC20.attach(
-    await ammFactory.getPair(NDOL.address, nNECCD.address)
+  const ndolNeccLPPair = await ERC20.attach(
+    await ammFactory.getPair(NDOL.address, NECCD.address)
   );
 
   // Deploy staking distributor
@@ -173,7 +177,7 @@ async function deployNDOLnNeccLPBond(hre) {
     "initializeDistributor",
     epochLengthInTimestamp,
     firstEpochTimestamp,
-    ndolnNeccLPPair.address
+    ndolNeccLPPair.address
   );
   console.log("BondDepository iniitalizeDistributor");
 
@@ -182,7 +186,7 @@ async function deployNDOLnNeccLPBond(hre) {
     "BondDepositoryDiamond",
     { from: deployer.address },
     "initializeBondTerms",
-    ndolnNeccLPBondBCV,
+    dolnNeccLPBondBCV,
     minBondPrice,
     maxBondPayout,
     bondFee,
@@ -191,61 +195,46 @@ async function deployNDOLnNeccLPBond(hre) {
     bondVestingLengthInSeconds,
     true,
     zeroAddress,
-    ndolnNeccLPPair.address
+    ndolNeccLPPair.address
   );
-  console.log("BondDepository ndolnNeccLPPair init terms");
+  console.log("BondDepository dolnNeccLPPair init terms");
 
-  await execute(
-    "TreasuryDiamond",
-    { from: deployer.address },
-    "queue",
-    "4",
-    bondDepository.address
-  );
-  await execute(
-    "TreasuryDiamond",
-    { from: deployer.address },
-    "toggle",
-    "4",
-    bondDepository.address
-  );
-  console.log("treasury toggle 4 BondDepository");
   //
   await execute(
     "TreasuryDiamond",
     { from: deployer.address },
     "queue",
     "5",
-    ndolnNeccLPPair.address
+    ndolNeccLPPair.address
   );
   await execute(
     "TreasuryDiamond",
     { from: deployer.address },
     "toggle",
     "5",
-    ndolnNeccLPPair.address
+    ndolNeccLPPair.address
   );
-  console.log("treasury toggle 5 ndolnNeccLPPair");
+  console.log("treasury toggle 5 ndolNeccLPPair");
 
   // Approve the treasury to spend NDOL
-  await ndolnNeccLPPair.approve(treasury.address, largeApproval);
+  await ndolNeccLPPair.approve(treasury.address, largeApproval);
   console.log("ndolNeccLPPair approve treasury");
 
-  // Approve ndolNeccLPPair bonds to spend deployer's ndolnNeccLPPair
-  await ndolnNeccLPPair.approve(bondDepository.address, largeApproval);
-  console.log("ndolnNeccLPPair approve BondDepository");
+  // Approve ndolNeccLPPair bonds to spend deployer's dolnNeccLPPair
+  await ndolNeccLPPair.approve(bondDepository.address, largeApproval);
+  console.log("dolnNeccLPPair approve BondDepository");
 
-  let ndolnNeccLPDeployerBalance = await ndolnNeccLPPair.balanceOf(
+  let ndolNeccLPDeployerBalance = await ndolNeccLPPair.balanceOf(
     deployer.address
   );
-  console.log(ndolnNeccLPDeployerBalance?.toString());
-  console.log("ndolnNeccLPPair balanceOf deployer");
+  console.log(ndolNeccLPDeployerBalance?.toString());
+  console.log("ndolNeccLPPair balanceOf deployer");
 
   const BdD = await ethers.getContractFactory("BondDepositoryFacet");
   const bdD = await BdD.attach(bondDepository.address);
   console.log(
     (
-      await bdD.payoutFor(ndolnNeccLPDeployerBalance, ndolnNeccLPPair.address)
+      await bdD.payoutFor(ndolNeccLPDeployerBalance, ndolNeccLPPair.address)
     )?.toString()
   );
   console.log("bdD payoutFor ndolnNeccLPPair deployer");
@@ -256,23 +245,23 @@ async function deployNDOLnNeccLPBond(hre) {
   );
 
   const LPValuation = await bondingCalculatorD.valuation(
-    ndolnNeccLPPair.address,
-    ndolnNeccLPDeployerBalance?.mul(99)?.div(100)
+    ndolNeccLPPair.address,
+    ndolNeccLPDeployerBalance?.mul(99)?.div(100)
   );
 
   console.log(LPValuation?.toString());
-  console.log("bondingCalculatorD LPValuation ndolnNeccLPPair deployer");
+  console.log("bondingCalculatorD LPValuation dolnNeccLPPair deployer");
 
-  let nNeccBalanceDeployer = await nNECC.balanceOf(deployer.address);
-  console.log(nNeccBalanceDeployer?.toString());
-  console.log("nNecc balanceOf deployer before");
+  let NeccBalanceDeployer = await NECC.balanceOf(deployer.address);
+  console.log(NeccBalanceDeployer?.toString());
+  console.log("Necc balanceOf deployer before");
 
   await execute(
     "TreasuryDiamond",
     { from: deployer.address },
     "deposit",
-    ndolnNeccLPDeployerBalance.mul(99).div(100),
-    ndolnNeccLPPair.address,
+    ndolNeccLPDeployerBalance.mul(99).div(100),
+    ndolNeccLPPair.address,
     LPValuation?.mul(99)?.div(100)?.div(2)
   );
   console.log("treasury deposit 99% of ndolNeccLPPair, get half profit");
@@ -292,28 +281,26 @@ async function deployNDOLnNeccLPBond(hre) {
     deployer.address
   );
 
-  nNeccBalanceDeployer = await nNECC.balanceOf(deployer.address);
-  console.log(nNeccBalanceDeployer?.toString());
-  console.log("nNecc balanceOf deployer after");
+  NeccBalanceDeployer = await NECC.balanceOf(deployer.address);
+  console.log(NeccBalanceDeployer?.toString());
+  console.log("Necc balanceOf deployer after");
 
-  ndolnNeccLPDeployerBalance = await ndolnNeccLPPair.balanceOf(
-    deployer.address
-  );
-  console.log(ndolnNeccLPDeployerBalance?.toString());
-  console.log("ndolnNeccLPPair balanceOf deployer");
+  ndolNeccLPDeployerBalance = await ndolNeccLPPair.balanceOf(deployer.address);
+  console.log(ndolNeccLPDeployerBalance?.toString());
+  console.log("dolnNeccLPPair balanceOf deployer");
 
   console.log(
-    (await bondDepositoryD.maxPayout(ndolnNeccLPPair.address))?.toString()
+    (await bondDepositoryD.maxPayout(ndolNeccLPPair.address))?.toString()
   );
-  console.log("BondDepositoryDiamond maxPayout ndolnNeccLP");
+  console.log("BondDepositoryDiamond maxPayout dolnNeccLP");
   console.log(
-    (await bondDepositoryD.bondPriceInUSD(ndolnNeccLPPair.address))?.toString()
+    (await bondDepositoryD.bondPriceInUSD(ndolNeccLPPair.address))?.toString()
   );
   console.log("BondDepositoryDiamond bondPriceInUSD ndolNeccLP");
 
   console.log(
     (
-      await bdD.payoutFor(ndolnNeccLPDeployerBalance, ndolnNeccLPPair.address)
+      await bdD.payoutFor(ndolNeccLPDeployerBalance, ndolNeccLPPair.address)
     )?.toString()
   );
   console.log("bdD payoutFor 1% remaining ndolNeccLPPair");
@@ -321,7 +308,7 @@ async function deployNDOLnNeccLPBond(hre) {
   if (chainId?.toString() === "1337") {
     await sendTxn(
       ammRouter.addLiquidity(
-        nNECC.address,
+        NECC.address,
         NDOL.address,
         expandDecimals(4000, 18),
         ndolBondPrice?.mul(4000),
@@ -331,7 +318,7 @@ async function deployNDOLnNeccLPBond(hre) {
         Math.round(Date.now() / 1000) + 360
       ),
       `ammRouter.addLiquidity(
-      ${nNECC.address},
+      ${NECC.address},
       ${NDOL.address},
       10k Necc,
       10k * ndol bond price,
@@ -348,16 +335,16 @@ async function deployNDOLnNeccLPBond(hre) {
   //   "BondDepositoryDiamond",
   //   { from: deployer.address },
   //   "deposit",
-  //   ndolnNeccLPDeployerBalance,
+  //   dolnNeccLPDeployerBalance,
   //   "60000",
   //   deployer.address,
-  //   ndolnNeccLPPair.address
+  //   dolnNeccLPPair.address
   // );
   const depositTx = await bondDepositoryD.deposit(
-    ndolnNeccLPDeployerBalance,
+    ndolNeccLPDeployerBalance,
     "60000",
     deployer.address,
-    ndolnNeccLPPair.address
+    ndolNeccLPPair.address
   );
   console.log(
     "deployer BondDepositoryDiamond deposit 1% ndolNeccLPPair ~500USD"
@@ -369,9 +356,9 @@ async function deployNDOLnNeccLPBond(hre) {
     "BondDepository.deposit -  gas used"
   );
 
-  nNeccBalance = await nNECC.balanceOf(deployer.address);
-  console.log(nNeccBalance?.toString());
-  console.log("nNecc balanceOf deployer");
+  NeccBalance = await NECC.balanceOf(deployer.address);
+  console.log(NeccBalance?.toString());
+  console.log("Necc balanceOf deployer");
 
   const StakingD = await ethers.getContractFactory("StakingFacet"); // ndolNeccLPPair
   const stakingD = await StakingD.attach(bondDepository.address);
@@ -383,7 +370,7 @@ async function deployNDOLnNeccLPBond(hre) {
   const ndolNeccLPPairD = await ndolNeccLPPairFacet.attach(
     bondDepository.address
   );
-  const terms = await ndolNeccLPPairD.terms(ndolnNeccLPPair.address);
+  const terms = await ndolNeccLPPairD.terms(ndolNeccLPPair.address);
   console.log(terms?.toString());
   console.log({ terms });
   const { distribute, number, endTime } = epoch;
@@ -401,8 +388,8 @@ async function deployNDOLnNeccLPBond(hre) {
   // Adjusts Reward rate
   // await distributor.setAdjustment(0, true, 500, 5000);
 
-  console.log("ndolnNeccLPPair: " + ndolnNeccLPPair.address);
+  console.log("dolnNeccLPPair: " + ndolNeccLPPair.address);
 }
 
-module.exports = deployNDOLnNeccLPBond;
-module.exports.tags = ["local", "ndolNeccLPBond"];
+module.exports = deployNDOLNeccLPBond;
+module.exports.tags = ["local", "NeccFarm"];

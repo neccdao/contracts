@@ -120,21 +120,40 @@ contract BondingCalculatorFacet is Facet {
     function markdown(address _pair) external view returns (uint256) {
         (uint256 reserve0, uint256 reserve1, ) = IUniswapV2Pair(_pair)
             .getReserves();
-
         uint256 reserve;
-        if (IUniswapV2Pair(_pair).token0() == address(s.nNecc)) {
-            reserve = reserve1;
+
+        if (
+            IUniswapV2Pair(_pair).token0() == address(s.Necc) ||
+            IUniswapV2Pair(_pair).token1() == address(s.Necc)
+        ) {
+            if (IUniswapV2Pair(_pair).token0() == address(s.Necc)) {
+                reserve = reserve1;
+            } else {
+                require(
+                    IUniswapV2Pair(_pair).token1() == address(s.Necc),
+                    "Invalid pair"
+                );
+                reserve = reserve0;
+            }
+            return
+                reserve
+                    .mul(2 * (10**IERC20Metadata(address(s.Necc)).decimals()))
+                    .div(getTotalValue(_pair));
         } else {
-            require(
-                IUniswapV2Pair(_pair).token1() == address(s.nNecc),
-                "Invalid pair"
-            );
-            reserve = reserve0;
+            if (IUniswapV2Pair(_pair).token0() == address(s.nNecc)) {
+                reserve = reserve1;
+            } else {
+                require(
+                    IUniswapV2Pair(_pair).token1() == address(s.nNecc),
+                    "Invalid pair"
+                );
+                reserve = reserve0;
+            }
+            return
+                reserve
+                    .mul(2 * (10**IERC20Metadata(address(s.nNecc)).decimals()))
+                    .div(getTotalValue(_pair))
+                    .div(1e9);
         }
-        return
-            reserve
-                .mul(2 * (10**IERC20Metadata(address(s.nNecc)).decimals()))
-                .div(getTotalValue(_pair))
-                .div(1e9);
     }
 }
