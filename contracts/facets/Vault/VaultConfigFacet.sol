@@ -30,6 +30,11 @@ contract VaultConfigFacet is Facet {
     event ClearTokenConfig(address _token);
     event SetTokenWeight(address _token, uint256 _tokenWeight);
     event SetTotalTokenWeight(uint256 _totalTokenWeight);
+    event SetTokenPriceFeed(
+        address _token,
+        address _priceFeed,
+        uint256 _priceFeedDecimals
+    );
     event SetRedemptionBasisPoints(address _token, uint256 _basisPoints);
     event SetPriceSpreadBasisPoints(
         address _token,
@@ -125,6 +130,25 @@ contract VaultConfigFacet is Facet {
         delete s.tokenPairs[_token];
 
         emit ClearTokenConfig(_token);
+    }
+
+    function setTokenPriceFeedConfig(
+        address _token,
+        address _priceFeed,
+        uint256 _priceDecimals
+    ) external {
+        onlyGov();
+        VaultLib.isTokenWhitelisted(s, _token);
+        require(
+            _priceFeed != address(0),
+            "Vault: invalid new price feed address"
+        );
+        require(_priceDecimals > 0, "Vault: invalid new price feed decimals");
+
+        s.priceFeeds[_token] = _priceFeed;
+        s.priceDecimals[_token] = _priceDecimals;
+
+        emit SetTokenPriceFeed(_token, _priceFeed, _priceDecimals);
     }
 
     function withdrawFees(address _token, address _receiver)
@@ -267,5 +291,13 @@ contract VaultConfigFacet is Facet {
         returns (uint256)
     {
         return s.redemptionBasisPoints[_token];
+    }
+
+    function priceFeed(address _token) public view returns (address) {
+        return s.priceFeeds[_token];
+    }
+
+    function priceDecimals(address _token) public view returns (uint256) {
+        return s.priceDecimals[_token];
     }
 }
