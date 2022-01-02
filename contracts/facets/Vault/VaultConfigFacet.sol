@@ -139,6 +139,12 @@ contract VaultConfigFacet is Facet {
     ) external {
         onlyGov();
         VaultLib.isTokenWhitelisted(s, _token);
+        require(
+            _priceFeed != address(0),
+            "Vault: invalid new price feed address"
+        );
+        require(_priceDecimals > 0, "Vault: invalid new price feed decimals");
+
         s.priceFeeds[_token] = _priceFeed;
         s.priceDecimals[_token] = _priceDecimals;
 
@@ -285,5 +291,13 @@ contract VaultConfigFacet is Facet {
         returns (uint256)
     {
         return s.redemptionBasisPoints[_token];
+    }
+
+    function priceFeed(address _token) public view returns (address) {
+        return s.priceFeeds[_token];
+    }
+
+    function priceDecimals(address _token) public view returns (uint256) {
+        return s.priceDecimals[_token];
     }
 }
