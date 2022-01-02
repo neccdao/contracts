@@ -118,21 +118,17 @@ contract BondingCalculatorFacet is Facet {
     }
 
     function markdown(address _pair) external view returns (uint256) {
+        address token0 = IUniswapV2Pair(_pair).token0();
+        address token1 = IUniswapV2Pair(_pair).token1();
         (uint256 reserve0, uint256 reserve1, ) = IUniswapV2Pair(_pair)
             .getReserves();
         uint256 reserve;
 
-        if (
-            IUniswapV2Pair(_pair).token0() == address(s.Necc) ||
-            IUniswapV2Pair(_pair).token1() == address(s.Necc)
-        ) {
-            if (IUniswapV2Pair(_pair).token0() == address(s.Necc)) {
+        if (token0 == address(s.Necc) || token1 == address(s.Necc)) {
+            if (token0 == address(s.Necc)) {
                 reserve = reserve1;
             } else {
-                require(
-                    IUniswapV2Pair(_pair).token1() == address(s.Necc),
-                    "Invalid pair"
-                );
+                require(token1 == address(s.Necc), "Invalid pair");
                 reserve = reserve0;
             }
             return
@@ -140,13 +136,10 @@ contract BondingCalculatorFacet is Facet {
                     .mul(2 * (10**IERC20Metadata(address(s.Necc)).decimals()))
                     .div(getTotalValue(_pair));
         } else {
-            if (IUniswapV2Pair(_pair).token0() == address(s.nNecc)) {
+            if (token0 == address(s.nNecc)) {
                 reserve = reserve1;
             } else {
-                require(
-                    IUniswapV2Pair(_pair).token1() == address(s.nNecc),
-                    "Invalid pair"
-                );
+                require(token1 == address(s.nNecc), "Invalid pair");
                 reserve = reserve0;
             }
             return
