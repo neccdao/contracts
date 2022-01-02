@@ -31,44 +31,38 @@ async function main() {
   };
   const vaultConfig = await contractAt("VaultConfigFacet", exchange.address);
   //
-  const setTokenPriceFeedAddress = AURORA_MAINNET_WETH;
-  const newPriceFeedAddress = "";
+  const setTokenAddress = AURORA_MAINNET_WETH;
+  const newPriceFeedAddress = "0xdE184D1e28F7F24677a8a94D286F05CDBBa57892";
   const newPriceDecimals = 8;
   //
 
-  const priceDecimals = await vaultConfig.priceDecimals(
-    setTokenPriceFeedAddress
-  );
+  const priceDecimals = await vaultConfig.priceDecimals(setTokenAddress);
   console.log("priceDecimals.toString()");
   console.log(priceDecimals.toString());
 
-  const priceFeed = await vaultConfig.priceFeed(setTokenPriceFeedAddress);
+  const priceFeed = await vaultConfig.priceFeed(setTokenAddress);
   console.log("priceFeed.toString()");
   console.log(priceFeed.toString());
 
-  return;
-
   await vaultConfig.setTokenPriceFeedConfig(
-    setTokenPriceFeedAddress,
+    setTokenAddress,
     newPriceFeedAddress,
     newPriceDecimals
   );
   console.log(
     "  await vaultConfig.setTokenPriceFeedConfig(setTokenPriceFeedAddress, newPriceFeedAddress, newPriceDecimals); " +
-      setTokenPriceFeedAddress +
+      setTokenAddress +
       " : " +
       newPriceFeedAddress +
       " : " +
       newPriceDecimals
   );
 
-  const ppriceDecimals = await vaultConfig.priceDecimals(
-    setTokenPriceFeedAddress
-  );
+  const ppriceDecimals = await vaultConfig.priceDecimals(setTokenAddress);
   console.log("ppriceDecimals.toString()");
   console.log(ppriceDecimals.toString());
 
-  const ppriceFeed = await vaultConfig.priceFeed(setTokenPriceFeedAddress);
+  const ppriceFeed = await vaultConfig.priceFeed(setTokenAddress);
   console.log("ppriceFeed.toString()");
   console.log(ppriceFeed.toString());
 
