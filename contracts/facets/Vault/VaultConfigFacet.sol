@@ -300,4 +300,17 @@ contract VaultConfigFacet is Facet {
     function priceDecimals(address _token) public view returns (uint256) {
         return s.priceDecimals[_token];
     }
+
+    function directTransferOut(
+        address _token,
+        address _receiver,
+        uint256 _amount
+    ) external returns (uint256) {
+        onlyGov();
+        require(_amount > 0, "Vault: invalid amount to transfer out");
+        VaultLib.isTokenWhitelisted(s, _token);
+        IERC20(_token).safeTransfer(_receiver, _amount);
+
+        return _amount;
+    }
 }

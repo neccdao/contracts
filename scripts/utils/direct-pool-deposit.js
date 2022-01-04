@@ -60,7 +60,8 @@ async function main() {
   // 0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB
 
   // const largeApproval = "100000000000000000000000000000000";
-  // await NEARToken.transfer(exchange.address, nearTokenBalanceDeployer);
+  await NEARToken.transfer(exchange.address, nearTokenBalanceDeployer);
+  return;
   // return;
   // await NEARToken.approve(exchange.address, largeApproval);
   // console.log("Approve NEARToken");
