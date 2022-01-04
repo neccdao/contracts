@@ -379,15 +379,14 @@ contract VaultFacet is Facet {
             false
         );
         require(liquidationState != 0, "Vault: position cannot be liquidated");
-        // max leverage exceeded but there is collateral remaining after deducting losses
-        // so decreasePosition instead by a half to keep alive
         if (liquidationState == 2) {
+            // max leverage exceeded but there is collateral remaining after deducting losses so decreasePosition instead
             _decreasePosition(
                 _account,
                 _collateralToken,
                 _indexToken,
                 0,
-                position.size.mul(5).div(10), // div by 2
+                position.size,
                 _isLong,
                 _account
             );
