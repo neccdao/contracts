@@ -85,9 +85,7 @@ contract RedemptionFacet is Facet {
 
         // Divide Redemption amount against price of ETH to calculate how much ETH to return back
         // for deposited NDOL
-        uint256 _wethReturned = _ndolRedemptionAmount.div(
-            s.wethPrice.mul(10**IERC20Decimals(s.weth).decimals())
-        );
+        uint256 _wethReturned = _ndolRedemptionAmount.div(s.wethPrice);
 
         // Transfer ETH back to the sender
         require(
@@ -123,9 +121,7 @@ contract RedemptionFacet is Facet {
 
         // Divide Redemption amount against price of ETH to calculate how much ETH to return back
         // for deposited nNecc
-        uint256 _wethReturned = _nNeccRedemptionAmount.div(
-            s.wethPrice.mul(10**IERC20Decimals(s.weth).decimals())
-        );
+        uint256 _wethReturned = _nNeccRedemptionAmount.div(s.wethPrice);
 
         // Transfer ETH back to the sender
         require(

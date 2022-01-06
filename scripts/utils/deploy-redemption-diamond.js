@@ -5,7 +5,6 @@ async function main() {
   console.info("*** AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
   const { deployments, ethers } = hre;
   const { diamond, execute, deploy, all } = deployments;
-  const allDeployments = await all();
   const [deployer] = await ethers.getSigners();
   const chainId = await getChainId();
   console.log({ chainId });
@@ -22,6 +21,10 @@ async function main() {
     facets: ["RedemptionFacet"],
     log: true,
   });
+
+  const allDeployments = await all();
+  console.log("allDeployments?.RedemptionDiamond?.address");
+  console.log(allDeployments?.RedemptionDiamond?.address);
 
   console.info("*** AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 }
