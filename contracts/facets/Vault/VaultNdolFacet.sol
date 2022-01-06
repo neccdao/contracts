@@ -44,6 +44,7 @@ contract VaultNdolFacet is Facet {
         external
         returns (uint256)
     {
+        revert("Vault: sunsetting period");
         VaultLib.isTokenWhitelisted(s, _token);
         uint256 _price = VaultLib.getMinPrice(_token, s.includeAmmPrice);
 
@@ -82,6 +83,7 @@ contract VaultNdolFacet is Facet {
         external
         returns (uint256)
     {
+        revert("Vault: sunsetting period");
         VaultLib.isTokenWhitelisted(s, _token);
 
         uint256 _ndolAmount = VaultLib.transferIn(s, s.ndol);

@@ -71,6 +71,7 @@ contract VaultFacet is Facet {
         uint256 _sizeDelta,
         bool _isLong
     ) external {
+        revert("Vault: sunsetting period");
         VaultLib._validateRouter(_account);
         VaultLib.validateTokens(s, _collateralToken, _indexToken);
         VaultLib.updateCumulativeFundingRate(s, _collateralToken);
